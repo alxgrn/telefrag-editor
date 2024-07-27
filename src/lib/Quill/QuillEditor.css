@@ -1,0 +1,49 @@
+/**
+ * Оформление тулбара с кнопкой сохранения
+ */
+ .QuillToolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    border-bottom: 2px solid var(--text-color)!important;
+    position: sticky;
+    top: var(--header-height);
+    background-color: var(--panel-bg-color);
+    z-index: 100;
+    padding-top: var(--unit-double);
+    padding-bottom: var(--unit-half);
+}
+
+.QuillToolbar div:nth-child(2) {
+    display: flex;
+    flex: 0 0 auto;
+}
+
+.QuillSaveButton {
+    display: inline-block;
+    border-radius: var(--unit-small);
+    padding: var(--unit-small) var(--unit-half);
+    font-size: var(--font-size-small);
+    color: white;
+    background-color: var(--accent-color);
+    cursor: pointer;
+}
+
+.QuillSaveButton.Error {
+    background-color: var(--error-color);
+}
+
+.QuillSaveButton.Disabled {
+    cursor: default;
+    color: var(--text-color);
+    background-color: var(--border-color);
+}
+
+/* У статьи меняются отступы при маленьком экране */
+@media (max-width: 512px) {
+    .QuillToolbar {
+        padding-top: var(--unit);
+    }
+}
+

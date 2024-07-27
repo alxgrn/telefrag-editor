@@ -1,0 +1,220 @@
+/**
+ * Переопределение стилей Quill для нашего оформления
+ */
+
+/* Toolbar */
+.ql-toolbar.ql-snow {
+    border: none;
+    padding: 0;
+}
+
+/* Tooltip */
+.ql-snow .ql-tooltip {
+    z-index: 1;
+    background-color: var(--alxgrn-popup-bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: none;
+    color: var(--text-color);
+    padding: var(--unit-small) var(--unit-half);
+    border-radius: var(--unit-small);
+}
+
+.ql-snow .ql-tooltip a {
+    border: none;
+    color: var(--accent-color);
+}
+
+.ql-snow .ql-tooltip a.ql-action::after {
+    border-right: 1px solid var(--border-color);
+    content: 'Edit';
+    margin-left: var(--unit);
+    padding-right: var(--unit-half);
+}
+
+.ql-snow .ql-tooltip a.ql-remove::before {
+    content: 'Remove';
+    margin-left: var(--unit-half);
+}
+
+.ql-snow .ql-tooltip input[type=text] {
+    border: none;
+    outline: none;
+    background-color: var(--alxgrn-input-bg-focus);
+    border-radius: var(--unit-small);
+}
+
+/* Placeholder */
+.ql-editor.ql-blank::before {
+    color: var(--text-color)!important;
+    opacity: 0.5!important;
+    left: 0!important;
+    right: 0!important;
+}
+
+/* Кнопки в тулбаре */
+.ql-snow .ql-fill {
+    fill: var(--text-color);
+}
+.ql-snow .ql-stroke {
+    stroke: var(--text-color);
+}
+.ql-snow .ql-fill.ql-stroke {
+    fill: var(--text-color);
+    stroke: var(--text-color);
+}
+/* Подсветка кнопок при наведении мышки */
+.ql-snow.ql-toolbar button:hover .ql-fill {
+    fill: var(--accent-color);
+}
+.ql-snow.ql-toolbar button:hover .ql-stroke {
+    stroke: var(--accent-color);
+}
+.ql-snow.ql-toolbar button:hover .ql-fill.ql-stroke {
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
+}
+/* Активные кнопки */
+.ql-snow.ql-toolbar button.ql-active .ql-fill {
+    fill: var(--accent-color);
+}
+.ql-snow.ql-toolbar button.ql-active .ql-stroke {
+    stroke: var(--accent-color);
+}
+.ql-snow.ql-toolbar button.ql-active .ql-fill.ql-stroke {
+    fill: var(--accent-color);
+    stroke: var(--accent-color);
+}
+/* Активная и hover кнопка вызова выпадающего меню */
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
+    stroke: var(--accent-color);
+}
+/* Нажатая кнопка вызова выпадающего меню */
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+    border-color: var(--border-color);
+    border-top-left-radius: var(--unit-small);
+    border-top-right-radius: var(--unit-small);
+}
+/* Выпадающее меню */
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    border-color: var(--border-color);
+    border-bottom-left-radius: var(--unit-small);
+    border-bottom-right-radius: var(--unit-small);
+    box-shadow: none;
+    padding: 4px 0px 0 0;
+    background-color: var(--alxgrn-popup-bg-color);
+}
+/* Элемент выпадающего списка под курсором */
+.ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke {
+    stroke: var(--accent-color);
+}
+/* Контейнер с редактором */
+.ql-container {
+    border: none!important;
+}
+/* Сам редактор и при просмотре и при редактировании */
+.ql-editor {
+    font-size: var(--font-size)!important;
+    font-family: var(--font-family)!important;
+    line-height: var(--line-height)!important;
+    padding: 0!important;
+    overflow: hidden; /* как таблетка от иногда появляющегося скролла если в редакторе есть списки */
+}
+/* Сам редактор только при редактировании */
+.ql-snow .ql-editor {
+    padding: var(--unit) 0!important;
+    min-height: calc(10 * var(--unit)); /* при редактировании ставим минимальную высоту окна редактора */
+}
+
+/* Параграф */
+.ql-editor p {
+    padding: 0!important;
+    /* отступы у параграфа должны быть высотой в строку для точного обрезания контента в компактном отображении */
+    margin: calc(var(--font-size) * var(--line-height)) 0!important;
+}
+/* Списки */
+.ql-editor ul,
+.ql-editor ol {
+    padding: 0!important;
+    padding-left: var(--unit)!important;
+    margin: var(--unit) 0!important;
+}
+/* Blockquote */
+.ql-editor blockquote {
+    border-left: var(--unit-small) solid var(--accent-color)!important;
+    margin: var(--unit) 0!important;
+    padding: var(--unit-half)!important;
+    border-radius: var(--unit-small)!important;
+    background-color: var(--accent-bg-color)!important;
+}
+/* Code block */
+.ql-editor pre.ql-syntax {
+    margin: var(--unit) 0!important;
+    padding: var(--unit-half) var(--unit)!important;
+    border-radius: var(--unit-small)!important;
+    font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace!important;
+    background-color: #282c34!important;
+    color: #abb2bf!important;
+}
+/* Каринка */
+.ql-editor img {
+    display: block!important;
+    margin: var(--unit) auto!important;
+    min-width: var(--unit-double)!important;
+    min-height: var(--unit-double)!important;
+    max-width: 100%!important;
+    max-height: 70vh!important;
+    border-radius: var(--unit-small)!important;
+    background-color: var(--logo-color-beige)!important;
+}
+/* Видео */
+.ql-editor .ql-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    margin: var(--unit) auto;
+    border: none;
+    border-radius: var(--unit-small);
+    background-color: var(--logo-color-beige);
+}
+/* Ссылка */
+.ql-editor a {
+    text-decoration: unset!important;
+}
+/* Заголовок H1 */
+.ql-editor h1 {
+    color: var(--color-h1)!important;
+    font-size: var(--font-size-h1)!important;
+    margin: 0 0 var(--unit) 0!important;
+}
+/* Заголовок H2 */
+.ql-editor h2 {
+    color: var(--color-h2)!important;
+    font-size: var(--font-size-h2)!important;
+    margin: 0 0 var(--unit) 0!important;
+}
+/* Заголовок H3 */
+.ql-editor h3 {
+    color: var(--color-h3)!important;
+    font-size: var(--font-size-h3)!important;
+    margin: 0 0 var(--unit) 0!important;
+}
+/* Отменяем отсупы у первых и последних блоков */
+.ql-editor p:first-child,
+.ql-editor ul:first-child,
+.ql-editor ol:first-child,
+.ql-editor img:first-child,
+.ql-editor blockquote:first-child,
+.ql-editor pre.ql-syntax:first-child,
+.ql-editor .ql-video:first-child {
+    margin-top: 0!important;
+}
+.ql-editor p:last-child,
+.ql-editor ul:last-child,
+.ql-editor ol:last-child,
+.ql-editor img:last-child,
+.ql-editor blockquote:last-child,
+.ql-editor pre.ql-syntax:last-child,
+.ql-editor .ql-video:last-child {
+    margin-bottom: 0!important;
+}

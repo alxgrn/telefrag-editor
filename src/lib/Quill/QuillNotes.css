@@ -1,0 +1,36 @@
+.QuillNotes {
+    display: flex;
+    gap: var(--unit-half);
+    flex-direction: column;
+}
+
+.QuillNotesTitle,
+.QuillNotesTitle:focus {
+    width: 100%;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--unit-small);
+    background-color: transparent;
+    outline: none;
+    padding: var(--unit-half);
+    font-size: var(--font-size);
+}
+
+.QuillNotesTitle::placeholder {
+    color: var(--text-color);
+    opacity: 0.5;
+    font-style: italic;
+}
+
+.QuillNotesContent {
+    border: 1px solid var(--border-color);
+    padding: var(--unit-half);
+    border-radius: var(--unit-small);
+}
+
+.QuillNotesButtons {
+    display: flex;
+    gap: var(--unit);
+    align-items: center;
+    justify-content: flex-end;
+}

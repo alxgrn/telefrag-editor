@@ -1,0 +1,46 @@
+import { FC } from "react";
+import { TArticle, TArticleSaver, TComment, TImageUploader } from "../types";
+import QuillEditor from "../Quill/QuillEditor";
+
+type PublicationProps = {
+    article: TArticle;
+    comment?: never;
+} | {
+    article?: never;
+    comment: TComment;
+};
+
+type EditorProps = PublicationProps & {
+    onView: (article_id: number) => void; // Вызывается при клике на кнопку просмотра статьи
+    onSave: TArticleSaver; // Вызывается при нажатии на кнопку сохранения статьи
+    onChange: () => void; // Вызывается при изменении текста статьи
+    onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
+}
+
+const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, onUpload }) => {
+    if (article) {
+        if (article.format !== 'delta') {
+            return <div>Неизвестный формат статьи</div>;
+        }
+
+        return <QuillEditor
+            article={article}
+            onView={onView}
+            onSave={onSave}
+            onChange={onChange}
+            onUpload={onUpload}
+        />
+    }
+
+    if (comment) {
+        if (comment.format !== 'delta') {
+            return <div>Неизвестный формат комментария</div>;
+        }
+
+        return <div>Редактор комментариев пока недоступен</div>
+    }
+
+    return <div>Публикация не указана</div>
+};
+
+export default Editor;
