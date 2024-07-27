@@ -5,6 +5,14 @@
   "private": false,
   "author": "Alexander Fedorov <alex@molner.ru>",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/alxgrn/telefrag-editor#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alxgrn/telefrag-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alxgrn/telefrag-editor/issues"
+  },
   "type": "module",
   "files": ["dist"],
   "main": "./dist/telefrag-editor.umd.js",
