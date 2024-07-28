@@ -41,7 +41,7 @@ export const toolbarShort = [
 export const formatsFull = [
     'header',
     'bold', 'italic', 'underline', 'strike', 'link', 
-    'blockquote', 'code-block', 'list', 'bullet',
+    'blockquote', 'code-block', 'list', //'bullet', - убрали в Quill 2
     'indent',
     'align',
     'image', 'video',
@@ -51,7 +51,7 @@ export const formatsFull = [
 export const formatsShort = [
     // 'header',
     'bold', 'italic', 'underline', 'strike', 'link', 
-    'blockquote', 'code-block', 'list', 'bullet',
+    'blockquote', 'code-block', 'list', //'bullet', - убрали в Quill 2
     // 'indent',
     'image', 'video',
 ];

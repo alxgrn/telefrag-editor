@@ -1,6 +1,4 @@
-//export const API_URL = 'http://localhost:8000/api';
 export const API_URL = 'https://dailytelefrag.ru/api';
-//export const API_URL = '/api';
 export const VIDEO_IMAGE = 'https://dailytelefrag.ru/video.png';
 export const ROBOT_IMAGE = 'https://dailytelefrag.ru/robot.png';
 export const ERROR_IMAGE = 'https://dailytelefrag.ru/error.gif';

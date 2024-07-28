@@ -32,7 +32,7 @@ export const SaveButton: FC<SaveButtonProps> = ({ article_id, editor, changed, o
             } else {
                 // Сбрасываем историю чтобы не было возврата к версии до сохранения
                 // т.к. в ней могут быть удаленные при сохранении лишние картинки
-                editor.getModule('history').clear();
+                editor.history.clear();
                 onSaved();
             }
         } catch {

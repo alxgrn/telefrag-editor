@@ -6,32 +6,31 @@ import { FC, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 import hljs from 'highlight.js';
 import { formatsShort, toolbarShort } from './QuillCore';
-import { TArticle, TComment } from '../types';
+import { TArticle, TComment, TImageUploader } from '../types';
 import './QuillNotes.css';
-//import imageHandler from './ImageHandler';
+import imageHandler from './ImageHandler';
 import QuillModal from './QuillModal';
 
 type PropsArticle = {
     article?: TArticle;
     comment?: never;
     title?: boolean; // нужно ли выводить поле ввода для заголовка публикации
-    placeholder?: string;
-    onSave?: (content: string, title: string) => void;
-    onCancel?: () => void;
 };
 
 type PropsComment = {
     comment?: TComment;
     article?: never;
     title?: never;
-    placeholder?: string;
-    onSave?: (content: string) => void;
-    onCancel?: () => void;
 };
 
-type QuillNotesProps = PropsArticle | PropsComment;
+type QuillNotesProps = (PropsArticle | PropsComment) & {
+    placeholder?: string;
+    onSave?: (content: string, title: string) => void;
+    onCancel?: () => void;
+    onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
+};
 
-const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title, onSave, onCancel }) => {
+const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title, onSave, onCancel, onUpload }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [ name, setName ] = useState('');
     const [ editor, setEditor ] = useState<Quill|null>(null);
@@ -46,11 +45,12 @@ const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title,
         const editor = new Quill(ref.current, {
             theme: 'snow',
             placeholder: placeholder ?? 'Начните писать текст здесь',
-            scrollingContainer: 'html', // иначе при вставке текста окно редактора прыгает наверх
+            //scrollingContainer: 'html', // иначе при вставке текста окно редактора прыгает наверх - убрали в Quill2
             formats: formatsShort,
             modules: {
                 syntax: {
-                    highlight: (text: string) => hljs.highlightAuto(text).value,
+                    hljs,
+                    //highlight: (text: string) => hljs.highlightAuto(text).value,
                 },
                 toolbar: {
                     container: toolbarShort,
@@ -58,7 +58,7 @@ const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title,
                         // картинки можно грузить только к уже существующим публикациям, но не к комментариям
                         image: () => {
                             if (article) {
-                                //imageHandler(editor, article.id);
+                                imageHandler(editor, article.id, onUpload);
                             } else {
                                 setModalType('image');
                                 setIsModalOpen(true);

@@ -156,7 +156,7 @@
     background-color: #282c34!important;
     color: #abb2bf!important;
 }
-/* Каринка */
+/* Картинка */
 .ql-editor img {
     display: block!important;
     margin: var(--unit) auto!important;
@@ -168,7 +168,7 @@
     background-color: var(--logo-color-beige)!important;
 }
 /* Видео */
-.ql-editor .ql-video {
+.ql-editor iframe {
     display: block;
     width: 100%;
     aspect-ratio: 16/9;

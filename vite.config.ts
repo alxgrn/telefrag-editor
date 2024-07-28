@@ -11,6 +11,8 @@ export default defineConfig({
     }),
   ],
   build: {
+    sourcemap: true,
+    emptyOutDir: true,
     lib: {
       entry: resolve(__dirname, "src/lib/index.ts"),
       name: "TelefragEditor",

@@ -40,12 +40,13 @@ const QuillEditor: FC<QuillEditorProps> = ({ article, onView, onSave, onChange, 
 
         const editor = new Quill(editorRef.current, {
             theme: 'snow',
-            scrollingContainer: 'html', // иначе при вставке текста окно редактора прыгает наверх
+            //scrollingContainer: 'html', // иначе при вставке текста окно редактора прыгает наверх - убрали в Quill2
             placeholder: 'Начните писать текст здесь',
             formats: formatsFull,
             modules: {
                 syntax: {
-                    highlight: (text: string) => hljs.highlightAuto(text).value,
+                    hljs,
+                    //highlight: (text: string) => hljs.highlightAuto(text).value,
                 },
                 toolbar: {
                     // Для добавления кнопки сохранения в тулбар, пришлось городить свой HTML-код
@@ -78,7 +79,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ article, onView, onSave, onChange, 
             setIsAlert(true);
         }
 
-        editor.getModule('history').clear();
+        editor.history.clear();
         editor.on('text-change', () => { setIsChanged(true); onChange(); });
         editor.focus();
         setEditor(editor);

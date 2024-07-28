@@ -1,12 +1,12 @@
 /**
  * Заменяем стандартный класс видео на собственный
  * т.к. нам нужна поддержка отечественных сервисов
- * За основу взят класс из исходников Quill
+ * За основу взят класс из исходников Quill 1.3.7
  */
-import Quill from 'quill';
+import Quill, { Parchment } from 'quill';
 import { sanitizeVideoURL } from '../utils/link';
 import { ERROR_EMBED_DATA } from '../config';
-const BlockEmbed = Quill.import('blots/block/embed');
+const BlockEmbed = Quill.import('blots/block/embed') as typeof Parchment.EmbedBlot;
 
 // Мы не используем высоту и ширину в верстке, но оставим эти атрибуты просто чтобы не ломать логику класса
 const ATTRIBUTES = [
@@ -18,11 +18,15 @@ const ATTRIBUTES = [
 const SRCDOC = `<!DOCTYPE html><img src="${ERROR_EMBED_DATA}" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin: auto; max-width: 100%; max-height: 100%; border-radius: .25rem"/>`;
 
 class CustomVideo extends BlockEmbed {
+    static blotName = 'video';
+    //static className = 'ql-video';
+    static tagName = 'IFRAME';
+
     static create(value: string) {
         const src = this.sanitize(value);
-        const node = super.create(value);
+        const node = super.create(value) as HTMLElement;
         node.setAttribute('frameborder', '0');
-        node.setAttribute('allowfullscreen', true);
+        // node.setAttribute('allowfullscreen', true); это устаревшее свойство
         if (src) {
             node.setAttribute('src', src);
             node.setAttribute('allow', 'fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
@@ -33,7 +37,6 @@ class CustomVideo extends BlockEmbed {
     }
 
     static formats(domNode: HTMLElement) {
-        //eslint-disable-next-line
         return ATTRIBUTES.reduce(function(formats: any, attribute) {
         if (domNode.hasAttribute(attribute)) {
             formats[attribute] = domNode.getAttribute(attribute);
@@ -55,18 +58,14 @@ class CustomVideo extends BlockEmbed {
     format(name: string, value: string | null) {
         if (ATTRIBUTES.indexOf(name) > -1) {
             if (value) {
-                this.domNode.setAttribute(name, value);
+                (this.domNode as HTMLElement).setAttribute(name, value);
             } else {
-                this.domNode.removeAttribute(name);
+                (this.domNode as HTMLElement).removeAttribute(name);
             }
         } else {
             super.format(name, value);
         }
     }
 }
-
-CustomVideo.blotName = 'video';
-CustomVideo.className = 'ql-video';
-CustomVideo.tagName = 'IFRAME';
 
 export default CustomVideo;

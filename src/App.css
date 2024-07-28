@@ -1,5 +1,20 @@
 #root {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--header-height) 2rem 2rem 2rem;
+    position: relative;
+    max-width: 800px;
+    margin: var(--header-height) auto;
+    padding: 2rem;
+    background-color: var(--panel-bg-color);
+    border-radius: var(--unit-half);
+}
+
+.toolbar {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--main-bg-color);
+    padding: var(--unit-half);
+    text-align: center;
 }

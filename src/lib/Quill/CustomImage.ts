@@ -1,19 +1,16 @@
 /**
  * Мы расширяем класс картинки для того чтобы в него попали новые атрибуты
  * и делаем картинки блочными элементами (не хотим картинки в строках).
- * Весь класс скопирован из исходника Quill, но наследует от блочного эмбед.
+ * Весь класс скопирован из исходника Quill 1.3.7, но наследует от блочного эмбед.
  * В качестве value картинки мы отдаем не строку URL (как в оригинале),
  * а объект CustomImageType. Это нужно для удобства удаления неиспользуемых
  * картинок на сервере.
  */
 import { API_URL, ERROR_IMAGE, ERROR_IMAGE_DATA } from '../config';
-import Quill from 'quill';
-const BlockEmbed = Quill.import('blots/block/embed');
+import Quill, { Parchment } from 'quill';
+const BlockEmbed = Quill.import('blots/block/embed') as typeof Parchment.EmbedBlot;
 
 const ATTRIBUTES = [
-  //'alt',
-  //'height',
-  //'width',
   'fid', // добавили от себя для сохранения id картинки в базе
   'src', // отсутствует в оригинале т.к. храниится как значение самого элемента
 ];
@@ -24,8 +21,11 @@ export type CustomImageType = {
 }
 
 class CustomImage extends BlockEmbed {
+    static blotName = 'image';
+    static tagName = 'IMG';
+    
     static create(value: string | number | CustomImageType) {        
-        const node = super.create(); // в оригинале в super передается value, но нам не надо
+        const node = super.create(value) as HTMLElement;
         if (typeof value === 'number') {
             // value содержит идентификатор картинки на нашем сервере
             node.setAttribute('fid', `${value}`);
@@ -51,7 +51,6 @@ class CustomImage extends BlockEmbed {
     // html-документа в редактор. Он вытаскивает из html атрибуты
     // тега картинки и оставляет только те, что мы разрешаем.
     static formats(domNode: HTMLElement) {
-        //eslint-disable-next-line
         return ATTRIBUTES.reduce(function(formats: any, attribute) {
             if (domNode.hasAttribute(attribute)) {
                 formats[attribute] = domNode.getAttribute(attribute);
@@ -96,17 +95,14 @@ class CustomImage extends BlockEmbed {
     format(name: string, value: string | null) {
         if (ATTRIBUTES.indexOf(name) > -1) {
             if (value) {
-                this.domNode.setAttribute(name, value);
+                (this.domNode as HTMLElement).setAttribute(name, value);
             } else {
-                this.domNode.removeAttribute(name);
+                (this.domNode as HTMLElement).removeAttribute(name);
             }
         } else {
             super.format(name, value);
         }
     }
 }
-
-CustomImage.blotName = 'image';
-CustomImage.tagName = 'IMG';
 
 export default CustomImage;

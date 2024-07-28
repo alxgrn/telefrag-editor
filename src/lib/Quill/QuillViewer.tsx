@@ -31,7 +31,8 @@ const QuillViewer: FC<QuillViewerProps> = ({ short = false, article, expandable 
             formats: short ? formatsShort : formatsFull,
             modules: {
                 syntax: {
-                    highlight: (text: string) => hljs.highlightAuto(text).value,
+                    hljs,
+                    //highlight: (text: string) => hljs.highlightAuto(text).value,
                 },
                 toolbar: {
                     // В принципе это не нужно, но Quill пишет предупреждение о том,
