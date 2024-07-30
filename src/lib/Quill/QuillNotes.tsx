@@ -6,37 +6,27 @@ import { FC, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 import hljs from 'highlight.js';
 import { formatsShort, toolbarShort } from './QuillCore';
-import { TArticle, TComment, TImageUploader } from '../types';
-import './QuillNotes.css';
+import { TImageUploader, TNotesSaver } from '../types';
 import imageHandler from './ImageHandler';
-import QuillModal from './QuillModal';
+import QuillModal, { TQuillModalType } from './QuillModal';
+import './QuillNotes.css';
 
-type PropsArticle = {
-    article?: TArticle;
-    comment?: never;
-    title?: boolean; // нужно ли выводить поле ввода для заголовка публикации
+type QuillNotesProps = {
+    title?: boolean | string | null; // нужно ли выводить поле ввода для заголовка публикации и его начальное содержимое
+    content?: string | null; // начальный контент редактора
+    placeholder?: string; // подсказка в пустом редакторе
+    onSave?: TNotesSaver; // нажатие на кнопку сохранения
+    onCancel?: () => void; // нажатие на кнопку отмены редактирования
+    onUpload?: TImageUploader; // вызывается после выбора картинки для загрузки на сервер
 };
 
-type PropsComment = {
-    comment?: TComment;
-    article?: never;
-    title?: never;
-};
-
-type QuillNotesProps = (PropsArticle | PropsComment) & {
-    placeholder?: string;
-    onSave?: (content: string, title: string) => void;
-    onCancel?: () => void;
-    onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
-};
-
-const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title, onSave, onCancel, onUpload }) => {
+const QuillNotes: FC<QuillNotesProps> = ({ content, title = false, placeholder, onSave, onCancel, onUpload }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [ name, setName ] = useState('');
     const [ editor, setEditor ] = useState<Quill|null>(null);
     const [ isEditorEmpty, setIsEditorEmpty ] = useState(true);
     const [ isModalOpen, setIsModalOpen ] = useState(false);
-    const [ modalType, setModalType ] = useState<'image'|'video'|'link'>('image');
+    const [ modalType, setModalType ] = useState<TQuillModalType>('image');
 
     useEffect(() => {
         setEditor(null);
@@ -55,10 +45,10 @@ const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title,
                 toolbar: {
                     container: toolbarShort,
                     handlers: {
-                        // картинки можно грузить только к уже существующим публикациям, но не к комментариям
+                        // если разрешено грузить картинки, подключаем выбор файла с диска, иначе запрашиваем URL
                         image: () => {
-                            if (article) {
-                                imageHandler(editor, article.id, onUpload);
+                            if (onUpload) {
+                                imageHandler(editor, onUpload);
                             } else {
                                 setModalType('image');
                                 setIsModalOpen(true);
@@ -83,9 +73,9 @@ const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title,
             setIsEditorEmpty(editor.getText().trim().length < 1);
         });
 
-        let content: string | null = null;
-        if (article) content = article.content;
-        if (comment) content = comment.content;
+        //let content: string | null = null;
+        //if (article) content = article.content;
+        //if (comment) content = comment.content;
 
         if (content) {
             try {
@@ -95,24 +85,25 @@ const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title,
             }
         }
 
-        if(article) {
-            setName(article.name ?? '');
+        // Если нужно поле ввода заголовка, инициализируем его значение
+        if(title !== false) {
+            setName(typeof title === 'string' ? title : '');
         }
 
         editor.focus();
         setEditor(editor);
-    }, [ ref, article, comment, placeholder ]);
+    }, [ ref, placeholder ]);
 
     // Проверка того что требуемые данные введены
     const canSave = () => {
-        return !isEditorEmpty && (title ? name.trim().length > 0 : true);
+        return !isEditorEmpty && (title !== false ? name.trim().length > 0 : true);
     };
 
     // Сохранение
     const onBeforeSave = () => {
         if(!editor || !onSave || !canSave()) return;
         const content = JSON.stringify(editor.getContents());
-        onSave(content, name);
+        onSave({ content, title: name, format: 'delta' });
     };
 
     // Отмена
@@ -122,7 +113,7 @@ const QuillNotes: FC<QuillNotesProps> = ({ article, comment, placeholder, title,
 
     return (
         <div className='QuillNotes'>
-            {title &&
+            {(title !== false) &&
             <input
                 className='QuillNotesTitle'
                 onChange={e => setName(e.currentTarget.value)}

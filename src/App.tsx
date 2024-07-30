@@ -1,16 +1,15 @@
 import { useState } from 'react';
-import './App.css'
 import { article as initialArticle } from './article';
-import { Editor, Viewer } from './lib';
+import { Editor, Notes, Viewer } from './lib';
 import { Button } from '@alxgrn/react-form';
 import { TArticle } from './lib/types';
-import QuillNotes from './lib/Quill/QuillNotes';
+import './App.css'
 
 function App() {
     const [ article, setArticle ] = useState<TArticle>(initialArticle);
     const [ isViewer, setIsViewer ] = useState(false);
     const [ isEditor, setIsEditor ] = useState(false);
-
+    const [ isChanged, setIsChanged ] = useState(false);
 
     if (isViewer) {
         return (<>
@@ -22,17 +21,19 @@ function App() {
     } else {
         return (<>
             <div className='toolbar'>
-                <Button label={isEditor ? 'Краткий' : 'Полный'} onClick={() => setIsEditor(b => !b)}/>
+                <Button label={isEditor ? 'Краткий' : 'Полный'} onClick={() => setIsEditor(b => !b)}/>&nbsp;
+                <Button label={isChanged ? 'Изменено' : 'Исходник'} type={isChanged ? 'Error' : 'Success'}/>
             </div>
             {isEditor
             ? <Editor
                 article={article}
                 onView={() => setIsViewer(true)}
-                onChange={() => {}}
-                onSave={(content, format) => new Promise(function(resolve) {
-                        setArticle({ ...article, content, format });
+                onChange={() => setIsChanged(true)}
+                onSave={(data) => new Promise(function(resolve) {
+                        setArticle({ ...article, content: data.content, format: data.format });
                         setIsViewer(true);
-                        console.dir(content);
+                        setIsChanged(false);
+                        console.dir(data.content);
                         // Имитируем успешное завершение сохранения на сервер
                         setTimeout(() => resolve(undefined), 1000);
                 })}
@@ -41,11 +42,17 @@ function App() {
                     setTimeout(() => resolve(413), 1000);
                 })}
             />
-            : <QuillNotes
+            : <Notes
                 article={article}
+                onCancel={() => setIsViewer(true)}
                 onUpload={() => new Promise(function(resolve) {
                     setTimeout(() => resolve("Не могу загрузить картинку"), 1000);
                 })}
+                onSave={(data) => {
+                    setArticle({ ...article, content: data.content, format: data.format });
+                    setIsViewer(true);
+                    console.dir(data.content);
+                }}
             />}
         </>);
     }

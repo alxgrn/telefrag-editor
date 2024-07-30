@@ -23,7 +23,8 @@
   "exports": {
     ".": {
       "import": "./dist/telefrag-editor.es.js",
-      "require": "./dist/telefrag-editor.umd.js"
+      "require": "./dist/telefrag-editor.umd.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {

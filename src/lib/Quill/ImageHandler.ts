@@ -5,7 +5,7 @@ import Quill from 'quill';
 import { ERROR_IMAGE } from '../config';
 import { TImageUploader } from '../types';
 
-const imageHandler = (editor: Quill, article_id: number, uploader: TImageUploader) => {
+const imageHandler = (editor: Quill, uploader: TImageUploader) => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
@@ -18,23 +18,27 @@ const imageHandler = (editor: Quill, article_id: number, uploader: TImageUploade
         const file = input.files[0];
         // file type is only image.
         if (/^image\//.test(file.type)) {
-            saveToServer(editor, file, article_id, uploader);
+            saveToServer(editor, file, uploader);
         } else {
+            console.error(`imageHandler:\nЗагружать можно только изображения`);
             insertToEditor(editor, ERROR_IMAGE);
         }
     };
 };
 
-const saveToServer = async (editor: Quill, file: File, article_id: number, uploader: TImageUploader) => {
+const saveToServer = async (editor: Quill, file: File, uploader: TImageUploader) => {
     try {
         //const formData = new FormData();
         //formData.append('image', file, file.name);
         //formData.append('article_id', article_id + '');
-        const result = await uploader(file, article_id);
+        const result = await uploader(file);
         if(typeof result === 'string') throw new Error(result);
         const file_id = result;
         insertToEditor(editor, file_id);
-    } catch {
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(`imageHandler:\n${error.message}`);
+        }
         insertToEditor(editor, ERROR_IMAGE);
     }
 };

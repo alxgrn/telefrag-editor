@@ -3,27 +3,27 @@ import Quill from 'quill';
 import hljs from 'highlight.js';
 import imageHandler from './ImageHandler';
 import SaveButton  from './SaveButton';
-import { TArticle, TArticleSaver, TImageUploader } from '../types';
+import { TEditorSaver, TImageUploader } from '../types';
 import H3Icon from './H3Icon';
 import { formatsFull } from './QuillCore';
-import './QuillEditor.css';
 import QuillModal from './QuillModal';
 import { Alert } from '@alxgrn/react-form';
 import EyeIcon from './EyeIcon';
+import './QuillEditor.css';
 
 /**
  * Большой редактор для статей
  */
 
 type QuillEditorProps = {
-    article: TArticle;
-    onView: (article_id: number) => void; // Вызывается при клике на кнопку просмотра статьи
-    onSave: TArticleSaver; // Вызывается при нажатии на кнопку сохранения статьи
+    content: string | null; // Содержимое статьи
+    onView: () => void; // Вызывается при клике на кнопку просмотра статьи
+    onSave: TEditorSaver; // Вызывается при нажатии на кнопку сохранения статьи
     onChange: () => void; // Вызывается при изменении текста статьи
     onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
 };
 
-const QuillEditor: FC<QuillEditorProps> = ({ article, onView, onSave, onChange, onUpload }) => {
+const QuillEditor: FC<QuillEditorProps> = ({ content, onView, onSave, onChange, onUpload }) => {
     const editorRef = useRef<HTMLDivElement>(null);
     const toolbarRef = useRef<HTMLDivElement>(null);
     const [ editor, setEditor ] = useState<Quill|null>(null);
@@ -54,7 +54,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ article, onView, onSave, onChange, 
                     container: toolbarRef.current,
                     handlers: {
                         // наш загрузчик картинок на сервер
-                        image: () => imageHandler(editor, article.id, onUpload),
+                        image: () => imageHandler(editor, onUpload),
                         // заменим дефолтный tooltip для ввода URL на нашу модалку
                         video: () => setIsModalOpen(true),
                     } 
@@ -62,20 +62,12 @@ const QuillEditor: FC<QuillEditorProps> = ({ article, onView, onSave, onChange, 
             },
         });
 
-        try {
-            const format = article.format;
-            if(format && format !== 'delta') {
-                setMessage('Обнаружен неизвестный формат статьи!');
-                throw new Error();
-            }
-    
-            const content = article.content;
+        try {    
             if(content) {
-                setMessage('Не могу отпарсить статью!');
                 editor.setContents(JSON.parse(content));
             }
-
         } catch {
+            setMessage('Не могу отпарсить статью!');
             setIsAlert(true);
         }
 
@@ -85,7 +77,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ article, onView, onSave, onChange, 
         setEditor(editor);
         setIsChanged(false);
 
-    }, [ editorRef, article ]);
+    }, [ editorRef, content ]);
 
     return (
         <div>
@@ -125,7 +117,7 @@ const QuillEditor: FC<QuillEditorProps> = ({ article, onView, onSave, onChange, 
                         <button type='button' className='ql-clean'/>
                     </span>
                     <span className='ql-formats'>
-                        <button type='button' onClick={() => onView(article.id)}>
+                        <button type='button' onClick={() => onView()}>
                             <EyeIcon/>
                         </button>
                     </span>
@@ -134,7 +126,6 @@ const QuillEditor: FC<QuillEditorProps> = ({ article, onView, onSave, onChange, 
                     <SaveButton
                         editor={editor}
                         changed={isChanged}
-                        article_id={article.id}
                         onSave={onSave}
                         onSaved={() => setIsChanged(false)}
                     />

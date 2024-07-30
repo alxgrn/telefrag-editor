@@ -4,17 +4,16 @@
 import { FC, useState } from 'react';
 import Quill from 'quill';
 import { Alert } from '@alxgrn/react-form';
-import { TArticleSaver } from '../types';
+import { TEditorSaver } from '../types';
 
 type SaveButtonProps = {
-    article_id: number;
     changed: boolean;
     editor?: Quill|null;
     onSaved: () => void;
-    onSave: TArticleSaver;
+    onSave: TEditorSaver;
 }
 
-export const SaveButton: FC<SaveButtonProps> = ({ article_id, editor, changed, onSaved, onSave }) => {
+export const SaveButton: FC<SaveButtonProps> = ({ editor, changed, onSaved, onSave }) => {
     const [ error, setError ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false);
     const [ showError, setShowError ] = useState(false);
@@ -26,7 +25,7 @@ export const SaveButton: FC<SaveButtonProps> = ({ article_id, editor, changed, o
         setError('');
         try {
             const content = JSON.stringify(editor.getContents());
-            const result = await onSave(content, 'delta', article_id);
+            const result = await onSave({ content, format: 'delta' });
             if(result) {
                 setError(result);
             } else {

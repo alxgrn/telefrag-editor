@@ -1,6 +1,7 @@
-import { FC } from "react";
-import { TArticle, TArticleSaver, TComment, TImageUploader } from "../types";
+import { FC, useState } from "react";
+import { TArticle, TComment, TEditorSaver, TImageUploader } from "../types";
 import QuillEditor from "../Quill/QuillEditor";
+import Editable from "../components/Editable";
 
 type PublicationProps = {
     article: TArticle;
@@ -11,25 +12,42 @@ type PublicationProps = {
 };
 
 type EditorProps = PublicationProps & {
-    onView: (article_id: number) => void; // Вызывается при клике на кнопку просмотра статьи
-    onSave: TArticleSaver; // Вызывается при нажатии на кнопку сохранения статьи
+    onView: () => void; // Вызывается при клике на кнопку просмотра статьи
+    onSave: TEditorSaver; // Вызывается при нажатии на кнопку сохранения статьи
     onChange: () => void; // Вызывается при изменении текста статьи
     onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
 }
 
 const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, onUpload }) => {
+    const [ name, setName ] = useState(article?.name ?? '');
+    const [ info, setInfo ] = useState(article?.info ?? '');
+
     if (article) {
         if (article.format !== 'delta') {
             return <div>Неизвестный формат статьи</div>;
         }
 
-        return <QuillEditor
-            article={article}
-            onView={onView}
-            onSave={onSave}
-            onChange={onChange}
-            onUpload={onUpload}
-        />
+        return (<>
+            <h1 style={{ margin: '0' }}>
+                <Editable
+                    value={name}
+                    onChange={setName}
+                />
+            </h1>
+            <div>
+                <Editable
+                    value={info}
+                    onChange={setInfo}
+                />
+            </div>
+            <QuillEditor
+                content={article.content}
+                onView={onView}
+                onSave={onSave}
+                onChange={onChange}
+                onUpload={onUpload}
+            />
+        </>);
     }
 
     if (comment) {

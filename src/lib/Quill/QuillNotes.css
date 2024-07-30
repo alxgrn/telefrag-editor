@@ -34,3 +34,43 @@
     align-items: center;
     justify-content: flex-end;
 }
+
+/* Отделим тулбар от поля ввода */
+.QuillNotesContent .ql-toolbar {
+    margin-bottom: var(--unit-small);
+}
+
+/* Ограничим высоту поля ввода текста */
+.QuillNotesContent .ql-container {
+    max-height: 60vh;
+    overflow: auto;
+}
+
+/*
+ * Scrollbar
+ * Содрано с Modal из @alxgrn/react-form но надо унифицировать где-то в одном месте
+ */
+ .QuillNotesContent .ql-container {
+    scrollbar-color: transparent var(--alxgrn-modal-color-scroll);
+    scrollbar-width: thin;
+    /* scrollbar-gutter: stable; */
+}
+
+.QuillNotesContent .ql-container::-webkit-scrollbar {
+    width: var(--alxgrn-unit-small);
+    height: var(--alxgrn-unit-small);
+}
+
+.QuillNotesContent .ql-container::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: var(--alxgrn-unit-small);
+}
+
+.QuillNotesContent .ql-container::-webkit-scrollbar-thumb {
+    background-color: var(--alxgrn-modal-color-scroll);
+    border-radius: var(--alxgrn-unit-small);
+}
+
+.QuillNotesContent .ql-container::-webkit-scrollbar-corner {
+    background-color: transparent;
+}

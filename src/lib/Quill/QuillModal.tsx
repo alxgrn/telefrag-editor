@@ -22,8 +22,10 @@ const text = {
     }    
 };
 
+export type TQuillModalType = 'image'|'video'|'link';
+
 type Props = {
-    type: 'image'|'video'|'link';
+    type: TQuillModalType;
     editor?: Quill | null;
     isOpen: boolean;
     onClose: () => void;

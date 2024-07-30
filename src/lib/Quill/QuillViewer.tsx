@@ -4,17 +4,16 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 import hljs from 'highlight.js';
-import { TArticle, TComment } from '../types';
 import { formatsFull, formatsShort, toolbarFull, toolbarShort } from './QuillCore';
 import './QuillViewer.css';
 
 type QuillViewerProps = {
     short?: boolean; // флаг варианта набора тегов у контента - полный или компактный
-    article: TArticle | TComment;
+    content: string | null;
     expandable?: boolean; // флаг того надо ли выводить контент свернутым если он слишком длинный
 };
 
-const QuillViewer: FC<QuillViewerProps> = ({ short = false, article, expandable = false }) => {
+const QuillViewer: FC<QuillViewerProps> = ({ short = false, content, expandable = false }) => {
     const refViewer = useRef<HTMLDivElement>(null);
     const refWrapper = useRef<HTMLDivElement>(null);
     const [ error, setError ] = useState('');
@@ -23,8 +22,6 @@ const QuillViewer: FC<QuillViewerProps> = ({ short = false, article, expandable 
     useEffect(() => {
         setError('');
         if (!refViewer.current) return;
-        const format = article.format;
-        const content = article.content;
         const editor = new Quill(refViewer.current, {
             readOnly: true,
             theme: 'bubble',
@@ -41,10 +38,6 @@ const QuillViewer: FC<QuillViewerProps> = ({ short = false, article, expandable 
                 }                
             }
         });
-        if(format && format !== 'delta') {
-            setError('Неизвестный формат');
-            return;
-        }
         try {
             if(content) {
                 editor.setContents(JSON.parse(content));
@@ -54,7 +47,7 @@ const QuillViewer: FC<QuillViewerProps> = ({ short = false, article, expandable 
         } catch {
             setError('Ошибка парсинга');
         }
-    }, [ refViewer, article, short, collapsed ]);
+    }, [ refViewer, content, short, collapsed ]);
 
     // Проверяем надо ли выводить свернутый вариант
     useEffect(() => {

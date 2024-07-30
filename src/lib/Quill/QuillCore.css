@@ -168,7 +168,8 @@
     background-color: var(--logo-color-beige)!important;
 }
 /* Видео */
-.ql-editor iframe {
+.ql-editor iframe,
+.ql-editor .ql-video {
     display: block;
     width: 100%;
     aspect-ratio: 16/9;
@@ -206,6 +207,7 @@
 .ql-editor img:first-child,
 .ql-editor blockquote:first-child,
 .ql-editor pre.ql-syntax:first-child,
+.ql-editor iframe:first-child,
 .ql-editor .ql-video:first-child {
     margin-top: 0!important;
 }
@@ -215,6 +217,7 @@
 .ql-editor img:last-child,
 .ql-editor blockquote:last-child,
 .ql-editor pre.ql-syntax:last-child,
+.ql-editor iframe:last-child,
 .ql-editor .ql-video:last-child {
     margin-bottom: 0!important;
 }

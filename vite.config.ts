@@ -27,7 +27,6 @@ export default defineConfig({
           "react-dom": "ReactDOM",
           quill: "Quill",
           "highlight.js": "hljs",
-          "@alxgrn/react-form": "ReactForm",
         },
       },
     },

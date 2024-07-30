@@ -8,7 +8,7 @@ type Props = {
 
 const Viewer: FC<Props> = ({ article }) => {
     if (article.format === 'delta') {
-        return <QuillViewer article={article}/>
+        return <QuillViewer content={article.content}/>
     }
 
     return <div>Неизвестный формат публикации</div>;
