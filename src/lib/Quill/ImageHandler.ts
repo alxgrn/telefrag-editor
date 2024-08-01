@@ -16,7 +16,7 @@ const imageHandler = (editor: Quill, uploader: TImageUploader) => {
             return;
         }
         const file = input.files[0];
-        // file type is only image.
+        // file type is only image
         if (/^image\//.test(file.type)) {
             saveToServer(editor, file, uploader);
         } else {

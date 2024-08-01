@@ -1,0 +1,18 @@
+.EditorHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--unit-half);
+}
+
+.EditorHeader div {
+    flex: 1 1 auto;
+}
+
+.EditorHeader img {
+    flex: 0 0 auto;
+    width: 20%;
+    max-width: calc(8 * var(--unit));
+    aspect-ratio: 16/9;
+    border-radius: var(--unit-small);
+    cursor: pointer;
+}

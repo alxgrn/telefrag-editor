@@ -4,6 +4,7 @@ import { Editor, Notes, Viewer } from './lib';
 import { Button } from '@alxgrn/react-form';
 import { TArticle } from './lib/types';
 import './App.css'
+import EditorHeader from './lib/components/EditorHeader';
 
 function App() {
     const [ article, setArticle ] = useState<TArticle>(initialArticle);
@@ -25,23 +26,32 @@ function App() {
                 <Button label={isChanged ? 'Изменено' : 'Исходник'} type={isChanged ? 'Error' : 'Success'}/>
             </div>
             {isEditor
-            ? <Editor
-                article={article}
-                onView={() => setIsViewer(true)}
-                onChange={() => setIsChanged(true)}
-                onSave={(data) => new Promise(function(resolve) {
-                        setArticle({ ...article, content: data.content, format: data.format });
-                        setIsViewer(true);
-                        setIsChanged(false);
-                        console.dir(data.content);
-                        // Имитируем успешное завершение сохранения на сервер
-                        setTimeout(() => resolve(undefined), 1000);
-                })}
-                onUpload={() => new Promise(function(resolve) {
-                    // Имитируем загрузку картинки на сервер и возврат ее идентификатора
-                    setTimeout(() => resolve(413), 1000);
-                })}
-            />
+            ? <>
+                <EditorHeader
+                    article={article}
+                    onUpload={() => new Promise(function(resolve) {
+                        // Имитируем загрузку картинки на сервер и возврат ее идентификатора
+                        setTimeout(() => resolve(1410), 1000);
+                    })}
+                />
+                <Editor
+                    article={article}
+                    onView={() => setIsViewer(true)}
+                    onChange={() => setIsChanged(true)}
+                    onSave={(data) => new Promise(function(resolve) {
+                            setArticle({ ...article, content: data.content, format: data.format });
+                            setIsViewer(true);
+                            setIsChanged(false);
+                            console.dir(data.content);
+                            // Имитируем успешное завершение сохранения на сервер
+                            setTimeout(() => resolve(undefined), 1000);
+                    })}
+                    onUpload={() => new Promise(function(resolve) {
+                        // Имитируем загрузку картинки на сервер и возврат ее идентификатора
+                        setTimeout(() => resolve(413), 1000);
+                    })}
+                />
+            </>
             : <Notes
                 article={article}
                 onCancel={() => setIsViewer(true)}

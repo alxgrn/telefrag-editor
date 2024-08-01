@@ -6,10 +6,11 @@ type Props = {
     empty?: boolean; // Разрешать пустой ввод?
     onblur?: 'Enter' | 'Esc'; // Реагировать на потерю фокуса как на нажатие Enter или Esc
     newline?: boolean; // Разрешить перевод строки?
+    placeholder?: string; // Текст заглушки
     onChange: (value: string) => void;
 }
 
-const Editable: FC<Props> = ({ value, empty, newline, onblur = 'Enter', onChange }) => {
+const Editable: FC<Props> = ({ value, empty, newline, onblur = 'Enter', placeholder, onChange }) => {
     const ref = useRef<HTMLTextAreaElement>(null);
     const [ isActive, setIsActive ] = useState(false);
     const [ innerValue, setInnerValue ] = useState(newline ? value : value.replace(/[\n\r]+/g, ' '));
@@ -78,10 +79,10 @@ const Editable: FC<Props> = ({ value, empty, newline, onblur = 'Enter', onChange
 
     if (!isActive) return (
         <div
-            className='Editable'
+            className={value ? 'Editable' : (placeholder ? 'Editable Placeholder' : 'Editable')}
             onClick={() => setIsActive(true)}
         >
-            {value}
+            {value ? value : (placeholder ?? '')}
         </div>
     );
 
@@ -94,6 +95,7 @@ const Editable: FC<Props> = ({ value, empty, newline, onblur = 'Enter', onChange
             onChange={onInnerChange}
             onBlur={onBlur}
             onFocus={onFocus}
+            placeholder={placeholder}
             autoFocus
         />
     );
