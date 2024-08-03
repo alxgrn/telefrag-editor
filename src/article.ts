@@ -1,4 +1,4 @@
-import { TArticle } from "./lib/types";
+import { TArticle } from "../lib/types";
 
 export const article: TArticle = {
     "id": 20,

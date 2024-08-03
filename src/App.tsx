@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { article as initialArticle } from './article';
-import { Editor, Notes, Viewer } from './lib';
+import { Editor, Notes, Viewer } from '../lib';
 import { Button } from '@alxgrn/react-form';
-import { TArticle } from './lib/types';
+import { TArticle } from '../lib/types';
+import EditorHeader from '../lib/components/EditorHeader';
 import './App.css'
-import EditorHeader from './lib/components/EditorHeader';
 
-function App() {
+const App = () => {
     const [ article, setArticle ] = useState<TArticle>(initialArticle);
     const [ isViewer, setIsViewer ] = useState(false);
     const [ isEditor, setIsEditor ] = useState(false);

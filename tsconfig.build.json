@@ -1,3 +1,4 @@
+/* Это копия дефолтового tsconfig.app.json с мини-правками для плагина "vite-plugin-dts" */
 {
   "compilerOptions": {
     "composite": true,
@@ -24,6 +25,6 @@
     "noFallthroughCasesInSwitch": true
   },
 
-  /* Тестовое приложение в "src", а сама библиотека в "lib" */
-  "include": ["src","lib"]
+  /* Для "vite-plugin-dts" оставляем только папку библиотеки */
+  "include": ["lib"]
 }

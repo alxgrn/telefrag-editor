@@ -8,26 +8,25 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
+      tsconfigPath: "./tsconfig.build.json",
     }),
   ],
   build: {
     sourcemap: true,
     emptyOutDir: true,
     lib: {
-      entry: resolve(__dirname, "src/lib/index.ts"),
+      entry: resolve(__dirname, "lib/index.ts"),
       name: "TelefragEditor",
       formats: ["es", "umd"],
       fileName: (format) => `telefrag-editor.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "quill", "@alxgrn/react-form", "highlight.js"],
+      external: ["react", "react-dom", "@alxgrn/react-form"],
       output: {
         globals: {
-          react: "React",
+          "react": "React",
           "react-dom": "ReactDOM",
-          quill: "Quill",
-          "highlight.js": "hljs",
-          "@alxgrn/react-form": "ReactForm",
+          "@alxgrn/react-form": "@alxgrn/react-form",
         },
       },
     },

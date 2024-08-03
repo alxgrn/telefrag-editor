@@ -3,8 +3,8 @@
  */
 import { FC, useState } from "react";
 import { TArticle, TImageUploader } from "../types";
-import Editable from "./Editable";
 import EditorCover from "./EditorCover";
+import { Editable } from "@alxgrn/react-form";
 import './EditorHeader.css';
 
 type Props = {
