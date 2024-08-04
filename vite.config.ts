@@ -1,4 +1,4 @@
-import { defineConfig } from "vite"
+import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { resolve } from "node:path";
 import react from "@vitejs/plugin-react";
@@ -21,12 +21,14 @@ export default defineConfig({
       fileName: (format) => `telefrag-editor.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "@alxgrn/react-form"],
+      external: ["react", "react-dom", "@alxgrn/react-form","quill","highlight.js"],
       output: {
         globals: {
           "react": "React",
           "react-dom": "ReactDOM",
           "@alxgrn/react-form": "@alxgrn/react-form",
+          "quill": "Quill",
+          "highlight.js": "hljs",
         },
       },
     },
