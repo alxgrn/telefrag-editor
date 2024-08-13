@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import { libInjectCss } from "vite-plugin-lib-inject-css";
 import { resolve } from "node:path";
 import react from "@vitejs/plugin-react";
 
@@ -10,6 +11,7 @@ export default defineConfig({
       insertTypesEntry: true,
       tsconfigPath: "./tsconfig.build.json",
     }),
+    libInjectCss(),
   ],
   build: {
     sourcemap: true,
