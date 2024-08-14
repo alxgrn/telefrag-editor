@@ -9,10 +9,11 @@ import './EditorHeader.css';
 
 type Props = {
     article: TArticle;
+    onChange: (name: string, info: string) => void;
     onUpload: TImageUploader;
 }
 
-const EditorHeader: FC<Props> = ({ article, onUpload }) => {
+const EditorHeader: FC<Props> = ({ article, onChange, onUpload }) => {
     const [ name, setName ] = useState(article.name ?? '');
     const [ info, setInfo ] = useState(article.info ?? '');
 
@@ -23,7 +24,10 @@ const EditorHeader: FC<Props> = ({ article, onUpload }) => {
                     <Editable
                         value={name}
                         placeholder='Заголовок'
-                        onChange={setName}
+                        onChange={name => {
+                            setName(name);
+                            onChange(name, info);
+                        }}
                         // empty
                     />
                 </h1>
@@ -31,7 +35,10 @@ const EditorHeader: FC<Props> = ({ article, onUpload }) => {
                     <Editable
                         value={info}
                         placeholder='Аннотация'
-                        onChange={setInfo}
+                        onChange={info => {
+                            setInfo(info);
+                            onChange(name, info);
+                        }}
                         // empty
                     />
                 </div>

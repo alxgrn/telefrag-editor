@@ -17,6 +17,8 @@ const App = () => {
             <div className='toolbar'>
                 <Button label='Редактировать' onClick={() => setIsViewer(false)}/>
             </div>
+            <h1 style={{margin: '0'}}>{article.name}</h1>
+            <div style={{marginBottom: '1rem'}}><i>{article.info}</i></div>
             <Viewer article={article}/>
         </>);
     } else {
@@ -29,6 +31,7 @@ const App = () => {
             ? <>
                 <EditorHeader
                     article={article}
+                    onChange={(name, info) => setArticle({...article, name, info })}
                     onUpload={() => new Promise(function(resolve) {
                         // Имитируем загрузку картинки на сервер и возврат ее идентификатора
                         setTimeout(() => resolve(1410), 1000);
