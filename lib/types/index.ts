@@ -1,42 +1,7 @@
 /**
- * Статья
+ * Обшие типы
  */
-export type TArticleType = 'long'|'blog'|'post';
-export type TArticle = {
-    id: number;
-    type: TArticleType;
-    user_id: number;
-    cover_id: number | null;
-    name: string|null;
-    info: string|null;
-    format: string|null;
-    content: string|null;
-    comments: number;
-    created: string;
-    modified: string;
-    published: string|null;
-    commented: string|null;
-    is_published: boolean;
-    likes_num: number;
-    likes_sum: number;
-};
-/**
- * Комментарий
- */
-export type TComment = {
-    id: number;
-    user_id: number;
-    article_id: number;
-    reply_to: number|null;
-    replies: number;
-    format: string;
-    content: string;
-    created: string;
-    modified: string;
-    replied: string|null;
-    likes_num: number;
-    likes_sum: number;
-};
+export * from '@alxgrn/telefrag-types';
 /**
  * Публикация
  * Это то, что мы получаем из редактора
