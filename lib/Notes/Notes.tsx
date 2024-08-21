@@ -9,7 +9,7 @@ import QuillNotes from '../Quill/QuillNotes';
 type PublicationProps = { // Редактирование статьи
     article: TArticle;
     comment?: never;
-    title?: never;
+    title?: boolean;
 } | { // Редактирование комментария
     article?: never;
     comment: TComment;
@@ -17,7 +17,7 @@ type PublicationProps = { // Редактирование статьи
 } | { // Создание публикации
     article?: never;
     comment?: never;
-    title: boolean;
+    title?: boolean;
 };
 
 type NotesProps = PublicationProps & {
@@ -37,7 +37,7 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
         }
 
         return (<QuillNotes
-            title={article.type === 'post' ? article.name : undefined}
+            title={title === true ? article.name : undefined}
             content={article.content}
             onSave={onSave}
             onCancel={onCancel}
