@@ -23,7 +23,7 @@ type PublicationProps = { // Редактирование статьи
 type NotesProps = PublicationProps & {
     onSave: TNotesSaver; // Вызывается при нажатии на кнопку сохранения
     onCancel: () => void; // Вызывается при отмене редактирования
-    onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
+    onUpload?: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
 }
 
 const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUpload }) => {

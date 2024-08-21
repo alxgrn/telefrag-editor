@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { article as initialArticle } from './article';
 import { Editor, Notes, Viewer } from '../lib';
 import { Button } from '@alxgrn/react-form';
@@ -6,11 +6,19 @@ import { TArticle } from '../lib/types';
 import EditorHeader from '../lib/components/EditorHeader';
 import './App.css'
 
+type ArticleResponse = { article: TArticle };
+
 const App = () => {
     const [ article, setArticle ] = useState<TArticle>(initialArticle);
     const [ isViewer, setIsViewer ] = useState(false);
     const [ isEditor, setIsEditor ] = useState(false);
     const [ isChanged, setIsChanged ] = useState(false);
+
+    useEffect(() => {
+        fetch('https://dailytelefrag.ru/api/articles/20')
+        .then(response => response.json())
+        .then(json => setArticle((json as ArticleResponse).article));
+    }, []);
 
     if (isViewer) {
         return (<>
