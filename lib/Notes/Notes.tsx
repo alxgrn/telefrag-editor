@@ -7,12 +7,12 @@ import { TArticle, TComment, TImageUploader, TNotesSaver } from '../types';
 import QuillNotes from '../Quill/QuillNotes';
 
 type PublicationProps = { // Редактирование статьи
-    article: TArticle;
+    article?: TArticle;
     comment?: never;
     title?: boolean;
 } | { // Редактирование комментария
     article?: never;
-    comment: TComment;
+    comment?: TComment;
     title?: never;
 } | { // Создание публикации
     article?: never;
