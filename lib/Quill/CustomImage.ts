@@ -9,12 +9,12 @@
 import { API_URL, ERROR_IMAGE, ERROR_IMAGE_DATA } from '../config';
 import Quill, { Parchment } from 'quill';
 const BlockEmbed = Quill.import('blots/block/embed') as typeof Parchment.EmbedBlot;
-
+/*
 const ATTRIBUTES = [
   'fid', // добавили от себя для сохранения id картинки в базе
   'src', // отсутствует в оригинале т.к. храниится как значение самого элемента
 ];
-
+*/
 export type CustomImageType = {
     src?: string | null;
     fid?: string | null;
@@ -24,8 +24,8 @@ class CustomImage extends BlockEmbed {
     static blotName = 'image';
     static tagName = 'IMG';
     
-    static create(value: string | number | CustomImageType) {        
-        const node = super.create(value) as HTMLElement;
+    static create(value: string | number | CustomImageType) {
+        const node = super.create() as HTMLImageElement;
         if (typeof value === 'number') {
             // value содержит идентификатор картинки на нашем сервере
             node.setAttribute('fid', `${value}`);
@@ -44,32 +44,45 @@ class CustomImage extends BlockEmbed {
                 node.setAttribute('src', `${ERROR_IMAGE}`);
             }
         }
+
+        //console.info('CustomImage: create');
+        //console.info('fid=', node.getAttribute('fid'));
+        //console.info('src=', node.getAttribute('src'));
+        
         return node;
     }
 
     // Если я верно понял, этот метод вызывается при cut-and-paste
     // html-документа в редактор. Он вытаскивает из html атрибуты
     // тега картинки и оставляет только те, что мы разрешаем.
+    /*
     static formats(domNode: HTMLElement) {
-        return ATTRIBUTES.reduce(function(formats: any, attribute) {
+        const attr = ATTRIBUTES.reduce(function(formats: any, attribute) {
             if (domNode.hasAttribute(attribute)) {
                 formats[attribute] = domNode.getAttribute(attribute);
             }
             return formats;
         }, {});
-    }
 
+        console.info('CustomImage: formats');
+        console.dir(attr);
+        return attr;
+    }
+    */
     // Не понятно кем и когда вызывается данный метод
     // Выглядит как проверка того что ссылка ведет к картинке поэтому
     // могла бы вызываться из sanitize, но нет
+    /*
     static match(url: string) {
+        console.info('CustomImage: match');
         return /\.(jpe?g|gif|png)$/.test(url) || /^data:image\/.+;base64/.test(url);
     }
-
+    */
     // Проверяет протокол на валидность
     // В оригинальном коде идет вызов внешней функции, мы ее перетащили прямо сюда.
     // Сама функция немного стремная, но пусть остается такой.
     static sanitize(url: string) {
+        console.info('CustomImage: sanitize');
         // В оригинале можно вставлять картинки закодированные через data
         // мы этот способ запрещаем т.к. не хотим хранить картинки прямо в документе
         // const protocols = ['http', 'https', 'data'];
@@ -92,7 +105,10 @@ class CustomImage extends BlockEmbed {
 
     // По идее для эмбед элементов данный метод не нужен т.к.
     // эмбед элементы не редактируются. Но может я чего-то не понимаю.
+    /*
     format(name: string, value: string | null) {
+        console.info('CustomImage: format');
+
         if (ATTRIBUTES.indexOf(name) > -1) {
             if (value) {
                 (this.domNode as HTMLElement).setAttribute(name, value);
@@ -103,6 +119,7 @@ class CustomImage extends BlockEmbed {
             super.format(name, value);
         }
     }
+    */
 }
 
 export default CustomImage;
