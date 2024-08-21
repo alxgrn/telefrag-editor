@@ -24,9 +24,10 @@ type NotesProps = PublicationProps & {
     onSave: TNotesSaver; // Вызывается при нажатии на кнопку сохранения
     onCancel: () => void; // Вызывается при отмене редактирования
     onUpload?: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
+    placeholder?: string; // Подсказка в пустом редакторе
 }
 
-const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUpload }) => {
+const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUpload, placeholder }) => {
     /**
      * Нужно редактировать статью
      * Заголовки только у постов в группы, картинки можно загружать ко всем типам статей
@@ -42,6 +43,7 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
             onSave={onSave}
             onCancel={onCancel}
             onUpload={onUpload}
+            placeholder={placeholder}
         />);
     }
     /**
@@ -57,6 +59,7 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
             content={comment.content}
             onSave={onSave}
             onCancel={onCancel}
+            placeholder={placeholder}
         />);
     }
     /**
@@ -67,6 +70,7 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
         title={title}
         onSave={onSave}
         onCancel={onCancel}
+        placeholder={placeholder}
     />);
 };
 
