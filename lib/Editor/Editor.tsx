@@ -17,7 +17,7 @@ type PublicationProps = {
 type EditorProps = PublicationProps & {
     onView: () => void; // Вызывается при клике на кнопку просмотра статьи
     onSave: TEditorSaver; // Вызывается при нажатии на кнопку сохранения статьи
-    onChange: () => void; // Вызывается при изменении текста статьи
+    onChange: (changed: boolean) => void; // Вызывается при изменении текста статьи
     onUpload: TImageUploader; // Вызывается после выбора иллюстрации для загрузки на сервер
 }
 

@@ -19,7 +19,7 @@ type QuillEditorProps = {
     content: string | null; // Содержимое статьи
     onView: () => void; // Вызывается при клике на кнопку просмотра статьи
     onSave: TEditorSaver; // Вызывается при нажатии на кнопку сохранения статьи
-    onChange: () => void; // Вызывается при изменении текста статьи
+    onChange: (changed: boolean) => void; // Вызывается при изменении текста статьи
     onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
 };
 
@@ -72,10 +72,11 @@ const QuillEditor: FC<QuillEditorProps> = ({ content, onView, onSave, onChange, 
         }
 
         editor.history.clear();
-        editor.on('text-change', () => { setIsChanged(true); onChange(); });
+        editor.on('text-change', () => { setIsChanged(true); onChange(true); });
         editor.focus();
         setEditor(editor);
         setIsChanged(false);
+        onChange(false);
 
     }, [ editorRef, content ]);
 
@@ -127,7 +128,10 @@ const QuillEditor: FC<QuillEditorProps> = ({ content, onView, onSave, onChange, 
                         editor={editor}
                         changed={isChanged}
                         onSave={onSave}
-                        onSaved={() => setIsChanged(false)}
+                        onSaved={() => {
+                            setIsChanged(false);
+                            onChange(false);
+                        }}
                     />
                 </div>
             </div>
