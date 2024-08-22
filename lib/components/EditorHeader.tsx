@@ -7,6 +7,12 @@ import EditorCover from "./EditorCover";
 import { Editable } from "@alxgrn/react-form";
 import './EditorHeader.css';
 
+const style: CSSProperties = {
+    color: 'var(--alxgrn-input-color-focus)',
+    backgroundColor: 'var(--alxgrn-input-bg-focus)',
+    borderRadius: 'var(--unit-small)',
+};
+
 type Props = {
     article: TArticle;
     onChange: (name: string, info: string) => void;
@@ -16,16 +22,11 @@ type Props = {
 const EditorHeader: FC<Props> = ({ article, onChange, onUpload }) => {
     const [ name, setName ] = useState(article.name ?? '');
     const [ info, setInfo ] = useState(article.info ?? '');
-    const style: CSSProperties = {
-        color: 'var(--alxgrn-input-color-focus)',
-        backgroundColor: 'var(--alxgrn-input-bg-focus)',
-        borderRadius: 'var(--unit-small)',
-    };
 
     return (
         <div className='EditorHeader'>
             <div className='EditorText'>
-                <h1 style={{ margin: '0' }}>
+                <h1>
                     <Editable
                         value={name}
                         style={style}
