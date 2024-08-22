@@ -9,11 +9,11 @@ type Props = {
 };
 
 const Viewer: FC<Props> = ({ short, article, expandable }) => {
-    if (article.format === 'delta') {
+    if (!article.format || article.format === 'delta') {
         return <QuillViewer content={article.content} short={short} expandable={expandable}/>
     }
 
-    return <div>Неизвестный формат публикации</div>;
+    return <div className='p error'>Неизвестный формат публикации</div>;
 };
 
 export default Viewer;

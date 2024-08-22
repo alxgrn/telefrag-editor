@@ -14,5 +14,6 @@
     max-width: calc(8 * var(--unit));
     aspect-ratio: 16/9;
     border-radius: var(--unit-small);
+    background-color: var(--logo-color-beige);
     cursor: pointer;
 }
