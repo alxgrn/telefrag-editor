@@ -24,8 +24,9 @@ type EditorProps = PublicationProps & {
 const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, onUpload }) => {
 
     if (article) {
-        if (article.format !== 'delta') {
-            return <div>Неизвестный формат статьи</div>;
+        // Сразу после создания у статьи нет формата и текста
+        if (article.format && article.format !== 'delta') {
+            return <div className='p error'>Неизвестный формат статьи</div>;
         }
 
         return (<QuillEditor
@@ -38,14 +39,14 @@ const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, o
     }
 
     if (comment) {
-        if (comment.format !== 'delta') {
-            return <div>Неизвестный формат комментария</div>;
+        if (comment.format && comment.format !== 'delta') {
+            return <div className='p error'>Неизвестный формат комментария</div>;
         }
 
-        return <div>Редактор комментариев пока недоступен</div>
+        return <div className='p error'>Редактор комментариев пока недоступен</div>
     }
 
-    return <div>Публикация не указана</div>
+    return <div className='p error'>Публикация не указана</div>
 };
 
 export default Editor;

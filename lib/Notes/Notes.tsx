@@ -34,7 +34,7 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
      */
     if (article) {
         if (article.format !== 'delta') {
-            return <div>Неизвестный формат статьи</div>;
+            return <div className='p error'>Неизвестный формат статьи</div>;
         }
 
         return (<QuillNotes
@@ -52,7 +52,7 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
      */
     if (comment) {
         if (comment.format !== 'delta') {
-            return (<div>Неизвестный формат комментария</div>);
+            return (<div className='p error'>Неизвестный формат комментария</div>);
         }
 
         return (<QuillNotes
