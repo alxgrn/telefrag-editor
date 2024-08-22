@@ -22,7 +22,7 @@ type PublicationProps = { // Редактирование статьи
 
 type NotesProps = PublicationProps & {
     onSave: TNotesSaver; // Вызывается при нажатии на кнопку сохранения
-    onCancel: () => void; // Вызывается при отмене редактирования
+    onCancel?: () => void; // Вызывается при отмене редактирования
     onUpload?: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
     placeholder?: string; // Подсказка в пустом редакторе
 }

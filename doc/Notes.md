@@ -10,7 +10,7 @@
 |comment?|TComment||Комментарий|
 |title?|boolean||Флаг необходимости создания загловка|
 |onSave|[TNotesSaver](./Types.md)||Обработчик нажатия на кнопку сохранения|
-|onCancel|() => void||Вызывается при отказе от редактирования|
+|onCancel?|() => void||Вызывается при отказе от редактирования|
 |onUpload?|[TImageUploader](./Types.md)||Обработчик загрузки иллюстрации|
 |placeholder?|string||Подсказка в пустом редакторе|
 
