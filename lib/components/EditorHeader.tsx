@@ -1,7 +1,7 @@
 /**
  * Компонент для отображения и редактирования названия, аннотации и обложки лонгрида
  */
-import { FC, useState } from "react";
+import { CSSProperties, FC, useState } from "react";
 import { TArticle, TImageUploader } from "../types";
 import EditorCover from "./EditorCover";
 import { Editable } from "@alxgrn/react-form";
@@ -16,6 +16,11 @@ type Props = {
 const EditorHeader: FC<Props> = ({ article, onChange, onUpload }) => {
     const [ name, setName ] = useState(article.name ?? '');
     const [ info, setInfo ] = useState(article.info ?? '');
+    const style: CSSProperties = {
+        color: 'var(--alxgrn-input-color-focus)',
+        backgroundColor: 'var(--alxgrn-input-bg-focus)',
+        borderRadius: 'var(--unit-small)',
+    };
 
     return (
         <div className='EditorHeader'>
@@ -23,6 +28,7 @@ const EditorHeader: FC<Props> = ({ article, onChange, onUpload }) => {
                 <h1 style={{ margin: '0' }}>
                     <Editable
                         value={name}
+                        style={style}
                         placeholder='Заголовок'
                         onChange={name => {
                             setName(name);
@@ -34,6 +40,7 @@ const EditorHeader: FC<Props> = ({ article, onChange, onUpload }) => {
                 <div>
                     <Editable
                         value={info}
+                        style={style}
                         placeholder='Аннотация'
                         onChange={info => {
                             setInfo(info);
