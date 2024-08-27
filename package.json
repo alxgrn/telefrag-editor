@@ -40,7 +40,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@alxgrn/telefrag-types": "^0.0.13",
+    "@alxgrn/telefrag-types": "^0.1.0",
     "@types/node": "^22.1.0",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",

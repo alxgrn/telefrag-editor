@@ -45,9 +45,9 @@ class CustomImage extends BlockEmbed {
             }
         }
 
-        //console.info('CustomImage: create');
-        //console.info('fid=', node.getAttribute('fid'));
-        //console.info('src=', node.getAttribute('src'));
+        // console.info('CustomImage: create');
+        // console.info('fid=', node.getAttribute('fid'));
+        // console.info('src=', node.getAttribute('src'));
         
         return node;
     }
@@ -82,7 +82,7 @@ class CustomImage extends BlockEmbed {
     // В оригинальном коде идет вызов внешней функции, мы ее перетащили прямо сюда.
     // Сама функция немного стремная, но пусть остается такой.
     static sanitize(url: string) {
-        console.info('CustomImage: sanitize');
+        // console.info('CustomImage: sanitize');
         // В оригинале можно вставлять картинки закодированные через data
         // мы этот способ запрещаем т.к. не хотим хранить картинки прямо в документе
         // const protocols = ['http', 'https', 'data'];
