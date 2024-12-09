@@ -9,6 +9,7 @@ export const sanitizeVideoURL = (stringURL: string) => {
     try {
         const url = new URL(stringURL);
         switch (url.hostname) {
+            case 'vkvideo.ru':
             case 'vk.com': {
                 let id: string | null;
                 let oid: string | null;
@@ -23,7 +24,7 @@ export const sanitizeVideoURL = (stringURL: string) => {
                     throw new Error();
                 }
                 if (!id || !oid) throw new Error();
-                return `https://vk.com/video_ext.php?oid=${oid}&id=${id}&hd=2`;
+                return `https://${url.hostname}/video_ext.php?oid=${oid}&id=${id}&hd=2`;
             }
             case 'rutube.ru': {
                 let videoId: string | null;
