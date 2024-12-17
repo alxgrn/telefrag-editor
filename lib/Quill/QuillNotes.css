@@ -44,17 +44,18 @@
 .QuillNotesContent .ql-container {
     max-height: 60vh;
     overflow: auto;
+    /* чтобы контент не прилипал к скроллу */
+    padding-right: var(--alxgrn-unit-half);
 }
 
 /*
  * Scrollbar
  * Содрано с Modal из @alxgrn/react-form но надо унифицировать где-то в одном месте
- */
+ *
  .QuillNotesContent .ql-container {
     scrollbar-color: transparent var(--alxgrn-modal-color-scroll);
     scrollbar-width: thin;
-    /* scrollbar-gutter: stable; */
-}
+}*/
 
 .QuillNotesContent .ql-container::-webkit-scrollbar {
     width: var(--alxgrn-unit-small);
@@ -67,7 +68,7 @@
 }
 
 .QuillNotesContent .ql-container::-webkit-scrollbar-thumb {
-    background-color: var(--alxgrn-modal-color-scroll);
+    background-color: var(--alxgrn-color-scroll);
     border-radius: var(--alxgrn-unit-small);
 }
 

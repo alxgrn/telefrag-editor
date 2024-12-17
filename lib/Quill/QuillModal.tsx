@@ -3,7 +3,7 @@
  */
 import { FC, useEffect, useState } from 'react';
 import Quill from 'quill';
-import { Form, Input, Modal } from '@alxgrn/react-form';
+import { Form, Input, Modal } from '@alxgrn/telefrag-ui';
 
 const MAX_VALUE_LENGTH = 1024;
 

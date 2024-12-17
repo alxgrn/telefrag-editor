@@ -3,7 +3,7 @@
  */
 import { FC, useState } from 'react';
 import Quill from 'quill';
-import { Alert } from '@alxgrn/react-form';
+import { Alert } from '@alxgrn/telefrag-ui';
 import { TEditorSaver } from '../types';
 
 type SaveButtonProps = {

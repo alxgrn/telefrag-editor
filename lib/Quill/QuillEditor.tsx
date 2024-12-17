@@ -7,7 +7,7 @@ import { TEditorSaver, TImageUploader } from '../types';
 import H3Icon from './H3Icon';
 import { formatsFull } from './QuillCore';
 import QuillModal from './QuillModal';
-import { Alert } from '@alxgrn/react-form';
+import { Alert } from '@alxgrn/telefrag-ui';
 import EyeIcon from './EyeIcon';
 import './QuillEditor.css';
 

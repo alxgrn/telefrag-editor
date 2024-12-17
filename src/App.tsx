@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { article as initialArticle } from './article';
 import { Editor, Notes, Viewer } from '../lib';
-import { Button } from '@alxgrn/react-form';
+import { Button } from '@alxgrn/telefrag-ui';
 import { TArticle } from '../lib/types';
 import EditorHeader from '../lib/components/EditorHeader';
 import './App.css'

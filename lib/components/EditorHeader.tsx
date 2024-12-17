@@ -4,7 +4,7 @@
 import { CSSProperties, FC, useState } from "react";
 import { TArticle, TImageUploader } from "../types";
 import EditorCover from "./EditorCover";
-import { Editable } from "@alxgrn/react-form";
+import { Editable } from "@alxgrn/telefrag-ui";
 import './EditorHeader.css';
 
 const style: CSSProperties = {
