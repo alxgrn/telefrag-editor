@@ -1,7 +1,7 @@
 {
   "name": "@alxgrn/telefrag-editor",
   "description": "The Daily Telefrag Editor",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "private": false,
   "author": "Alexander Fedorov <alex@molner.ru>",
   "license": "Apache-2.0",
@@ -56,6 +56,6 @@
     "vite-plugin-lib-inject-css": "^2.1.1"
   },
   "dependencies": {
-    "@alxgrn/telefrag-ui": "^0.0.13"
+    "@alxgrn/telefrag-ui": "^0.0.14"
   }
 }
