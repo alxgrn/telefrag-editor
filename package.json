@@ -1,7 +1,7 @@
 {
   "name": "@alxgrn/telefrag-editor",
   "description": "The Daily Telefrag Editor",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "private": false,
   "author": "Alexander Fedorov <alex@molner.ru>",
   "license": "Apache-2.0",
@@ -34,7 +34,6 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
-    "@alxgrn/telefrag-ui": "^0.0.15",
     "highlight.js": "^11.10.0",
     "quill": "^2.0.2",
     "react": "^18.2.0",
@@ -55,5 +54,8 @@
     "vite": "^5.0.0",
     "vite-plugin-dts": "^4.0.0-beta.2",
     "vite-plugin-lib-inject-css": "^2.1.1"
+  },
+  "dependencies": {
+    "@alxgrn/telefrag-ui": "^0.0.16"
   }
 }
