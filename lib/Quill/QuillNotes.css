@@ -42,7 +42,7 @@
 
 /* Ограничим высоту поля ввода текста */
 .QuillNotesContent .ql-container {
-    max-height: 60vh;
+    max-height: 45vh;
     overflow: auto;
     /* чтобы контент не прилипал к скроллу */
     padding-right: var(--alxgrn-unit-half);
