@@ -57,6 +57,6 @@
     "vite-plugin-lib-inject-css": "^2.1.1"
   },
   "dependencies": {
-    "@alxgrn/telefrag-ui": "^0.0.17"
+    "@alxgrn/telefrag-ui": "^0.0.18"
   }
 }
