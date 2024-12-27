@@ -1,7 +1,7 @@
 .EditorHeader {
     display: flex;
     align-items: flex-start;
-    gap: var(--unit);
+    gap: var(--alxgrn-unit);
 }
 
 .EditorHeader div {
@@ -11,9 +11,9 @@
 .EditorHeader img {
     flex: 0 0 auto;
     width: 20%;
-    max-width: calc(8 * var(--unit));
+    max-width: calc(8 * var(--alxgrn-unit));
     aspect-ratio: 16/9;
-    border-radius: var(--unit-small);
-    background-color: var(--logo-color-beige);
+    border-radius: var(--alxgrn-unit-small);
+    background-color: var(--alxgrn-logo-color-beige);
     cursor: pointer;
 }

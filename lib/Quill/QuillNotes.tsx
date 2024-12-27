@@ -10,6 +10,7 @@ import { TImageUploader, TNotesSaver } from '../types';
 import imageHandler from './ImageHandler';
 import QuillModal, { TQuillModalType } from './QuillModal';
 import './QuillNotes.css';
+import { Button } from '@alxgrn/telefrag-ui';
 
 type QuillNotesProps = {
     title?: boolean | string | null; // нужно ли выводить поле ввода для заголовка публикации и его начальное содержимое
@@ -126,7 +127,7 @@ const QuillNotes: FC<QuillNotesProps> = ({ content, title = false, placeholder, 
             {((onSave || onCancel) && editor) &&
             <div className='QuillNotesButtons'>
                 {onCancel && <span className='a' onClick={onBeforeCancel}>Отменить</span>}
-                {onSave && <span className={canSave() ? 'button' : 'button disabled'} onClick={onBeforeSave}>Опубликовать</span>}
+                {onSave && <Button label='Опубликовать' size='Small' type='Accent' disabled={!canSave()} onClick={onBeforeSave} />}
             </div>}
             <QuillModal
                 type={modalType}

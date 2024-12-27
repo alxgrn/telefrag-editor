@@ -1,10 +1,10 @@
 #root {
     position: relative;
     max-width: 800px;
-    margin: var(--header-height) auto;
+    margin: var(--alxgrn-layout-header-height) auto;
     padding: 2rem;
-    background-color: var(--panel-bg-color);
-    border-radius: var(--unit-half);
+    background-color: var(--alxgrn-bg-panel);
+    border-radius: var(--alxgrn-unit-half);
 }
 
 .toolbar {
@@ -13,8 +13,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: var(--header-height);
-    background-color: var(--main-bg-color);
-    padding: var(--unit-half);
+    height: var(--alxgrn-layout-header-height);
+    background-color: var(--alxgrn-bg-main);
+    padding: var(--alxgrn-unit-half);
     text-align: center;
 }

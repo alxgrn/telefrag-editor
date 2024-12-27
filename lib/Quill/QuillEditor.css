@@ -6,13 +6,13 @@
     justify-content: space-between;
     align-items: center;
     border: none;
-    border-bottom: 2px solid var(--text-color)!important;
+    border-bottom: 2px solid var(--alxgrn-color-text)!important;
     position: sticky;
-    top: var(--header-height);
-    background-color: var(--panel-bg-color);
+    top: var(--alxgrn-layout-header-height);
+    background-color: var(--alxgrn-bg-panel);
     z-index: 100;
-    padding-top: var(--unit-double);
-    padding-bottom: var(--unit-half);
+    padding-top: var(--alxgrn-unit-double);
+    padding-bottom: var(--alxgrn-unit-half);
 }
 
 .QuillToolbar div:nth-child(2) {
@@ -22,28 +22,28 @@
 
 .QuillSaveButton {
     display: inline-block;
-    border-radius: var(--unit-small);
-    padding: var(--unit-small) var(--unit-half);
-    font-size: var(--font-size-small);
+    border-radius: var(--alxgrn-unit-small);
+    padding: var(--alxgrn-unit-small) var(--alxgrn-unit-half);
+    font-size: var(--alxgrn-font-size-small);
     color: white;
-    background-color: var(--accent-color);
+    background-color: var(--alxgrn-color-accent);
     cursor: pointer;
 }
 
 .QuillSaveButton.Error {
-    background-color: var(--error-color);
+    background-color: var(--alxgrn-color-error);
 }
 
 .QuillSaveButton.Disabled {
     cursor: default;
-    color: var(--text-color);
-    background-color: var(--border-color);
+    color: var(--alxgrn-color-text);
+    background-color: var(--alxgrn-border);
 }
 
 /* У статьи меняются отступы при маленьком экране */
 @media (max-width: 512px) {
     .QuillToolbar {
-        padding-top: var(--unit);
+        padding-top: var(--alxgrn-unit);
     }
 }
 

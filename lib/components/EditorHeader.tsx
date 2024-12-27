@@ -10,7 +10,7 @@ import './EditorHeader.css';
 const style: CSSProperties = {
     color: 'var(--alxgrn-input-color-focus)',
     backgroundColor: 'var(--alxgrn-input-bg-focus)',
-    borderRadius: 'var(--unit-small)',
+    borderRadius: 'var(--alxgrn-unit-small)',
 };
 
 type Props = {

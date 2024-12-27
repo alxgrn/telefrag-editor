@@ -12,40 +12,40 @@
 .ql-snow .ql-tooltip {
     z-index: 1;
     background-color: var(--alxgrn-popup-bg-color);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--alxgrn-border);
     box-shadow: none;
-    color: var(--text-color);
-    padding: var(--unit-small) var(--unit-half);
-    border-radius: var(--unit-small);
+    color: var(--alxgrn-color-text);
+    padding: var(--alxgrn-unit-small) var(--alxgrn-unit-half);
+    border-radius: var(--alxgrn-unit-small);
 }
 
 .ql-snow .ql-tooltip a {
     border: none;
-    color: var(--accent-color);
+    color: var(--alxgrn-color-accent);
 }
 
 .ql-snow .ql-tooltip a.ql-action::after {
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid var(--alxgrn-border);
     content: 'Edit';
-    margin-left: var(--unit);
-    padding-right: var(--unit-half);
+    margin-left: var(--alxgrn-unit);
+    padding-right: var(--alxgrn-unit-half);
 }
 
 .ql-snow .ql-tooltip a.ql-remove::before {
     content: 'Remove';
-    margin-left: var(--unit-half);
+    margin-left: var(--alxgrn-unit-half);
 }
 
 .ql-snow .ql-tooltip input[type=text] {
     border: none;
     outline: none;
     background-color: var(--alxgrn-input-bg-focus);
-    border-radius: var(--unit-small);
+    border-radius: var(--alxgrn-unit-small);
 }
 
 /* Placeholder */
 .ql-editor.ql-blank::before {
-    color: var(--text-color)!important;
+    color: var(--alxgrn-color-text)!important;
     opacity: 0.5!important;
     left: 0!important;
     right: 0!important;
@@ -53,60 +53,60 @@
 
 /* Кнопки в тулбаре */
 .ql-snow .ql-fill {
-    fill: var(--text-color);
+    fill: var(--alxgrn-color-text);
 }
 .ql-snow .ql-stroke {
-    stroke: var(--text-color);
+    stroke: var(--alxgrn-color-text);
 }
 .ql-snow .ql-fill.ql-stroke {
-    fill: var(--text-color);
-    stroke: var(--text-color);
+    fill: var(--alxgrn-color-text);
+    stroke: var(--alxgrn-color-text);
 }
 /* Подсветка кнопок при наведении мышки */
 .ql-snow.ql-toolbar button:hover .ql-fill {
-    fill: var(--accent-color);
+    fill: var(--alxgrn-color-accent);
 }
 .ql-snow.ql-toolbar button:hover .ql-stroke {
-    stroke: var(--accent-color);
+    stroke: var(--alxgrn-color-accent);
 }
 .ql-snow.ql-toolbar button:hover .ql-fill.ql-stroke {
-    fill: var(--accent-color);
-    stroke: var(--accent-color);
+    fill: var(--alxgrn-color-accent);
+    stroke: var(--alxgrn-color-accent);
 }
 /* Активные кнопки */
 .ql-snow.ql-toolbar button.ql-active .ql-fill {
-    fill: var(--accent-color);
+    fill: var(--alxgrn-color-accent);
 }
 .ql-snow.ql-toolbar button.ql-active .ql-stroke {
-    stroke: var(--accent-color);
+    stroke: var(--alxgrn-color-accent);
 }
 .ql-snow.ql-toolbar button.ql-active .ql-fill.ql-stroke {
-    fill: var(--accent-color);
-    stroke: var(--accent-color);
+    fill: var(--alxgrn-color-accent);
+    stroke: var(--alxgrn-color-accent);
 }
 /* Активная и hover кнопка вызова выпадающего меню */
 .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
 .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
-    stroke: var(--accent-color);
+    stroke: var(--alxgrn-color-accent);
 }
 /* Нажатая кнопка вызова выпадающего меню */
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
-    border-color: var(--border-color);
-    border-top-left-radius: var(--unit-small);
-    border-top-right-radius: var(--unit-small);
+    border-color: var(--alxgrn-border);
+    border-top-left-radius: var(--alxgrn-unit-small);
+    border-top-right-radius: var(--alxgrn-unit-small);
 }
 /* Выпадающее меню */
 .ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-    border-color: var(--border-color);
-    border-bottom-left-radius: var(--unit-small);
-    border-bottom-right-radius: var(--unit-small);
+    border-color: var(--alxgrn-border);
+    border-bottom-left-radius: var(--alxgrn-unit-small);
+    border-bottom-right-radius: var(--alxgrn-unit-small);
     box-shadow: none;
     padding: 4px 0px 0 0;
     background-color: var(--alxgrn-popup-bg-color);
 }
 /* Элемент выпадающего списка под курсором */
 .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke {
-    stroke: var(--accent-color);
+    stroke: var(--alxgrn-color-accent);
 }
 /* Контейнер с редактором */
 .ql-container {
@@ -114,44 +114,44 @@
 }
 /* Сам редактор и при просмотре и при редактировании */
 .ql-editor {
-    font-size: var(--font-size)!important;
-    font-family: var(--font-family)!important;
-    line-height: var(--line-height)!important;
+    font-size: var(--alxgrn-font-size)!important;
+    font-family: var(--alxgrn-font-family)!important;
+    line-height: var(--alxgrn-line-height)!important;
     padding: 0!important;
     overflow: hidden; /* как таблетка от иногда появляющегося скролла если в редакторе есть списки */
 }
 /* Сам редактор только при редактировании */
 .ql-snow .ql-editor {
-    padding: var(--unit) 0!important;
-    min-height: calc(10 * var(--unit)); /* при редактировании ставим минимальную высоту окна редактора */
+    padding: var(--alxgrn-unit) 0!important;
+    min-height: calc(10 * var(--alxgrn-unit)); /* при редактировании ставим минимальную высоту окна редактора */
 }
 
 /* Параграф */
 .ql-editor p {
     padding: 0!important;
     /* отступы у параграфа должны быть высотой в строку для точного обрезания контента в компактном отображении */
-    margin: calc(var(--font-size) * var(--line-height)) 0!important;
+    margin: calc(var(--alxgrn-font-size) * var(--alxgrn-line-height)) 0!important;
 }
 /* Списки */
 .ql-editor ul,
 .ql-editor ol {
     padding: 0!important;
-    padding-left: var(--unit)!important;
-    margin: var(--unit) 0!important;
+    padding-left: var(--alxgrn-unit)!important;
+    margin: var(--alxgrn-unit) 0!important;
 }
 /* Blockquote */
 .ql-editor blockquote {
-    border-left: var(--unit-small) solid var(--accent-color)!important;
-    margin: var(--unit) 0!important;
-    padding: var(--unit-half)!important;
-    border-radius: var(--unit-small)!important;
-    background-color: var(--accent-bg-color)!important;
+    border-left: var(--alxgrn-unit-small) solid var(--alxgrn-color-accent)!important;
+    margin: var(--alxgrn-unit) 0!important;
+    padding: var(--alxgrn-unit-half)!important;
+    border-radius: var(--alxgrn-unit-small)!important;
+    background-color: var(--alxgrn-bg-accent)!important;
 }
 /* Code block */
 .ql-editor pre.ql-syntax {
-    margin: var(--unit) 0!important;
-    padding: var(--unit-half) var(--unit)!important;
-    border-radius: var(--unit-small)!important;
+    margin: var(--alxgrn-unit) 0!important;
+    padding: var(--alxgrn-unit-half) var(--alxgrn-unit)!important;
+    border-radius: var(--alxgrn-unit-small)!important;
     font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace!important;
     background-color: #282c34!important;
     color: #abb2bf!important;
@@ -159,12 +159,12 @@
 /* Картинка */
 .ql-editor img {
     display: block!important;
-    margin: var(--unit) auto!important;
-    min-width: var(--unit-double)!important;
-    min-height: var(--unit-double)!important;
+    margin: var(--alxgrn-unit) auto!important;
+    min-width: var(--alxgrn-unit-double)!important;
+    min-height: var(--alxgrn-unit-double)!important;
     max-width: 100%!important;
     max-height: 70vh!important;
-    border-radius: var(--unit-small)!important;
+    border-radius: var(--alxgrn-unit-small)!important;
     background-color: var(--logo-color-beige)!important;
 }
 /* Видео */
@@ -173,10 +173,10 @@
     display: block;
     width: 100%;
     aspect-ratio: 16/9;
-    margin: var(--unit) auto;
+    margin: var(--alxgrn-unit) auto;
     border: none;
-    border-radius: var(--unit-small);
-    background-color: var(--logo-color-beige);
+    border-radius: var(--alxgrn-unit-small);
+    background-color: var(--alxgrn-logo-color-beige);
 }
 /* Ссылка */
 .ql-editor a {
@@ -184,21 +184,21 @@
 }
 /* Заголовок H1 */
 .ql-editor h1 {
-    color: var(--color-h1)!important;
-    font-size: var(--font-size-h1)!important;
-    margin: 0 0 var(--unit) 0!important;
+    color: var(--alxgrn-color-h1)!important;
+    font-size: var(--alxgrn-font-size-h1)!important;
+    margin: 0 0 var(--alxgrn-unit) 0!important;
 }
 /* Заголовок H2 */
 .ql-editor h2 {
-    color: var(--color-h2)!important;
-    font-size: var(--font-size-h2)!important;
-    margin: 0 0 var(--unit) 0!important;
+    color: var(--alxgrn-color-h2)!important;
+    font-size: var(--alxgrn-font-size-h2)!important;
+    margin: 0 0 var(--alxgrn-unit) 0!important;
 }
 /* Заголовок H3 */
 .ql-editor h3 {
-    color: var(--color-h3)!important;
-    font-size: var(--font-size-h3)!important;
-    margin: 0 0 var(--unit) 0!important;
+    color: var(--alxgrn-color-h3)!important;
+    font-size: var(--alxgrn-font-size-h3)!important;
+    margin: 0 0 var(--alxgrn-unit) 0!important;
 }
 /* Отменяем отсупы у первых и последних блоков */
 .ql-editor p:first-child,

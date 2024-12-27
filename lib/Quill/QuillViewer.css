@@ -1,7 +1,7 @@
 .QuillViewerWrapper {
     position: relative;
     overflow: hidden;
-    max-height: calc(10 * var(--font-size) * var(--line-height));
+    max-height: calc(10 * var(--alxgrn-font-size) * var(--alxgrn-line-height));
 }
 
 .QuillViewerWrapper::after {
@@ -9,10 +9,10 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: calc(3 * var(--font-size) * var(--line-height));
-    background: linear-gradient(rgba(255, 255, 255, 0.001), var(--panel-bg-color));
+    height: calc(3 * var(--alxgrn-font-size) * var(--alxgrn-line-height));
+    background: linear-gradient(rgba(255, 255, 255, 0.001), var(--alxgrn-bg-panel));
 }
 
 .QuillViewerExpand {
-    margin-top: var(--unit);
+    margin-top: var(--alxgrn-unit);
 }
