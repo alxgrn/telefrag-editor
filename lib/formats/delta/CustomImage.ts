@@ -6,7 +6,7 @@
  * а объект CustomImageType. Это нужно для удобства удаления неиспользуемых
  * картинок на сервере.
  */
-import { API_URL, ERROR_IMAGE, ERROR_IMAGE_DATA } from '../config';
+import { API_URL, ERROR_IMAGE, ERROR_IMAGE_DATA } from '../../config';
 import Quill, { Parchment } from 'quill';
 const BlockEmbed = Quill.import('blots/block/embed') as typeof Parchment.EmbedBlot;
 /*

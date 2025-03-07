@@ -3,7 +3,7 @@ import Quill from 'quill';
 import hljs from 'highlight.js';
 import imageHandler from './ImageHandler';
 import SaveButton  from './SaveButton';
-import { TEditorSaver, TImageUploader } from '../types';
+import { TEditorSaver, TImageUploader } from '../../types';
 import H3Icon from './H3Icon';
 import { formatsFull } from './QuillCore';
 import QuillModal from './QuillModal';

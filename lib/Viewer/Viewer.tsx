@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { TArticle, TComment } from "../types";
-import QuillViewer from "../Quill/QuillViewer";
+import QuillViewer from "../formats/delta/QuillViewer";
+import VideoViewer from "../formats/video/VideoViewer";
 
 type Props = {
     short?: boolean; // флаг варианта набора тегов у контента - полный или компактный
@@ -9,11 +10,14 @@ type Props = {
 };
 
 const Viewer: FC<Props> = ({ short, article, expandable }) => {
-    if (!article.format || article.format === 'delta') {
-        return <QuillViewer content={article.content} short={short} expandable={expandable}/>
+    switch (article.format) {
+        case 'delta':
+            return <QuillViewer content={article.content} short={short} expandable={expandable}/>;
+        case 'video':
+            return <VideoViewer content={article.content}/>;
+        default:
+            return <div className='p error'>Неизвестный формат публикации</div>;
     }
-
-    return <div className='p error'>Неизвестный формат публикации</div>;
 };
 
 export default Viewer;

@@ -35,7 +35,7 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@alxgrn/telefrag-ui": "^0.0.26",
+    "@alxgrn/telefrag-ui": "^0.0.27",
     "highlight.js": "^11.10.0",
     "quill": "^2.0.2",
     "react": "^18.2.0",

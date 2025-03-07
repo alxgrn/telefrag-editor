@@ -2,8 +2,8 @@
  * Перехватчик вставки картинки для загрузки на сервер
  */
 import Quill from 'quill';
-import { ERROR_IMAGE } from '../config';
-import { TImageUploader } from '../types';
+import { ERROR_IMAGE } from '../../config';
+import { TImageUploader } from '../../types';
 
 const imageHandler = (editor: Quill, uploader: TImageUploader) => {
     const input = document.createElement('input');

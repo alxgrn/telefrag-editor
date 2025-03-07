@@ -1,0 +1,6 @@
+.VideoViewer iframe {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    border: none;
+    border-radius: var(--alxgrn-unit-small);
+}

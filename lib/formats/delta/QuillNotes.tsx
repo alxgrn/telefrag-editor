@@ -6,7 +6,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 import hljs from 'highlight.js';
 import { formatsShort, toolbarShort } from './QuillCore';
-import { TImageUploader, TNotesSaver } from '../types';
+import { TImageUploader, TNotesSaver } from '../../types';
 import imageHandler from './ImageHandler';
 import QuillModal, { TQuillModalType } from './QuillModal';
 import './QuillNotes.css';
@@ -104,7 +104,7 @@ const QuillNotes: FC<QuillNotesProps> = ({ content, title = false, placeholder, 
     const onBeforeSave = () => {
         if(!editor || !onSave || !canSave()) return;
         const content = JSON.stringify(editor.getContents());
-        onSave({ content, title: name, format: 'delta' });
+        onSave({ content, name, format: 'delta' });
     };
 
     // Отмена

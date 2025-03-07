@@ -4,8 +4,8 @@
  * За основу взят класс из исходников Quill 1.3.7
  */
 import Quill, { Parchment } from 'quill';
-import { sanitizeVideoURL } from '../utils/link';
-import { ERROR_EMBED_DATA } from '../config';
+import { sanitizeVideoURL } from '../../utils/link';
+import { ERROR_EMBED_DATA } from '../../config';
 const BlockEmbed = Quill.import('blots/block/embed') as typeof Parchment.EmbedBlot;
 /*
 // Мы не используем высоту и ширину в верстке, но оставим эти атрибуты просто чтобы не ломать логику класса

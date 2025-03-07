@@ -4,7 +4,8 @@
  */
 import { FC } from 'react';
 import { TArticle, TComment, TImageUploader, TNotesSaver } from '../types';
-import QuillNotes from '../Quill/QuillNotes';
+import QuillNotes from '../formats/delta/QuillNotes';
+import VideoNotes from '../formats/video/VideoNotes';
 
 type PublicationProps = { // Редактирование статьи
     article?: TArticle;
@@ -33,18 +34,26 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
      * Заголовки только у постов в группы, картинки можно загружать ко всем типам статей
      */
     if (article) {
-        if (article.format !== 'delta') {
-            return <div className='p error'>Неизвестный формат статьи</div>;
+        switch (article.format) {
+            case 'delta':
+                return (<QuillNotes
+                    title={title === true ? article.name : undefined}
+                    content={article.content}
+                    onSave={onSave}
+                    onCancel={onCancel}
+                    onUpload={onUpload}
+                    placeholder={placeholder}
+                />);
+            case 'video':
+                return (<VideoNotes
+                    article={article}
+                    onSave={onSave}
+                    onCancel={onCancel}
+                    onUpload={onUpload}
+                />);
+            default:
+                return (<div className='p error'>Неизвестный формат статьи</div>);
         }
-
-        return (<QuillNotes
-            title={title === true ? article.name : undefined}
-            content={article.content}
-            onSave={onSave}
-            onCancel={onCancel}
-            onUpload={onUpload}
-            placeholder={placeholder}
-        />);
     }
     /**
      * Нужно редактировать комментарий

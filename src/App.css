@@ -2,7 +2,7 @@
     position: relative;
     max-width: 800px;
     margin: var(--alxgrn-layout-header-height) auto;
-    padding: 2rem;
+    padding: var(--alxgrn-unit-double);
     background-color: var(--alxgrn-bg-panel);
     border-radius: var(--alxgrn-unit-half);
 }
@@ -17,4 +17,12 @@
     background-color: var(--alxgrn-bg-main);
     padding: var(--alxgrn-unit-half);
     text-align: center;
+}
+
+.toolbar.changed {
+    background-color: #fcc;
+}
+
+.Form {
+    margin: 0 auto;
 }

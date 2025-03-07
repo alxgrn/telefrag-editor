@@ -4,7 +4,7 @@
  */
 import { FC } from "react";
 import { TArticle, TComment, TEditorSaver, TImageUploader } from "../types";
-import QuillEditor from "../Quill/QuillEditor";
+import QuillEditor from "../formats/delta/QuillEditor";
 
 type PublicationProps = {
     article: TArticle;
