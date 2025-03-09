@@ -23,7 +23,7 @@ export const validateVkvideoURL = (stringURL: string | URL, getSanitized?: boole
             throw new Error();
         }
         if (!id || !oid) throw new Error();
-        return getSanitized ? `https://${url.hostname}/video_ext.php?oid=${oid}&id=${id}&hd=2` : true;
+        return getSanitized ? `https://vkvideo.ru/video_ext.php?oid=${oid}&id=${id}&hd=2` : true;
     } catch {
         return getSanitized ? '' : false;
     }

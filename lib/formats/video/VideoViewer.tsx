@@ -4,8 +4,8 @@
  */
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { validateRutubeURL, validateVkvideoURL, validateYoutubeURL } from '../../utils/link';
-import './VideoViewer.css';
 import { Button } from '@alxgrn/telefrag-ui';
+import './VideoViewer.css';
 
 type VideoViewerProps = {
     content: string;
@@ -85,9 +85,27 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
 
     return (<div className='VideoViewer'>
         <div>
-            {rutube && <><Button label='RuTube' size='Small' onClick={() => setSrc(rutube)}/>&nbsp;</>}
-            {youtube && <><Button label='YouTube' size='Small' onClick={() => setSrc(youtube)}/>&nbsp;</>}
-            {vkvideo && <Button label='VK Video' size='Small' onClick={() => setSrc(vkvideo)}/>}
+            {rutube && <>
+                <Button
+                    label='RuTube'
+                    size='Small'
+                    type={src.startsWith('https://rutube') ? 'Accent' : undefined}
+                    onClick={() => setSrc(rutube)}
+                />&nbsp;</>}
+            {youtube && <>
+                <Button
+                    label='YouTube'
+                    size='Small'
+                    type={src.startsWith('https://youtube') ? 'Accent' : undefined}
+                    onClick={() => setSrc(youtube)}
+                />&nbsp;</>}
+            {vkvideo &&
+                <Button
+                    label='VK Video'
+                    size='Small'
+                    type={src.startsWith('https://vkvideo') ? 'Accent' : undefined}
+                    onClick={() => setSrc(vkvideo)}
+                />}
         </div>
         <iframe
             ref={player}
