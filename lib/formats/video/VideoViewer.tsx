@@ -5,6 +5,7 @@
 import { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { validateRutubeURL, validateVkvideoURL, validateYoutubeURL } from '../../utils/link';
 import { Button } from '@alxgrn/telefrag-ui';
+import { loadVkVideoIframeApi, loadYouTubeIframeApi, VkVideoIframeApiType, YouTubeIframeApiType } from './VideoApi';
 import './VideoViewer.css';
 
 type VideoViewerProps = {
@@ -15,14 +16,39 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
     const player = useRef<HTMLIFrameElement>(null);
     const [ src, setSrc ] = useState('');
     const [ text, setText ] = useState('');
-    //const [ time, setTime ] = useState(0);
     const [ rutube, setRutube ] = useState('');
     const [ youtube, setYoutube ] = useState('');
     const [ vkvideo, setVkvideo ] = useState('');
+    const [ youtubeApi, setYoutubeApi ] = useState<YouTubeIframeApiType|undefined>(undefined);
+    const [ vkvideoApi, setVkvideoApi ] = useState<VkVideoIframeApiType|undefined>(undefined);
 
+    // Загрузим API
+    useEffect(() => {
+        const loadApi = async () => {
+            setYoutubeApi(undefined);
+            setVkvideoApi(undefined);
+            try {
+                const yt = await loadYouTubeIframeApi();
+                setYoutubeApi(yt);
+            } catch (error) {
+                console.error(`Can not load YouTubeIframeApi: ${error}`);
+            }
+            try {
+                const vk = await loadVkVideoIframeApi();
+                setVkvideoApi(vk);
+            } catch (error) {
+                console.error(`Can not load VkVideoIframeApi: ${error}`);
+            }
+        };
+
+        loadApi();
+    }, []);
+
+    // Парсим контент
     useEffect(() => {
         try {
             const data = JSON.parse(content);
+            //console.log(data);
             if (data.text) setText(data.text);
             if (Array.isArray(data.src)) (data.src as string[]).forEach(url => {
                 if (validateRutubeURL(url)) {
@@ -36,8 +62,8 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
                     setVkvideo(url);
                 }
             });
-        } catch {
-
+        } catch (error) {
+            console.error(`Can not parse Video format: ${error}`);
         }
     }, [ content ]);
 
@@ -58,17 +84,33 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
     };
 
     // Перемотка плеера RuTube
-    const seekRutube = (time: number) => {
+    const seekRuTube = (time: number) => {
         player.current?.contentWindow?.postMessage(JSON.stringify({
             type: 'player:setCurrentTime',
             data: { time }
         }), '*');
     };
 
+    // Перемотка плеера YouTube
+    const seekYouTube = (time: number) => {
+        if (!youtubeApi || !player.current) return;
+        const api = youtubeApi.Player(player.current);
+        if (api) api.seekTo(time, true);
+    };
+
+    // Перемотка плеера VkVideo
+    const seekVkVideo = (time: number) => {
+        if (!vkvideoApi || !player.current) return;
+        const api = vkvideoApi.VideoPlayer(player.current);
+        if (api) api.seek(time);
+    };
+
     // Перемотка плеера
     const seekPlayer = (stime: string) => {
         const time = parseTime(stime);
-        if (src.startsWith('https://rutube')) seekRutube(time);
+        if (src.startsWith('https://rutube')) seekRuTube(time);
+        else if (src.startsWith('https://youtube')) seekYouTube(time);
+        else if (src.startsWith('https://vkvideo')) seekVkVideo(time);
         else alert(`${stime} - ${time}`);
     };
 
@@ -109,7 +151,7 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
         </div>
         <iframe
             ref={player}
-            src={src}
+            src={`${src}?enablejsapi=1&js_api=1`}
             allow='fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
         />
         <div>
