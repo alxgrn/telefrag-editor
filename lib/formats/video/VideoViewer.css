@@ -1,6 +1,15 @@
-.VideoViewer iframe {
+.VideoViewer .VideoToolbar {
+    display: flex;
+    gap: var(--alxgrn-unit-small);
+    width: fit-content;
+    margin: var(--alxgrn-unit-small) 0;
+}
+
+.VideoViewer .VideoPlayer {
     aspect-ratio: 16 / 9;
     width: 100%;
     border: none;
     border-radius: var(--alxgrn-unit-small);
+    position: relative;
+    overflow: hidden;
 }

@@ -9,7 +9,7 @@ export type YouTubePlayer = {
 };
 
 export type YouTubeIframeApiType = {
-    Player: Function
+    Player: any,
 };
 
 export type VkVideoIframeApiType = {
