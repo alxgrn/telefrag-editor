@@ -72,7 +72,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
 
     return (
         <Form
-            submit={canSave() ? 'Опубликовать' : undefined}
+            submit='Опубликовать'
             cancel='Отменить'
             onSubmit={onSave ? onBeforeSave : undefined }
             onCancel={onCancel ? onBeforeCancel : undefined}
@@ -81,7 +81,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
         >
             <Input
                 id='name'
-                top='Заголовок'
+                label='Заголовок'
                 value={name}
                 onChange={setName}
                 placeholder='Укажите заголовок'
@@ -89,7 +89,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
             />
             <Input
                 id='info'
-                top='Аннотация'
+                label='Аннотация'
                 type='textarea'
                 value={info}
                 onChange={setInfo}
@@ -99,35 +99,38 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
             <Fieldset
                 required
                 label='Ссылки на видео'
-                top='Необходимо указать хотя бы одну ссылку'
+                top={!canSave() ? 'Необходимо указать хотя бы одну ссылку' : undefined}
                 error={!canSave()}
             >
                 <Input
                     id='rutube'
-                    top='RuTube'
+                    label='RuTube'
                     value={rutube}
                     onChange={setRutube}
                     placeholder='Ссылка на RuTube'
+                    required={!canSave()}
                 />
                 <Input
                     id='youtube'
-                    top='YouTube'
+                    label='YouTube'
                     value={youtube}
                     onChange={setYoutube}
                     placeholder='Ссылка на YouTube'
+                    required={!canSave()}
                 />
                 <Input
                     id='vkvideo'
-                    top='VK Video'
+                    label='VK Video'
                     value={vkvideo}
                     onChange={setVkvideo}
                     placeholder='Ссылка на VK Video'
+                    required={!canSave()}
                 />
             </Fieldset>
 
             <Input
                 id='content'
-                top='Описание'
+                label='Описание'
                 type='textarea'
                 value={text}
                 onChange={setText}

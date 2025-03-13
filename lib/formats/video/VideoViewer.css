@@ -12,4 +12,5 @@
     border-radius: var(--alxgrn-unit-small);
     position: relative;
     overflow: hidden;
+    background-color: var(--alxgrn-logo-color-beige);
 }
