@@ -1,9 +1,8 @@
 /**
  * YouTube player
- * TODO: Надо что-то делать с идентификацией DIV в который помещается плеер.
- * Сейчас id статичный и это очень плохо.
+ * https://developers.google.com/youtube/iframe_api_reference
  */
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { loadYouTubeIframeApi, YouTubeIframeApiType } from './VideoApi';
 
 type Props = {
@@ -15,6 +14,7 @@ type Props = {
 };
 
 const VideoPlayerYouTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => {
+    const ref = useRef<HTMLDivElement>(null);
     const [ api, setApi ] = useState<YouTubeIframeApiType|undefined>(undefined);
     const [ player, setPlayer ] = useState<any|undefined>(undefined);
     const [ videoId, setVideoId ] = useState('');
@@ -47,12 +47,12 @@ const VideoPlayerYouTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => 
 
     // Инициализируем плеер
     useEffect(() => {
-        if (!api || !videoId) return;
-        const player = new api.Player('video-player', {
+        if (!api || !videoId || !ref.current) return;
+        const player = new api.Player(ref.current, {
             videoId,
             width: '100%',
             height: '100%',
-            playerVars: { 'rel': 0, 'showinfo': 0 },
+            playerVars: { 'rel': 0, 'showinfo': 0 }, //'autoplay': play ? 1 : 0 },
             events: {
                 'onReady': () => setPlayer(player),
                 'onStateChange': () => {
@@ -61,7 +61,7 @@ const VideoPlayerYouTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => 
                 },
             }
         });
-    }, [ api, videoId ]);
+    }, [ ref, api, videoId ]);
 
     // Отслеживаем время проигрывания
     useEffect(() => {
@@ -83,7 +83,8 @@ const VideoPlayerYouTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => 
 
     // Статус воспроизведения
     // Установка через этот эффект ведет себя странно
-    // если стартуем с паузы: черный экран с индикатором загрузки
+    // если стартуем с паузы: черный экран с индикатором загрузки.
+    // Пробовал использовать флаг autoplay при инициализации, но он почему-то игнорируется
     useEffect(() => {
         if (!player) return;
         if (play) player.playVideo(); else player.pauseVideo();
@@ -91,7 +92,7 @@ const VideoPlayerYouTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => 
 
     // Важно! Надо вложить DIV плеера в еще один DIV т.к. API заменяет DIV плеера на IFRAME
     // что ведет к ошибке при размонтировании компонента, если DIV плеера на верхнем уровне
-    return (<div className='VideoPlayer'><div id='video-player'/></div>);
+    return (<div className='VideoPlayer'><div ref={ref}/></div>);
 };
 
 export default VideoPlayerYouTube;

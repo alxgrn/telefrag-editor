@@ -1,5 +1,6 @@
 /**
  * RuTube player
+ * https://rutube.ru/info/embed/
  * TODO: Пока не очень понятно как различать несколько плееров на одной странице
  */
 import { FC, useEffect, useRef, useState } from 'react';

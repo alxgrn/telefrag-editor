@@ -20,7 +20,7 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
     const [ time, setTime ] = useState(0);
     const [ seek, setSeek ] = useState(0);
     const [ play, setPlay ] = useState(false);
-    const [ pause, setPause ] = useState(false);
+    const [ pause, setPause ] = useState(true);
     const [ rutube, setRutube ] = useState('');
     const [ youtube, setYoutube ] = useState('');
     const [ vkvideo, setVkvideo ] = useState('');
