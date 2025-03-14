@@ -17,7 +17,10 @@ type VideoViewerProps = {
 const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
     const [ src, setSrc ] = useState('');
     const [ text, setText ] = useState('');
-    const [ seek, setSeek ] = useState<number>(0);
+    const [ time, setTime ] = useState(0);
+    const [ seek, setSeek ] = useState(0);
+    const [ play, setPlay ] = useState(false);
+    const [ pause, setPause ] = useState(false);
     const [ rutube, setRutube ] = useState('');
     const [ youtube, setYoutube ] = useState('');
     const [ vkvideo, setVkvideo ] = useState('');
@@ -71,17 +74,33 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
             return <>{line}</>;
     };
 
+    const onCurrentTime = (t: number) => {
+        setTime(t);
+        console.log(`onCurrentTime: ${t}`);
+    };
+
+    const onChangeState = (s: boolean) => {
+        setPause(s);
+        console.log(`onChangeState: ${s}`);
+    };
+
     return (<div className='VideoViewer'>
         <VideoToolbar
             active={src}
-            onActive={setSrc}
             rutube={rutube}
             youtube={youtube}
             vkvideo={vkvideo}
+            onActive={(src) => {
+                setSrc(src);
+                setSeek(time > 3 ? time - 3 : time);
+                setPlay(!pause);
+            }}
         />
-        {src === rutube ? <VideoPlayerRuTube src={src} seek={seek}/> :
-        src === youtube ? <VideoPlayerYouTube src={src} seek={seek}/> :
-        <VideoPlayerVkVideo src={src} seek={seek} />}
+
+        {src === rutube ? <VideoPlayerRuTube src={src} seek={seek} play={play} onTime={onCurrentTime} onPause={onChangeState}/> :
+        src === youtube ? <VideoPlayerYouTube src={src} seek={seek} play={play} onTime={onCurrentTime} onPause={onChangeState}/> :
+        <VideoPlayerVkVideo src={src} seek={seek} play={play} onTime={onCurrentTime} onPause={onChangeState}/>}
+        
         <div>
             {text.split('\n').map((line, index) => <span key={index}>{parseLine(line)}<br/></span>)}
         </div>
