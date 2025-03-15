@@ -4,8 +4,8 @@
  */
 import { FC, useEffect, useState } from 'react';
 import { TArticle, TImageUploader, TNotesSaver } from '../../types';
-import { Fieldset, Form, Input } from '@alxgrn/telefrag-ui';
-import { validateRutubeURL, validateVkvideoURL, validateYoutubeURL } from '../../utils/link';
+import { Fieldset, Form, Icons, Image, Input } from '@alxgrn/telefrag-ui';
+import { sanitizeImageURL, validateRutubeURL, validateVkvideoURL, validateYoutubeURL } from '../../utils/link';
 
 //type TVideoFormat = {
 //    src: string[];
@@ -22,6 +22,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
     const [ name, setName ] = useState('');
     const [ info, setInfo ] = useState('');
     const [ text, setText ] = useState('');
+    const [ cover, setCover ] = useState<File|undefined>(undefined);
     const [ rutube, setRutube ] = useState('');
     const [ youtube, setYoutube ] = useState('');
     const [ vkvideo, setVkvideo ] = useState('');
@@ -79,6 +80,15 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
             submitType='Accent'
             cancelType='Default'
         >
+            <Image
+                id='cover'
+                label='Обложка'
+                value={cover}
+                onChange={setCover}
+                text={<div><big><Icons.Image/></big><br/><small>Выберите файл</small></div>}
+                placeholder={article ? sanitizeImageURL(article.cover_id) : undefined}
+                required={!article}
+            />
             <Input
                 id='name'
                 label='Заголовок'

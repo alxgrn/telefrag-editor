@@ -24,6 +24,7 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
     const [ rutube, setRutube ] = useState('');
     const [ youtube, setYoutube ] = useState('');
     const [ vkvideo, setVkvideo ] = useState('');
+    const [ refresh, setRefresh ] = useState(false);
 
     // Парсим контент
     useEffect(() => {
@@ -63,25 +64,27 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
         return h * 60 * 60 + m * 60 + s;
     };
 
-    // Преобразование текста в строки и парсинг таймингов
+    // Преобразование текста в строки и парсинг таймингов.
+    // При клике на тайминг устанавливаем время перемотки и переключаем флаг обновления.
+    // Это необходимо чтобы при нескольких кликах на один и тот же тайминг вызывалась перемотка.
     const parseLine = (line: string): ReactNode => {
             if (line.match(/^\d{1,2}(:\d{1,2}){1,2}\s.+/g)) {
                 const time = line.split(' ')[0];
                 const text = line.substring(time.length);
-                return <><span className='a' onClick={() => setSeek(parseTime(time))}>{time}</span> {text}</>;
+                return <>
+                    <span
+                        className='a'
+                        onClick={() => {
+                            setSeek(parseTime(time));
+                            setRefresh(r => !r);
+                        }}
+                    >
+                        {time}
+                    </span> {text}
+                </>;
             }
 
             return <>{line}</>;
-    };
-
-    const onCurrentTime = (t: number) => {
-        setTime(t);
-        console.log(`onCurrentTime: ${t}`);
-    };
-
-    const onChangeState = (s: boolean) => {
-        setPause(s);
-        console.log(`onChangeState: ${s}`);
     };
 
     return (<div className='VideoViewer'>
@@ -97,9 +100,9 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
             }}
         />
 
-        {src === rutube ? <VideoPlayerRuTube src={src} seek={seek} play={play} onTime={onCurrentTime} onPause={onChangeState}/> :
-        src === youtube ? <VideoPlayerYouTube src={src} seek={seek} play={play} onTime={onCurrentTime} onPause={onChangeState}/> :
-        <VideoPlayerVkVideo src={src} seek={seek} play={play} onTime={onCurrentTime} onPause={onChangeState}/>}
+        {src === rutube ? <VideoPlayerRuTube src={src} seek={seek} refresh={refresh} play={play} onTime={setTime} onPause={setPause}/> :
+        src === youtube ? <VideoPlayerYouTube src={src} seek={seek} refresh={refresh} play={play} onTime={setTime} onPause={setPause}/> :
+        <VideoPlayerVkVideo src={src} seek={seek} refresh={refresh} play={play} onTime={setTime} onPause={setPause}/>}
         
         <div>
             {text.split('\n').map((line, index) => <span key={index}>{parseLine(line)}<br/></span>)}

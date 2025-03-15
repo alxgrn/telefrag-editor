@@ -9,11 +9,12 @@ type Props = {
     src: string; // отсанитайзеный URL видео
     seek?: number; // число секунд для перемотки
     play?: boolean; // запустить воспроизведение?
+    refresh?: boolean; // флаг обновления, нужен для перемотки к одному и тому же значению несколько раз подряд
     onTime: (time: number) => void;
     onPause: (pause: boolean) => void;
 };
 
-const VideoPlayerYouTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => {
+const VideoPlayerYouTube: FC<Props> = ({ src, seek, refresh, play, onTime, onPause }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [ api, setApi ] = useState<YouTubeIframeApiType|undefined>(undefined);
     const [ player, setPlayer ] = useState<any|undefined>(undefined);
@@ -52,12 +53,13 @@ const VideoPlayerYouTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => 
             videoId,
             width: '100%',
             height: '100%',
-            playerVars: { 'rel': 0, 'showinfo': 0 }, //'autoplay': play ? 1 : 0 },
+            playerVars: { 'rel': 0, 'showinfo': 0 , 'autoplay': 1 },
             events: {
                 'onReady': () => setPlayer(player),
                 'onStateChange': () => {
                     const state = player.getPlayerState();
-                    onPause(state === 2);
+                    if (state >= 0) onPause(state === 2);
+                    // console.log(`STATE ${state}`);
                 },
             }
         });
@@ -79,15 +81,20 @@ const VideoPlayerYouTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => 
         if (seek !== undefined && player) {
             player.seekTo(seek, true);
         }
-    }, [ seek, player ]);
+    }, [ seek, player, refresh ]);
 
     // Статус воспроизведения
-    // Установка через этот эффект ведет себя странно
-    // если стартуем с паузы: черный экран с индикатором загрузки.
-    // Пробовал использовать флаг autoplay при инициализации, но он почему-то игнорируется
+    // Установка через этот эффект ведет себя странно: если стартуем с паузы, то видим черный экран с индикатором загрузки.
+    // Пробовал использовать флаг autoplay при инициализации, но он почему-то игнорируется и всегда работает автозапуск.
+    // Как компромиссный вариант установили при инициализации плеера autoplay=1 (пусть будет для порядка)
+    // и считаем что по-умолчанию у нас плеер всегда стартует с автозапуском, но если
+    // не установлен флаг play, то мы тут же ставим плеер на паузу. В этом случае мы добиваемся
+    // того что почти всегда подгружается кадр паузы, но теряем возможность запуска/остановки плеера снаружи.
+    // Однако нам это и не нужно, поэтому нет повода для грусти!
     useEffect(() => {
         if (!player) return;
-        if (play) player.playVideo(); else player.pauseVideo();
+        // if (play) player.playVideo(); else player.pauseVideo();
+        if (!play) player.pauseVideo();
     }, [ player, play ]);
 
     // Важно! Надо вложить DIV плеера в еще один DIV т.к. API заменяет DIV плеера на IFRAME

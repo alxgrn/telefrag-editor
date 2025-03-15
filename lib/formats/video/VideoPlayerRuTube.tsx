@@ -9,11 +9,12 @@ type Props = {
     src: string; // отсанитайзеный URL видео
     seek?: number; // число секунд для перемотки
     play?: boolean; // запустить воспроизведение?
+    refresh?: boolean; // флаг обновления, нужен для перемотки к одному и тому же значению несколько раз подряд
     onTime: (time: number) => void;
     onPause: (pause: boolean) => void;
 };
 
-const VideoPlayerRuTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => {
+const VideoPlayerRuTube: FC<Props> = ({ src, seek, refresh, play, onTime, onPause }) => {
     const player = useRef<HTMLIFrameElement>(null);
     const [ ready, setReady ] = useState(false); // готов плеер или еще нет
 
@@ -52,7 +53,7 @@ const VideoPlayerRuTube: FC<Props> = ({ src, seek, play, onTime, onPause }) => {
             type: 'player:setCurrentTime',
             data: { time: seek }
         }), '*');
-    }, [ seek, ready ]);
+    }, [ seek, ready, refresh ]);
 
     // Запуск / останов
     useEffect(() => {

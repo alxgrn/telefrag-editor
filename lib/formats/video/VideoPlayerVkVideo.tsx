@@ -17,11 +17,12 @@ type Props = {
     src: string; // отсанитайзеный URL видео
     seek?: number; // число секунд для перемотки
     play?: boolean; // запустить воспроизведение?
+    refresh?: boolean; // флаг обновления, нужен для перемотки к одному и тому же значению несколько раз подряд
     onTime: (time: number) => void;
     onPause: (pause: boolean) => void;
 };
 
-const VideoPlayerVkVideo: FC<Props> = ({ src, seek, play, onTime, onPause }) => {
+const VideoPlayerVkVideo: FC<Props> = ({ src, seek, refresh, play, onTime, onPause }) => {
     const ref = useRef<HTMLIFrameElement>(null);
     const [ api, setApi ] = useState<VkVideoIframeApiType|undefined>(undefined);
     const [ player, setPlayer ] = useState<any|undefined>(undefined);
@@ -53,7 +54,7 @@ const VideoPlayerVkVideo: FC<Props> = ({ src, seek, play, onTime, onPause }) => 
         if (player && seek !== undefined) {
             player.seek(seek);
         }
-    }, [ seek, player ]);
+    }, [ seek, player, refresh ]);
 
     // Статус воспроизведения
     useEffect(() => {
