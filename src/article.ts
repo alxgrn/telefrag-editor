@@ -27,7 +27,7 @@ export const video: TArticle =
     "name": "Запуски на ресурсе",
     "info": "Механизм получения обратной связи и оценок для проектов",
     "format": "video",
-    "content": "{\"src\":[\"https://rutube.ru/play/embed/5b86f45bf53e9cbeff833dc1e98ebdc9\",\"https://youtube.com/embed/tzJLAOnuoKw\",\"https://vkvideo.ru/video_ext.php?oid=-229096099&id=456239019&hd=2\"],\"text\":\"Разобрали нашумевший законопроект о регулировании видеоигровой индустрии в РФ\\n\\n10:00 - seek\\n20:00 - seek\\n30:00 - seek\\n\"}",
+    "content": "{\"src\":[\"https://rutube.ru/play/embed/5b86f45bf53e9cbeff833dc1e98ebdc9\",\"https://youtube.com/embed/tzJLAOnuoKw\",\"https://vkvideo.ru/video_ext.php?oid=-229096099&id=456239019&hd=2\"],\"txt\":\"Разобрали нашумевший законопроект о регулировании видеоигровой индустрии в РФ\\n\\n10:00 - seek\\n20:00 - seek\\n30:00 - seek\\n\"}",
     "created": "2023-12-06T10:45:29.798Z",
     "modified": "2024-08-21T07:42:46.889Z",
     "published": "2024-05-27T12:47:34.770Z",

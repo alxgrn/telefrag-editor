@@ -9,9 +9,10 @@ export * from '@alxgrn/telefrag-types';
 export type TPublicationFormat = 'delta'|'video';
 export type TPublication = {
     format: TPublicationFormat;
-    name?: string;
-    info?: string;
-    content: string;
+    name?: string;   // заголовок
+    info?: string;   // аннотация
+    cover?: File;    // обложка
+    content: string; // содержимое
 };
 /**
  * Функция обновления содержимого статьи в большом редакторе
@@ -33,3 +34,10 @@ export type TImageUploader = (image: File) => Promise<number | string>;
  */
 export type TCreatePublication = (data: TPublication) => void;
 export type TUpdatePublication = (data: TPublication, publication_id: number) => void;
+/**
+ * Формат video
+ */
+export type TVideoFormat = {
+    src?: string[]; // список URL источников видео
+    txt?: string; // описание
+};

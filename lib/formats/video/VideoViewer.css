@@ -13,4 +13,6 @@
     position: relative;
     overflow: hidden;
     background-color: var(--alxgrn-logo-color-beige);
+    margin: 0;
+    display: block;
 }

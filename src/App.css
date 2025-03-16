@@ -26,3 +26,7 @@
 .Form {
     margin: 0 auto;
 }
+
+.p {
+    margin: var(--alxgrn-unit) 0;
+}

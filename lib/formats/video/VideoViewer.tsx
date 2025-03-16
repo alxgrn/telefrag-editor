@@ -8,6 +8,7 @@ import VideoToolbar from './VideoToolbar';
 import VideoPlayerRuTube from './VideoPlayerRuTube';
 import VideoPlayerYouTube from './VideoPlayerYouTube';
 import VideoPlayerVkVideo from './VideoPlayerVkVideo';
+import { TVideoFormat } from '../../types';
 import './VideoViewer.css';
 
 type VideoViewerProps = {
@@ -16,7 +17,7 @@ type VideoViewerProps = {
 
 const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
     const [ src, setSrc ] = useState('');
-    const [ text, setText ] = useState('');
+    const [ txt, setTxt ] = useState('');
     const [ time, setTime ] = useState(0);
     const [ seek, setSeek ] = useState(0);
     const [ play, setPlay ] = useState(false);
@@ -29,8 +30,8 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
     // Парсим контент
     useEffect(() => {
         try {
-            const data = JSON.parse(content);
-            if (data.text) setText(data.text);
+            const data = JSON.parse(content) as TVideoFormat;
+            setTxt(data.txt ?? '');
             if (Array.isArray(data.src)) (data.src as string[]).forEach(url => {
                 if (validateRutubeURL(url)) {
                     setSrc(url);
@@ -104,9 +105,9 @@ const VideoViewer: FC<VideoViewerProps> = ({ content }) => {
         src === youtube ? <VideoPlayerYouTube src={src} seek={seek} refresh={refresh} play={play} onTime={setTime} onPause={setPause}/> :
         <VideoPlayerVkVideo src={src} seek={seek} refresh={refresh} play={play} onTime={setTime} onPause={setPause}/>}
         
-        <div>
-            {text.split('\n').map((line, index) => <span key={index}>{parseLine(line)}<br/></span>)}
-        </div>
+        <p>
+            {txt.split('\n').map((line, index) => <span key={index}>{parseLine(line)}<br/></span>)}
+        </p>
     </div>);
 };
 

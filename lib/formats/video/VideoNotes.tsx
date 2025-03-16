@@ -21,7 +21,7 @@ type VideoNotesProps = {
 const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
     const [ name, setName ] = useState('');
     const [ info, setInfo ] = useState('');
-    const [ text, setText ] = useState('');
+    const [ txt, setTxt ] = useState('');
     const [ cover, setCover ] = useState<File|undefined>(undefined);
     const [ rutube, setRutube ] = useState('');
     const [ youtube, setYoutube ] = useState('');
@@ -33,7 +33,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
         if (!article) return;
         try {
             const content = JSON.parse(article.content);
-            if (content.text) setText(content.text);
+            if (content.txt) setTxt(content.txt);
             if (Array.isArray(content.src)) (content.src as string[]).forEach(url => {
                 if (validateRutubeURL(url))  setRutube(url);  else
                 if (validateYoutubeURL(url)) setYoutube(url); else
@@ -62,8 +62,8 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
         if (rt) src.push(rt);
         if (yt) src.push(yt);
         if (vk) src.push(vk);
-        const content = JSON.stringify({ src, text });
-        onSave({ content, name, info, format: 'video' });
+        const content = JSON.stringify({ src, txt });
+        onSave({ content, name, info, cover, format: 'video' });
     };
 
     // Отмена
@@ -142,8 +142,8 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
                 id='content'
                 label='Описание'
                 type='textarea'
-                value={text}
-                onChange={setText}
+                value={txt}
+                onChange={setTxt}
                 placeholder='Опишите о чем видео...'
             />
         </Form>
