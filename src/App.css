@@ -13,10 +13,12 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: var(--alxgrn-layout-header-height);
-    background-color: var(--alxgrn-bg-main);
-    padding: var(--alxgrn-unit-half);
     text-align: center;
+    background-color: var(--alxgrn-bg-main);
+/*
+    height: var(--alxgrn-layout-header-height);
+    padding: var(--alxgrn-unit-half);
+*/
 }
 
 .toolbar.changed {

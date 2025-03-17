@@ -1,29 +1,55 @@
-import { FC, useEffect, useState } from "react";
-import { Button } from '@alxgrn/telefrag-ui';
+import { FC } from "react";
+import { Form, FormCol, FormRow, Select, SelectOption } from '@alxgrn/telefrag-ui';
+
+const formatOptions: SelectOption[] = [{
+    option: "delta",
+    value: "delta",
+},{
+    option: "video",
+    value: "video",
+}];
+
+const modeOptions: SelectOption[] = [{
+    option: "viewer",
+    value: "viewer",
+},{
+    option: "notes",
+    value: "notes",
+},{
+    option: "editor",
+    value: "editor",
+}];
 
 type Props = {
-    mode?: string;
+    mode: string;
+    format: string;
     changed?: boolean;
-    onChange?: (mode: string) => void;
+    onChange: (mode: string, format: string) => void;
 };
 
-const ModeSelector: FC<Props> = ({ mode, changed, onChange }) => {
-    const [ state, setState ] = useState<string|undefined>(mode);
-
-    useEffect(() => setState(mode), [ mode ]);
-
-    const setMode = (mode: string) => {
-        setState(mode);
-        if (onChange) onChange(mode);
-    };
+const ModeSelector: FC<Props> = ({ mode, format, changed, onChange }) => {
 
     return (<div className={changed ? 'toolbar changed' : 'toolbar'}>
-        <Button size='Small' label='QuillViewer' onClick={() => setMode('QuillViewer')} type={state === 'QuillViewer' ? 'Accent' : undefined}/>&nbsp;
-        <Button size='Small' label='QuillNotes' onClick={() => setMode('QuillNotes')} type={state === 'QuillNotes' ? 'Accent' : undefined}/>&nbsp;
-        <Button size='Small' label='QuillEditor' onClick={() => setMode('QuillEditor')} type={state === 'QuillEditor' ? 'Accent' : undefined}/>&nbsp;
-        <Button size='Small' label='VideoViewer' onClick={() => setMode('VideoViewer')} type={state === 'VideoViewer' ? 'Accent' : undefined}/>&nbsp;
-        <Button size='Small' label='VideoNotes' onClick={() => setMode('VideoNotes')} type={state === 'VideoNotes' ? 'Accent' : undefined}/>&nbsp;
-        <Button size='Small' label='VideoEditor' onClick={() => setMode('VideoEditor')} type={state === 'VideoEditor' ? 'Accent' : undefined}/>
+    <Form>
+        <FormRow>
+            <FormCol>
+                <Select
+                    id='format'
+                    value={format}
+                    options={formatOptions}
+                    onChange={format => onChange('viewer', format)}
+                />
+            </FormCol>
+            <FormCol>
+                <Select
+                    id='mode'
+                    value={mode}
+                    options={modeOptions}
+                    onChange={mode => onChange(mode, format)}
+                />
+            </FormCol>
+        </FormRow>
+    </Form>
     </div>);
 };
 

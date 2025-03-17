@@ -5,6 +5,7 @@
 import { FC } from "react";
 import { TArticle, TComment, TEditorSaver, TImageUploader } from "../types";
 import QuillEditor from "../formats/delta/QuillEditor";
+import VideoNotes from "../formats/video/VideoNotes";
 
 type PublicationProps = {
     article: TArticle;
@@ -23,27 +24,30 @@ type EditorProps = PublicationProps & {
 
 const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, onUpload }) => {
 
-    if (article) {
-        // Сразу после создания у статьи нет формата и текста
-        if (article.format && article.format !== 'delta') {
-            return <div className='p error'>Неизвестный формат статьи</div>;
-        }
-
-        return (<QuillEditor
-            content={article.content}
-            onView={onView}
-            onSave={onSave}
-            onChange={onChange}
-            onUpload={onUpload}
-        />);
+    if (comment) {
+        return <div className='p error'>Редактор комментариев пока недоступен</div>
     }
 
-    if (comment) {
-        if (comment.format && comment.format !== 'delta') {
-            return <div className='p error'>Неизвестный формат комментария</div>;
+    if (article) {
+        switch (article.format) {
+            case 'delta':
+                return (<QuillEditor
+                    content={article.content}
+                    onView={onView}
+                    onSave={onSave}
+                    onChange={onChange}
+                    onUpload={onUpload}
+                />);
+            case 'video':
+                return (<VideoNotes
+                    article={article}
+                    onSave={onSave}
+                    onCancel={onView}
+                    //onUpload={onUpload}
+                />);
+            default:
+                return <div className='p error'>Неизвестный формат статьи</div>;
         }
-
-        return <div className='p error'>Редактор комментариев пока недоступен</div>
     }
 
     return <div className='p error'>Публикация не указана</div>
