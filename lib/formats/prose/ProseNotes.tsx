@@ -4,7 +4,7 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { TImageUploader, TNotesSaver } from '../../types';
 import { Node, Schema } from 'prosemirror-model';
-import { schema } from 'prosemirror-schema-basic';
+import { schema } from './schema';
 import { addListNodes } from 'prosemirror-schema-list';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';

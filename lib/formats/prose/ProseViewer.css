@@ -4,7 +4,7 @@
 
 .ProseViewer img {
     display: block;
-    margin: var(--alxgrn-unit) 0;
+    margin: var(--alxgrn-unit) auto;
     border-radius: var(--alxgrn-unit-small);
     max-width: 100%;
 }
