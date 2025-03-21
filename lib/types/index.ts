@@ -6,7 +6,7 @@ export * from '@alxgrn/telefrag-types';
  * Публикация
  * Это то, что мы получаем из редактора
  */
-export type TPublicationFormat = 'delta'|'video';
+export type TPublicationFormat = 'delta'|'video'|'prose';
 export type TPublication = {
     format: TPublicationFormat;
     name?: string;   // заголовок

@@ -23,14 +23,14 @@ export default defineConfig({
       fileName: (format) => `telefrag-editor.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "@alxgrn/telefrag-ui","quill","highlight.js"],
+      external: ["react", "react-dom", "@alxgrn/telefrag-ui"],//"quill","highlight.js"],
       output: {
         globals: {
           "react": "React",
           "react-dom": "ReactDOM",
           "@alxgrn/telefrag-ui": "@alxgrn/telefrag-ui",
-          "quill": "Quill",
-          "highlight.js": "hljs",
+          //"quill": "Quill",
+          //"highlight.js": "hljs",
         },
       },
     },

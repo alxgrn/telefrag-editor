@@ -1,0 +1,10 @@
+.ProseViewer {
+    display: block;
+}
+
+.ProseViewer img {
+    display: block;
+    margin: var(--alxgrn-unit) 0;
+    border-radius: var(--alxgrn-unit-small);
+    max-width: 100%;
+}

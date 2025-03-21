@@ -7,10 +7,6 @@ import { TArticle, TImageUploader, TNotesSaver } from '../../types';
 import { Fieldset, Form, Icons, Image, Input } from '@alxgrn/telefrag-ui';
 import { sanitizeImageURL, validateRutubeURL, validateVkvideoURL, validateYoutubeURL } from '../../utils/link';
 
-//type TVideoFormat = {
-//    src: string[];
-//};
-
 type VideoNotesProps = {
     article?: TArticle; // публикация
     onSave?: TNotesSaver; // нажатие на кнопку сохранения

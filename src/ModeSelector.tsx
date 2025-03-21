@@ -7,6 +7,9 @@ const formatOptions: SelectOption[] = [{
 },{
     option: "video",
     value: "video",
+},{
+    option: "prose",
+    value: "prose",
 }];
 
 const modeOptions: SelectOption[] = [{

@@ -6,6 +6,7 @@ import { FC } from 'react';
 import { TArticle, TComment, TImageUploader, TNotesSaver } from '../types';
 import QuillNotes from '../formats/delta/QuillNotes';
 import VideoNotes from '../formats/video/VideoNotes';
+import ProseNotes from '../formats/prose/ProseNotes';
 
 type PublicationProps = { // Редактирование статьи
     article?: TArticle;
@@ -43,6 +44,13 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
                     onCancel={onCancel}
                     onUpload={onUpload}
                     placeholder={placeholder}
+                />);
+            case 'prose':
+                return (<ProseNotes
+                    title={title === true ? article.name : undefined}
+                    content={article.content}
+                    onSave={onSave}
+                    onCancel={onCancel}
                 />);
             case 'video':
                 return (<VideoNotes

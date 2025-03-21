@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { delta as initialDelta, video as initialVideo } from './article';
+import { delta as initialDelta, video as initialVideo, prose as initialProse } from './articles';
 import { Editor, Notes, Viewer } from '../lib';
 import { TArticle } from '../lib/types';
 import EditorHeader from '../lib/components/EditorHeader';
@@ -12,10 +12,23 @@ const App = () => {
     const [ mode, setMode ] = useState<string>('viewer');
     const [ format, setFormat ] = useState<string>('delta');
 
-    const onChange = (mode: string, format: string) => {
-        setMode(mode);
-        setFormat(format);
-        if (format === 'delta') setArticle(initialDelta); else setArticle(initialVideo);
+    const onChange = (newMode: string, newFormat: string) => {
+        setMode(newMode);
+        setFormat(newFormat);
+        if (newFormat === format) return;
+        switch (newFormat) {
+            case 'delta':
+                setArticle(initialDelta);
+                break;
+            case 'video':
+                setArticle(initialVideo);
+                break;
+            case 'prose':
+                setArticle(initialProse);
+                break;
+            default:
+                break;
+        }
     };
 
     if (mode === 'viewer') return (<>

@@ -39,3 +39,23 @@ export const video: TArticle =
     "likes_sum": 9,
     "likes_num": 9
 };
+
+export const prose: TArticle = 
+{
+    "id": 20,
+    "user_id": 1,
+    "name": "Запуски на ресурсе",
+    "info": "Механизм получения обратной связи и оценок для проектов",
+    "format": "prose",
+    "content": "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Привет, бобер!\"}]}]}",
+    "created": "2023-12-06T10:45:29.798Z",
+    "modified": "2024-08-21T07:42:46.889Z",
+    "published": "2024-05-27T12:47:34.770Z",
+    "is_published": true,
+    "cover_id": 413,
+    "type": "long",
+    "comments": 0,
+    "commented": null,
+    "likes_sum": 9,
+    "likes_num": 9
+};

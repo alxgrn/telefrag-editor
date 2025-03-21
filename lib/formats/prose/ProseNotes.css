@@ -1,0 +1,36 @@
+.ProseNotes {
+    display: flex;
+    gap: var(--alxgrn-unit-half);
+    flex-direction: column;
+}
+
+.ProseNotesTitle,
+.ProseNotesTitle:focus {
+    width: 100%;
+    color: var(--alxgrn-color-text);
+    border: 1px solid var(--alxgrn-border);
+    border-radius: var(--alxgrn-unit-small);
+    background-color: transparent;
+    outline: none;
+    padding: var(--alxgrn-unit-half);
+    font-size: var(--alxgrn-font-size);
+}
+
+.ProseNotesTitle::placeholder {
+    color: var(--alxgrn-color-text);
+    opacity: 0.5;
+    font-style: italic;
+}
+
+.ProseNotesContent {
+    border: 1px solid var(--alxgrn-border);
+    padding: var(--alxgrn-unit-half);
+    border-radius: var(--alxgrn-unit-small);
+}
+
+.ProseNotesButtons {
+    display: flex;
+    gap: var(--alxgrn-unit);
+    align-items: center;
+    justify-content: flex-end;
+}
