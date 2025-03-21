@@ -1,3 +1,7 @@
+/**
+ * Это основные правила для Prose Mirror
+ */
+
 .ProseMirror {
   position: relative;
 }
@@ -52,6 +56,11 @@ img.ProseMirror-separator {
   border: none !important;
   margin: 0 !important;
 }
+
+/**
+ * То, что идет ниже, аддон для оформления меню от prosemirror-menu/style/menu.css
+ */
+
 .ProseMirror-textblock-dropdown {
   min-width: 3em;
 }
