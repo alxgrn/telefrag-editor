@@ -12,6 +12,8 @@ import { exampleSetup } from 'prosemirror-example-setup';
 import { Button } from '@alxgrn/telefrag-ui';
 import './ProseMirror.css';
 import './ProseNotes.css';
+import './ImageUpload.css';
+import { placeholderPlugin, startImageUpload } from './ImageUpload';
 
 type ProseNotesProps = {
     title?: boolean | string | null; // нужно ли выводить поле ввода для заголовка публикации и его начальное содержимое
@@ -26,6 +28,7 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
     const ref = useRef<HTMLDivElement>(null);
     const [ view, setView ] = useState<EditorView|null>(null);
     const [ name, setName ] = useState('');
+    const [ schma, setSchma ] = useState<Schema|null>(null);
 
     // Инициализация
     useEffect(() => {
@@ -40,6 +43,8 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
             marks: schema.spec.marks,
         });
 
+        setSchma(mySchema);
+
         let doc: Node|undefined;
         if (content) {
             try {
@@ -52,7 +57,7 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
         const state = EditorState.create({
             doc,
             schema: mySchema,
-            plugins: exampleSetup({ schema: mySchema }),
+            plugins: exampleSetup({ schema: mySchema }).concat(placeholderPlugin),
         });
 
         const view = new EditorView(ref.current, { state })
@@ -98,6 +103,16 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
 
         {((onSave || onCancel) && view) &&
         <div className='ProseNotesButtons'>
+            <input
+                type='file'
+                accept='image/*'
+                onChange={e => {
+                    if (e.target.files?.length) {
+                        startImageUpload(view, e.target.files[0], schma);
+                    }
+                }}
+            />
+
             {onCancel && <span className='a' onClick={onBeforeCancel}>Отменить</span>}
             {onSave && <Button label='Опубликовать' size='Small' type='Accent' disabled={!canSave()} onClick={onBeforeSave} />}
         </div>}

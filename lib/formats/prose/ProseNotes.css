@@ -26,6 +26,8 @@
     border: 1px solid var(--alxgrn-border);
     padding: var(--alxgrn-unit-half);
     border-radius: var(--alxgrn-unit-small);
+    max-height: 50vh;
+    overflow: auto;
 }
 
 .ProseNotesButtons {
@@ -33,4 +35,11 @@
     gap: var(--alxgrn-unit);
     align-items: center;
     justify-content: flex-end;
+}
+
+.ProseNotes img {
+    display: block;
+    margin: var(--alxgrn-unit) auto;
+    border-radius: var(--alxgrn-unit-small);
+    max-width: 100%;
 }

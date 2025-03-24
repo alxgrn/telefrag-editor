@@ -51,7 +51,7 @@ export const nodes = {
         group: "block",
         defining: true,
         parseDOM: [
-            {tag: "h1", attrs: {level: 1}},
+            {tag: "h1", attrs: {level: 2}}, // Будем парсить h1 в h2 т.к. в тексте не должно быть h1
             {tag: "h2", attrs: {level: 2}},
             {tag: "h3", attrs: {level: 3}},
             {tag: "h4", attrs: {level: 4}},
