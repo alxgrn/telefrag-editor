@@ -46,7 +46,7 @@ function uploadFile(file: File) {
         reader.onload = () => accept(reader.result);
         reader.onerror = () => fail(reader.error);
         // Some extra delay to make the asynchronicity visible
-        setTimeout(() => reader.readAsDataURL(file), 1000 * 5);
+        setTimeout(() => reader.readAsDataURL(file), 1000 * 3);
     });
 };
 

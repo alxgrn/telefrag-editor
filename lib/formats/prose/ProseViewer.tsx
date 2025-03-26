@@ -2,8 +2,7 @@
  * Просмотровщик публикации в формате prose
  */
 import { FC, useEffect, useRef, useState } from 'react';
-import { DOMSerializer, Node, Schema } from 'prosemirror-model';
-import { addListNodes } from 'prosemirror-schema-list';
+import { DOMSerializer, Node } from 'prosemirror-model';
 import { schema } from './schema';
 import './ProseViewer.css';
 
@@ -18,12 +17,8 @@ const ProseViewer: FC<ProseViewerProps> = ({ content }) => {
     useEffect(() => {
         try {
             setError(false);
-            const mySchema = new Schema({
-                nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
-                marks: schema.spec.marks,
-            });
-            const doc = Node.fromJSON(mySchema, JSON.parse(content));
-            const dom = DOMSerializer.fromSchema(mySchema).serializeFragment(doc.content);
+            const doc = Node.fromJSON(schema, JSON.parse(content));
+            const dom = DOMSerializer.fromSchema(schema).serializeFragment(doc.content);
             ref.current?.appendChild(dom);
         } catch (error) {
             setError(true);

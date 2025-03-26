@@ -1,10 +1,45 @@
 .ProseViewer {
     display: block;
 }
+/*
+.ProseNotes li p:first-child,
+.ProseViewer li p:first-child {
+    margin-top: 0;
+}
 
-.ProseViewer img {
+.ProseNotes li p:last-child,
+.ProseViewer li p:last-child {
+    margin-bottom: 0;
+}
+*/
+.ProseNotes blockquote,
+.ProseViewer blockquote {
+    display: block;
+    border-left: 2px solid var(--alxgrn-border-accent);
+    padding-left: var(--alxgrn-unit-half);
+    margin: 0;
+}
+
+.ProseNotes div.image,
+.ProseViewer div.image {
     display: block;
     margin: var(--alxgrn-unit) auto;
+    text-align: center;
+}
+
+.ProseNotes div.image img,
+.ProseViewer div.image img {
+    display: block;
     border-radius: var(--alxgrn-unit-small);
     max-width: 100%;
+    margin: 0 auto;
+}
+
+.ProseNotes div.image::after,
+.ProseViewer div.image::after {
+    content: attr(title);
+    font-style: italic;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
 }

@@ -7,10 +7,10 @@ import ModeSelector from './ModeSelector';
 import './App.css'
 
 const App = () => {
-    const [ article, setArticle ] = useState<TArticle>(initialDelta);
+    const [ article, setArticle ] = useState<TArticle>(initialProse);
     const [ isChanged, setIsChanged ] = useState(false);
     const [ mode, setMode ] = useState<string>('viewer');
-    const [ format, setFormat ] = useState<string>('delta');
+    const [ format, setFormat ] = useState<string>('prose');
 
     const onChange = (newMode: string, newFormat: string) => {
         setMode(newMode);

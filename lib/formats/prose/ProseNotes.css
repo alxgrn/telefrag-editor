@@ -25,8 +25,9 @@
 .ProseNotesContent {
     border: 1px solid var(--alxgrn-border);
     padding: var(--alxgrn-unit-half);
+    padding-top: 0;
     border-radius: var(--alxgrn-unit-small);
-    max-height: 50vh;
+    max-height: 80vh;
     overflow: auto;
 }
 
@@ -35,11 +36,4 @@
     gap: var(--alxgrn-unit);
     align-items: center;
     justify-content: flex-end;
-}
-
-.ProseNotes img {
-    display: block;
-    margin: var(--alxgrn-unit) auto;
-    border-radius: var(--alxgrn-unit-small);
-    max-width: 100%;
 }

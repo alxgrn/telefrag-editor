@@ -1,8 +1,10 @@
 /**
- * Основано на оригинальном
- * https://github.com/ProseMirror/prosemirror-schema-basic
+ * Наша схема документа.
+ * Основано на оригинальном https://github.com/ProseMirror/prosemirror-schema-basic
+ * но сразу добавлены списки.
  */
-import { Schema, NodeSpec, MarkSpec, DOMOutputSpec } from "prosemirror-model"
+import { Schema, NodeSpec, MarkSpec, DOMOutputSpec } from "prosemirror-model";
+import { addListNodes } from 'prosemirror-schema-list';
 
 const pDOM: DOMOutputSpec = ["p", 0];
 const brDOM: DOMOutputSpec = ["br"];
@@ -11,7 +13,7 @@ const preDOM: DOMOutputSpec = ["pre", ["code", 0]];
 const blockquoteDOM: DOMOutputSpec = ["blockquote", 0];
 
 /// [Specs](#model.NodeSpec) for the nodes defined in this schema.
-export const nodes = {
+const nodes = {
     /// NodeSpec The top level document node.
     doc: {
         content: "block+"
@@ -58,7 +60,8 @@ export const nodes = {
             {tag: "h5", attrs: {level: 5}},
             {tag: "h6", attrs: {level: 6}},
         ],
-        toDOM(node) { return ["h" + node.attrs.level, 0] }
+        // И тут тоже будем h1  переделывать в h2
+        toDOM(node) { return [`h${node.attrs.level > 1 ? node.attrs.level : 2}`, 0] }
     } as NodeSpec,
 
     /// A code listing. Disallows marks or non-text inline
@@ -99,7 +102,11 @@ export const nodes = {
                 alt: dom.getAttribute("alt")
             }
         }}],
-        toDOM(node) { let {src, alt, title} = node.attrs; return ["img", {src, alt, title}] }
+        //toDOM(node) { let {src, alt, title} = node.attrs; return ["img", {src, alt, title}] }
+        toDOM(node) {
+            const { src, alt, title } = node.attrs;
+            return ["div", { title, class: "image" }, [ "img", { src, alt, title }]];
+        }
     } as NodeSpec,
 
     /// A hard line break, represented in the DOM as `<br>`.
@@ -117,7 +124,7 @@ const codeDOM: DOMOutputSpec = ["code", 0];
 const strongDOM: DOMOutputSpec = ["strong", 0];
 
 /// [Specs](#model.MarkSpec) for the marks in the schema.
-export const marks = {
+const marks = {
     /// A link. Has `href` and `title` attributes. `title`
     /// defaults to the empty string. Rendered and parsed as an `<a>`
     /// element.
@@ -174,4 +181,10 @@ export const marks = {
 ///
 /// To reuse elements from this schema, extend or read from its
 /// `spec.nodes` and `spec.marks` [properties](#model.Schema.spec).
-export const schema = new Schema({nodes, marks});
+const simpleSchema = new Schema({ nodes, marks });
+
+// Добавим в базовую схему списки
+export const schema = new Schema({
+    nodes: addListNodes(simpleSchema.spec.nodes, "paragraph block*", "block"),
+    marks: simpleSchema.spec.marks,
+});

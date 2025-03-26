@@ -47,7 +47,7 @@ export const prose: TArticle =
     "name": "Запуски на ресурсе",
     "info": "Механизм получения обратной связи и оценок для проектов",
     "format": "prose",
-    "content": "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Привет, бобер!\"}]}]}",
+    "content": "{\"type\":\"doc\",\"content\":[{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"Привет, \"}]},{\"type\":\"image\",\"attrs\":{\"src\":\"https://dailytelefrag.ru/files/d/e/def3d0215c995258.png\",\"alt\":\"\",\"title\":\"Пример \\\"подписи\\\" под иллюстрацией!\"}},{\"type\":\"paragraph\",\"content\":[{\"type\":\"text\",\"text\":\"бобер!\"}]}]}",
     "created": "2023-12-06T10:45:29.798Z",
     "modified": "2024-08-21T07:42:46.889Z",
     "published": "2024-05-27T12:47:34.770Z",

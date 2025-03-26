@@ -3,17 +3,17 @@
  */
 import { FC, useEffect, useRef, useState } from 'react';
 import { TImageUploader, TNotesSaver } from '../../types';
-import { Node, Schema } from 'prosemirror-model';
-import { schema } from './schema';
-import { addListNodes } from 'prosemirror-schema-list';
+import { Button } from '@alxgrn/telefrag-ui';
+import { Node } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
-import { exampleSetup } from 'prosemirror-example-setup';
-import { Button } from '@alxgrn/telefrag-ui';
+import { startImageUpload } from './ImageUpload';
+import { schema } from './schema';
+import { setup } from './setup';
 import './ProseMirror.css';
 import './ProseNotes.css';
+import './ProseViewer.css';
 import './ImageUpload.css';
-import { placeholderPlugin, startImageUpload } from './ImageUpload';
 
 type ProseNotesProps = {
     title?: boolean | string | null; // нужно ли выводить поле ввода для заголовка публикации и его начальное содержимое
@@ -28,7 +28,6 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
     const ref = useRef<HTMLDivElement>(null);
     const [ view, setView ] = useState<EditorView|null>(null);
     const [ name, setName ] = useState('');
-    const [ schma, setSchma ] = useState<Schema|null>(null);
 
     // Инициализация
     useEffect(() => {
@@ -38,17 +37,10 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
             setName(typeof title === 'string' ? title : '');
         }
 
-        const mySchema = new Schema({
-            nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
-            marks: schema.spec.marks,
-        });
-
-        setSchma(mySchema);
-
         let doc: Node|undefined;
         if (content) {
             try {
-                doc = Node.fromJSON(mySchema, JSON.parse(content));
+                doc = Node.fromJSON(schema, JSON.parse(content));
             } catch (error) {
                 console.error(`Can not parse Prose format: ${error}`);
             }
@@ -56,8 +48,8 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
 
         const state = EditorState.create({
             doc,
-            schema: mySchema,
-            plugins: exampleSetup({ schema: mySchema }).concat(placeholderPlugin),
+            schema: schema,
+            plugins: setup({ schema }),
         });
 
         const view = new EditorView(ref.current, { state })
@@ -108,7 +100,7 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
                 accept='image/*'
                 onChange={e => {
                     if (e.target.files?.length) {
-                        startImageUpload(view, e.target.files[0], schma);
+                        startImageUpload(view, e.target.files[0], schema);
                     }
                 }}
             />
