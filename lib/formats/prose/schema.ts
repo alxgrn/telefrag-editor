@@ -122,6 +122,8 @@ const nodes = {
 const emDOM: DOMOutputSpec = ["em", 0];
 const codeDOM: DOMOutputSpec = ["code", 0];
 const strongDOM: DOMOutputSpec = ["strong", 0];
+const underlineDOM: DOMOutputSpec = ["u", 0];
+const strikethroughDOM: DOMOutputSpec = ["s", 0];
 
 /// [Specs](#model.MarkSpec) for the marks in the schema.
 const marks = {
@@ -171,6 +173,25 @@ const marks = {
         code: true,
         parseDOM: [{tag: "code"}],
         toDOM() { return codeDOM }
+    } as MarkSpec,
+
+    /// Подчеркнутый текст. Рендериится как `<u>`.
+    underline: {
+        parseDOM: [
+            {tag: "u"},
+            {style: "font-style=underline"},
+        ],
+        toDOM() { return underlineDOM }
+    } as MarkSpec,
+
+    /// Зачеркнутый текст. Рендериится как `<s>`.
+    strikethrough: {
+        parseDOM: [
+            {tag: "s"},
+            {style: "font-style=strike"},
+            {style: "font-style=strikethrough"},
+        ],
+        toDOM() { return strikethroughDOM }
     } as MarkSpec,
 };
 

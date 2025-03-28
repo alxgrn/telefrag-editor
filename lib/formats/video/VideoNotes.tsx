@@ -82,7 +82,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
                 value={cover}
                 onChange={setCover}
                 text={<div><big><Icons.Image/></big><br/><small>Выберите файл</small></div>}
-                placeholder={article ? sanitizeImageURL(article.cover_id) : undefined}
+                placeholder={article?.cover_id ? sanitizeImageURL(article.cover_id) : undefined}
                 required={!article}
             />
             <Input

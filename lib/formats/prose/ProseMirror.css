@@ -15,10 +15,6 @@
   font-feature-settings: "liga" 0; /* the above doesn't seem to work in Edge */
 }
 
-.ProseMirror pre {
-  white-space: pre-wrap;
-}
-
 .ProseMirror li {
   position: relative;
 }
@@ -31,22 +27,23 @@
 .ProseMirror [draggable][contenteditable=false] { user-select: text }
 
 .ProseMirror-selectednode {
-  outline: 2px solid #8cf;
+    outline: 2px solid #8cf;
+    border-radius: var(--alxgrn-unit-small);
 }
 
 /* Make sure li selections wrap around markers */
 
 li.ProseMirror-selectednode {
-  outline: none;
+    outline: none;
 }
 
 li.ProseMirror-selectednode:after {
-  content: "";
-  position: absolute;
-  left: -32px;
-  right: -2px; top: -2px; bottom: -2px;
-  border: 2px solid #8cf;
-  pointer-events: none;
+    content: "";
+    position: absolute;
+    left: -32px;
+    right: -2px; top: -2px; bottom: -2px;
+    border: 2px solid #8cf;
+    pointer-events: none;
 }
 
 /* Protect against generic img rules */
@@ -77,13 +74,13 @@ img.ProseMirror-separator {
 }
 
 .ProseMirror-menuitem {
-  margin-right: 3px;
-  display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ProseMirror-menuseparator {
-  border-right: 1px solid #ddd;
-  margin-right: 3px;
+    border-right: 1px solid var(--alxgrn-border);
 }
 
 .ProseMirror-menu-dropdown, .ProseMirror-menu-dropdown-menu {
@@ -162,39 +159,49 @@ img.ProseMirror-separator {
 
 .ProseMirror-menu-active {
   background: #eee;
-  border-radius: 4px;
+  border-radius: var(--alxgrn-unit-smallest);
 }
 
 .ProseMirror-menu-disabled {
-  opacity: .3;
+    opacity: .3;
 }
 
 .ProseMirror-menu-submenu-wrap:hover .ProseMirror-menu-submenu, .ProseMirror-menu-submenu-wrap-active .ProseMirror-menu-submenu {
   display: block;
 }
 
+.ProseMirror-menubar-wrapper {
+    position: relative;
+}
+
 .ProseMirror-menubar {
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-  position: relative;
-  min-height: 1em;
-  color: #666;
-  padding: 1px 6px;
-  top: 0; left: 0; right: 0;
-  border-bottom: 1px solid silver;
-  background: white;
-  z-index: 10;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  overflow: visible;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: var(--alxgrn-color-light);
+    border-bottom: 1px solid var(--alxgrn-border);
+    background: white;
+    z-index: 10;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: visible;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--alxgrn-unit-small);
+    padding: var(--alxgrn-unit-small) 0;
 }
 
 .ProseMirror-icon {
-  display: inline-block;
-  line-height: .8;
-  vertical-align: -2px; /* Compensate for padding */
-  padding: 2px 8px;
-  cursor: pointer;
+/*    
+    display: inline-block;
+    line-height: .8;
+    vertical-align: -2px;  Compensate for padding */
+    padding: var(--alxgrn-unit-smallest);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .ProseMirror-menu-disabled.ProseMirror-icon {

@@ -32,7 +32,7 @@ export const video: TArticle =
     "modified": "2024-08-21T07:42:46.889Z",
     "published": "2024-05-27T12:47:34.770Z",
     "is_published": true,
-    "cover_id": 413,
+    "cover_id": null,
     "type": "long",
     "comments": 0,
     "commented": null,

@@ -49,7 +49,7 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
         const state = EditorState.create({
             doc,
             schema: schema,
-            plugins: setup({ schema }),
+            plugins: setup({ schema, floatingMenu: true }),
         });
 
         const view = new EditorView(ref.current, { state })

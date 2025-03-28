@@ -10,6 +10,7 @@ import { Schema, NodeType, MarkType } from "prosemirror-model";
 import { toggleMark } from "prosemirror-commands";
 import { wrapInList } from "prosemirror-schema-list";
 import { TextField, openPrompt } from "./prompt";
+import { iconBold, iconCode, iconHR, iconImage, iconItalic, iconLink, iconStrikethrough, iconUnderline } from "./icons";
 
 // Helpers to create specific types of items
 function canInsert(state: EditorState, nodeType: NodeType) {
@@ -26,8 +27,8 @@ function canInsert(state: EditorState, nodeType: NodeType) {
 function insertImageItem(nodeType: NodeType) {
     return new MenuItem({
         title: "Insert image",
-        label: "Image",
-        //icon: icons.strong,
+        //label: "Image",
+        icon: iconImage(),
         enable(state) { return canInsert(state, nodeType) },
         run(state, _, view) {
             let {from, to} = state.selection, attrs = null;
@@ -92,7 +93,7 @@ function markItem(markType: MarkType, options: Partial<MenuItemSpec>) {
 function linkItem(markType: MarkType) {
     return new MenuItem({
         title: "Add or remove link",
-        icon: icons.link,
+        icon: iconLink(),
         active(state) { return markActive(state, markType) },
         enable(state) { return !state.selection.empty },
         run(state, dispatch, view) {
@@ -131,6 +132,9 @@ type MenuItemResult = {
     toggleStrong?: MenuItem;
     /// A menu item to toggle the [emphasis mark](#schema-basic.EmMark).
     toggleEm?: MenuItem;
+    /// Подчеркивание и зачеркивание
+    toggleUnderline?: MenuItem;
+    toggleStrikethrough?: MenuItem;
     /// A menu item to toggle the [code font mark](#schema-basic.CodeMark).
     toggleCode?: MenuItem;
     /// A menu item to toggle the [link mark](#schema-basic.LinkMark).
@@ -157,7 +161,7 @@ type MenuItemResult = {
     /// A menu item to insert a horizontal rule.
     insertHorizontalRule?: MenuItem;
     /// A dropdown containing the `insertImage` and `insertHorizontalRule` items.
-    insertMenu: Dropdown;
+    insertMenu: MenuElement[][];//Dropdown;
     /// A dropdown containing the items for making the current textblock a paragraph, code block, or heading.
     typeMenu: Dropdown;
     /// A dropdown containing the items for making heading.
@@ -180,15 +184,23 @@ export function buildMenuItems(schema: Schema): MenuItemResult {
     let mark: MarkType | undefined;
 
     if (mark = schema.marks.strong) {
-        r.toggleStrong = markItem(mark, {title: "Toggle strong style", icon: icons.strong});
+        r.toggleStrong = markItem(mark, {title: "Toggle strong style", icon: iconBold()});
     }
 
     if (mark = schema.marks.em) {
-        r.toggleEm = markItem(mark, {title: "Toggle emphasis", icon: icons.em});
+        r.toggleEm = markItem(mark, {title: "Toggle emphasis", icon: iconItalic()});
+    }
+
+    if (mark = schema.marks.underline) {
+        r.toggleUnderline = markItem(mark, {title: "Toggle underline", icon: iconUnderline()});
+    }
+
+    if (mark = schema.marks.strikethrough) {
+        r.toggleStrikethrough = markItem(mark, {title: "Toggle strikethrough", icon: iconStrikethrough()});
     }
 
     if (mark = schema.marks.code) {
-        r.toggleCode = markItem(mark, {title: "Toggle code font", icon: icons.code});
+        r.toggleCode = markItem(mark, {title: "Toggle code font", icon: iconCode()});
     }
 
     if (mark = schema.marks.link) {
@@ -250,7 +262,8 @@ export function buildMenuItems(schema: Schema): MenuItemResult {
         let hr = node;
         r.insertHorizontalRule = new MenuItem({
             title: "Insert horizontal rule",
-            label: "Horizontal rule",
+            //label: "Horizontal rule",
+            icon: iconHR(),
             enable(state) { return canInsert(state, hr) },
             run(state, dispatch) { dispatch(state.tr.replaceSelectionWith(hr.create())) },
         });
@@ -258,12 +271,12 @@ export function buildMenuItems(schema: Schema): MenuItemResult {
 
     let cut = <T>(arr: T[]) => arr.filter(x => x) as NonNullable<T>[];
 
-    r.insertMenu = new Dropdown(cut([r.insertImage, r.insertHorizontalRule]), {label: "Insert"});
+    r.insertMenu = [cut([r.insertImage, r.insertHorizontalRule])];
     r.typeMenu = new Dropdown(cut([r.makeParagraph, r.makeCodeBlock]), {label: "Type"});
     r.headingMenu = new Dropdown(cut([r.makeHead1, r.makeHead2, r.makeHead3, r.makeHead4, r.makeHead5, r.makeHead6]), {label: "Heading"});
-    r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])];
+    r.inlineMenu = [cut([r.toggleStrong, r.toggleEm, r.toggleUnderline, r.toggleStrikethrough, r.toggleCode, r.toggleLink])];
     r.blockMenu = [cut([r.wrapBulletList, r.wrapOrderedList, r.wrapBlockQuote, joinUpItem, liftItem, selectParentNodeItem])];
-    r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu, r.headingMenu]], [[undoItem, redoItem]], r.blockMenu);
+    r.fullMenu = r.inlineMenu.concat(r.insertMenu, [[r.typeMenu, r.headingMenu]], [[undoItem, redoItem]], r.blockMenu);
 
     return r;
 };
