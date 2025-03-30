@@ -7,9 +7,11 @@ import { Button } from '@alxgrn/telefrag-ui';
 import { Node } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
+import { undo, redo } from 'prosemirror-history';
 import { startImageUpload } from './ImageUpload';
 import { schema } from './schema';
 import { setup } from './setup';
+import MenuBar from './MenuBar';
 import './ProseMirror.css';
 import './ProseNotes.css';
 import './ProseViewer.css';
@@ -90,6 +92,16 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
             value={name}
             placeholder='Укажите заголовок'
         />}
+
+        {view && <MenuBar schema={schema} view={view} items={[[{
+            icon: 'undo',
+            command: undo,
+            isAllowed: undo,
+        },{
+            icon: 'redo',
+            command: redo,
+            isAllowed: redo,
+        }]]}/>}
 
         <div ref={ref} className='ProseNotesContent'/>
 

@@ -12,7 +12,8 @@ import { wrapInList } from "prosemirror-schema-list";
 import { TextField, openPrompt } from "./prompt";
 import { iconBold, iconCode, iconHR, iconImage, iconItalic, iconLink, iconStrikethrough, iconUnderline } from "./icons";
 
-// Helpers to create specific types of items
+
+
 function canInsert(state: EditorState, nodeType: NodeType) {
     let $from = state.selection.$from;
     for (let d = $from.depth; d >= 0; d--) {

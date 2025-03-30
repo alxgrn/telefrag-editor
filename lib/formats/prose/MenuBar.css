@@ -1,0 +1,6 @@
+.MenuBar {
+    display: flex;
+    align-items: center;
+    gap: var(--alxgrn-unit-small);
+    flex-wrap: wrap;
+}
