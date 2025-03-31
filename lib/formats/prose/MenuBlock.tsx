@@ -3,17 +3,15 @@
  */
 import { FC } from 'react';
 import MenuItem, { TMenuItem } from './MenuItem';
-import { EditorView } from 'prosemirror-view';
 import './MenuBlock.css';
 
 type Props = {
     items: TMenuItem[];
-    view: EditorView;
 };
 
-const MenuBlock: FC<Props> = ({ items, view }) => (
+const MenuBlock: FC<Props> = ({ items }) => (
     <div className='MenuBlock'>
-        {items.map((item, index) => <MenuItem key={index} item={item} view={view}/>)}
+        {items.map((item, index) => <MenuItem key={index} item={item}/>)}
     </div>
 );
 

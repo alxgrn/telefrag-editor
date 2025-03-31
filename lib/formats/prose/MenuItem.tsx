@@ -1,33 +1,40 @@
 /**
  * Кнопка в меню
- * https://discuss.prosemirror.net/t/using-with-react/904
  */
-import { FC, ReactNode, useEffect, useState } from 'react';
-import { EditorView } from 'prosemirror-view';
+import { FC, ReactNode, useState } from 'react';
 import { Command, EditorState } from 'prosemirror-state';
+import { useEditorEffect, useEditorEventCallback } from '@handlewithcare/react-prosemirror';
 import './MenuItem.css';
 
 export type TMenuItem = {
     icon: ReactNode;
     command: Command;
-    isActive?: (s: EditorState) => boolean;
-    isAllowed?: (s: EditorState) => boolean;
+    isActive?: (s: EditorState) => boolean; // истановлен ли атрибут у строкового элемента
+    isSelected?: (s: EditorState) => boolean; // выбран ли обрамляющий блок у ноды
 };
 
 type Props = {
     item: TMenuItem;
-    view: EditorView;
 };
 
-const MenuItem: FC<Props> = ({ item, view }) => {
+const MenuItem: FC<Props> = ({ item }) => {
     const [ active, setActive ] = useState<boolean|undefined>(true);
     const [ disabled, setDisabled ] = useState<boolean|undefined>(false);
+    const [ selected, setSelected ] = useState<boolean|undefined>(false);
 
-    useEffect(() => {
-        console.log('View update')
+    useEditorEffect((view) => {
+        if (!view) return;
         setActive(item.isActive && item.isActive(view.state));
-        setDisabled(item.isAllowed && !item.isAllowed(view.state));
-    }, [ item, view.state ]);
+        setSelected(item.isSelected && !item.isSelected(view.state));
+        setDisabled(!item.command(view.state));
+    });
+
+    const onClick = useEditorEventCallback((view) => {
+        if (!view) return;
+        item.command(view.state, view.dispatch, view);
+    });
+
+    if (selected) return null;
 
     return (
         <div
@@ -35,7 +42,7 @@ const MenuItem: FC<Props> = ({ item, view }) => {
             onClick={e => {
                 e.stopPropagation();
                 e.preventDefault();
-                item.command(view.state, view.dispatch, view);
+                onClick();
             }}
         >
             {item.icon}

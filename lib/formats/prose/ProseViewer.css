@@ -13,6 +13,7 @@
 }
 */
 .ProseNotes blockquote,
+.ProseEditor blockquote,
 .ProseViewer blockquote {
     display: block;
     border-left: 2px solid var(--alxgrn-border-accent);
@@ -21,6 +22,7 @@
 }
 
 .ProseNotes div.image,
+.ProseEditor div.image,
 .ProseViewer div.image {
     display: block;
     margin: var(--alxgrn-unit) auto;
@@ -28,6 +30,7 @@
 }
 
 .ProseNotes div.image img,
+.ProseEditor div.image img,
 .ProseViewer div.image img {
     display: block;
     border-radius: var(--alxgrn-unit-small);
@@ -36,6 +39,7 @@
 }
 
 .ProseNotes div.image::after,
+.ProseEditor div.image::after,
 .ProseViewer div.image::after {
     content: attr(title);
     font-style: italic;
@@ -45,10 +49,10 @@
 }
 
 .ProseNotes pre,
+.ProseEditor pre,
 .ProseViewer pre {
     white-space: pre-wrap;
     background-color: var(--alxgrn-bg-light);
     border-radius: var(--alxgrn-unit-small);
     padding: var(--alxgrn-unit-small) var(--alxgrn-unit-half);
 }
-  

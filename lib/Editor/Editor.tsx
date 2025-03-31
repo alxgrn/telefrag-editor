@@ -6,6 +6,7 @@ import { FC } from "react";
 import { TArticle, TComment, TEditorSaver, TImageUploader } from "../types";
 import QuillEditor from "../formats/delta/QuillEditor";
 import VideoNotes from "../formats/video/VideoNotes";
+import ProseEditor from "../formats/prose/ProseEditor";
 
 type PublicationProps = {
     article: TArticle;
@@ -43,6 +44,13 @@ const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, o
                     article={article}
                     onSave={onSave}
                     onCancel={onView}
+                    //onUpload={onUpload}
+                />);
+            case 'prose':
+                return (<ProseEditor
+                    content={article.content}
+                    //onSave={onSave}
+                    //onCancel={onView}
                     //onUpload={onUpload}
                 />);
             default:

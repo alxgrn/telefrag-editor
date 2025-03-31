@@ -35,7 +35,7 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@alxgrn/telefrag-ui": "^0.0.29",
+    "@alxgrn/telefrag-ui": "^0.0.30",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -56,6 +56,7 @@
     "vite-plugin-lib-inject-css": "^2.1.1"
   },
   "dependencies": {
+    "@handlewithcare/react-prosemirror": "^2.3.5",
     "highlight.js": "^11.11.1",
     "load-script": "^2.0.0",
     "prosemirror-example-setup": "^1.2.3",
@@ -63,7 +64,7 @@
     "prosemirror-schema-basic": "^1.2.4",
     "prosemirror-schema-list": "^1.5.1",
     "prosemirror-state": "^1.4.3",
-    "prosemirror-view": "^1.38.1",
+    "prosemirror-view": "^1.37.1",
     "quill": "^2.0.3"
   }
 }
