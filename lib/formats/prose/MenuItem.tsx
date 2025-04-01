@@ -9,8 +9,9 @@ import './MenuItem.css';
 export type TMenuItem = {
     icon: ReactNode;
     command: Command;
-    isActive?: (s: EditorState) => boolean; // истановлен ли атрибут у строкового элемента
+    isActive?: (s: EditorState) => boolean; // установлен ли атрибут у строкового элемента
     isSelected?: (s: EditorState) => boolean; // выбран ли обрамляющий блок у ноды
+    isDisabled?: (s: EditorState) => boolean; // запрещена ли кнопка
 };
 
 type Props = {
@@ -26,7 +27,11 @@ const MenuItem: FC<Props> = ({ item }) => {
         if (!view) return;
         setActive(item.isActive && item.isActive(view.state));
         setSelected(item.isSelected && !item.isSelected(view.state));
-        setDisabled(!item.command(view.state));
+        if (item.isDisabled) {
+            setDisabled(item.isDisabled(view.state));
+        } else {
+            setDisabled(!item.command(view.state));
+        }
     });
 
     const onClick = useEditorEventCallback((view) => {

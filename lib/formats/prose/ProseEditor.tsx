@@ -7,6 +7,7 @@ import { ProseMirror, ProseMirrorDoc } from "@handlewithcare/react-prosemirror";
 import { Node } from "prosemirror-model";
 import MenuBar from "./MenuBar";
 import './ProseViewer.css';
+import './ImageUpload.css';
 
 type Props = {
     content: string | null; // Содержимое статьи

@@ -137,13 +137,13 @@ export abstract class Field {
   read(dom: HTMLElement) { return (dom as any).value }
 
   /// A field-type-specific validation function.
-  validateType(value: any): string | null { return null }
+  validateType(): string | null { return null }
 
   /// @internal
   validate(value: any): string | null {
     if (!value && this.options.required)
       return "Required field"
-    return this.validateType(value) || (this.options.validate ? this.options.validate(value) : null)
+    return this.validateType() || (this.options.validate ? this.options.validate(value) : null)
   }
 
   clean(value: any): any {

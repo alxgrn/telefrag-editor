@@ -16,7 +16,7 @@ export const placeholderPlugin = new Plugin({
             const action = tr.getMeta(placeholderPlugin);
             if (action && action.add) {
                 const widget = document.createElement("placeholder");
-                const deco = Decoration.widget(action.add.pos, widget, { id: action.add.id });
+                const deco = Decoration.widget(action.add.pos, widget, { id: action.add.id, key: `imgphd${action.add.id}` });
                 set = set.add(tr.doc, [ deco ]);
             } else if (action && action.remove) {
                 set = set.remove(set.find(undefined, undefined, spec => spec.id == action.remove.id));
@@ -50,7 +50,7 @@ function uploadFile(file: File) {
     });
 };
 
-export const startImageUpload = (view: EditorView, file: File|null, schema: Schema|null) => {
+export const startImageUpload = (view: EditorView, file: File|null, schema: Schema|null, title?: string) => {
     if (!file || !schema) return;
     // A fresh object to act as the ID for this upload
     let id = Date.now();
@@ -66,7 +66,7 @@ export const startImageUpload = (view: EditorView, file: File|null, schema: Sche
         if (pos == null) return;
         // Otherwise, insert it at the placeholder's position, and remove the placeholder
         view.dispatch(view.state.tr
-            .replaceWith(pos, pos, schema.nodes.image.create({ src: url }))
+            .replaceWith(pos, pos, schema.nodes.image.create({ src: url, title }))
             .setMeta(placeholderPlugin, { remove: { id }}));
     }, () => {
         // On failure, just clean up the placeholder
