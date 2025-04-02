@@ -1,7 +1,7 @@
 /**
  * Кнопка в меню
  */
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, RefObject, useState } from 'react';
 import { Command, EditorState } from 'prosemirror-state';
 import { useEditorEffect, useEditorEventCallback } from '@handlewithcare/react-prosemirror';
 import './MenuItem.css';
@@ -15,10 +15,11 @@ export type TMenuItem = {
 };
 
 type Props = {
+    ref?: RefObject<HTMLDivElement|null>;
     item: TMenuItem;
 };
 
-const MenuItem: FC<Props> = ({ item }) => {
+const MenuItem: FC<Props> = ({ ref, item }) => {
     const [ active, setActive ] = useState<boolean|undefined>(true);
     const [ disabled, setDisabled ] = useState<boolean|undefined>(false);
     const [ selected, setSelected ] = useState<boolean|undefined>(false);
@@ -43,6 +44,7 @@ const MenuItem: FC<Props> = ({ item }) => {
 
     return (
         <div
+            ref={ref}
             className={`MenuItem ${active ? 'active' : ''} ${disabled ? 'disabled' : ''}`}
             onClick={e => {
                 e.stopPropagation();

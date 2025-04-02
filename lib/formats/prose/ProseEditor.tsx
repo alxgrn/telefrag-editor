@@ -5,7 +5,7 @@ import { setup } from './setup';
 import { ProseMirror, ProseMirrorDoc } from "@handlewithcare/react-prosemirror";
 //import { TEditorSaver, TImageUploader } from "../../types";
 import { Node } from "prosemirror-model";
-import MenuBar from "./MenuBar";
+import MenuBar from "./menubar/MenuBar";
 import './ProseViewer.css';
 import './ImageUpload.css';
 
