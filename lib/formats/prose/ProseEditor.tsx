@@ -3,8 +3,9 @@ import { EditorState } from "prosemirror-state";
 import { schema } from './schema';
 import { setup } from './setup';
 import { ProseMirror, ProseMirrorDoc } from "@handlewithcare/react-prosemirror";
-//import { TEditorSaver, TImageUploader } from "../../types";
+import { TEditorSaver } from "../../types";
 import { Node } from "prosemirror-model";
+import { undoDepth } from 'prosemirror-history';
 import MenuBar from "./menubar/MenuBar";
 import './ProseViewer.css';
 import './ImageUpload.css';
@@ -12,12 +13,12 @@ import './ImageUpload.css';
 type Props = {
     content: string | null; // Содержимое статьи
     //onView: () => void; // Вызывается при клике на кнопку просмотра статьи
-    //onSave: TEditorSaver; // Вызывается при нажатии на кнопку сохранения статьи
-    //onChange: (changed: boolean) => void; // Вызывается при изменении текста статьи
+    onSave: TEditorSaver; // Вызывается при нажатии на кнопку сохранения статьи
+    onChange: (changed: boolean) => void; // Вызывается при изменении текста статьи
     //onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
 };
 
-const ProseEditor: FC<Props> = ({ content }) => {
+const ProseEditor: FC<Props> = ({ content, onSave, onChange }) => {
     const [editorState, setEditorState] = useState<EditorState>();
 
     // Инициализация
@@ -38,7 +39,7 @@ const ProseEditor: FC<Props> = ({ content }) => {
         });
 
         setEditorState(state);
-    }, [ content ]);    
+    }, [ content ]);
 
     if (!editorState) return null;
 
@@ -46,9 +47,13 @@ const ProseEditor: FC<Props> = ({ content }) => {
         <div className='ProseEditor'>
             <ProseMirror
                 state={editorState}
-                dispatchTransaction={(tr) => setEditorState((s) => s?.apply(tr))}
+                dispatchTransaction={(tr) => setEditorState((s) => {
+                    const state = s?.apply(tr);
+                    if (state) onChange(undoDepth(state) > 0);
+                    return state;
+                })}
             >
-                <MenuBar schema={schema} />
+                <MenuBar schema={schema} onSave={onSave}/>
                 <ProseMirrorDoc />
             </ProseMirror>
         </div>

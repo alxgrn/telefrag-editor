@@ -73,7 +73,7 @@ const App = () => {
             }}
             onSave={(data) => new Promise(function(resolve) {
                     setArticle({ ...article, content: data.content, format: data.format });
-                    setMode('viewer')
+                    setMode('viewer');
                     setIsChanged(false);
                     console.dir(data.content);
                     // Имитируем успешное завершение сохранения на сервер

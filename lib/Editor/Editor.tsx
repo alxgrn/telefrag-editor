@@ -49,8 +49,8 @@ const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, o
             case 'prose':
                 return (<ProseEditor
                     content={article.content}
-                    //onSave={onSave}
-                    //onCancel={onView}
+                    onSave={onSave}
+                    onChange={onChange}
                     //onUpload={onUpload}
                 />);
             default:
