@@ -22,7 +22,7 @@ const MakeBlockMenu: FC<Props> = ({ schema }) => {
         if (schema.nodes.paragraph) {
             const node = schema.nodes.paragraph;
             setParagraph({
-                icon: <Icons.Asterisk/>,
+                icon: <Icons.Type/>,
                 command: setBlockType(node),
             });
         }

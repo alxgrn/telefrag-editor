@@ -23,7 +23,10 @@
 
 .ProseNotes div.image,
 .ProseEditor div.image,
-.ProseViewer div.image {
+.ProseViewer div.image,
+.ProseNotes div.video,
+.ProseEditor div.video,
+.ProseViewer div.video {
     display: block;
     margin: var(--alxgrn-unit) auto;
     text-align: center;
@@ -41,6 +44,27 @@
 .ProseNotes div.image::after,
 .ProseEditor div.image::after,
 .ProseViewer div.image::after {
+    content: attr(title);
+    font-style: italic;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.ProseNotes div.video iframe,
+.ProseEditor div.video iframe,
+.ProseViewer div.video iframe {
+    display: block;
+    border-radius: var(--alxgrn-unit-small);
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    margin: 0 auto;
+}
+
+.ProseNotes div.video::after,
+.ProseEditor div.video::after,
+.ProseViewer div.imavideoge::after {
     content: attr(title);
     font-style: italic;
     display: block;

@@ -109,6 +109,30 @@ const nodes = {
         }
     } as NodeSpec,
 
+    /// Блок видео полность наш
+    /// Сделан на основе image
+    video: {
+        // inline: true,
+        attrs: {
+            src: { validate: "string" },
+            title: { default: null, validate: "string|null" },
+        },
+        // group: "inline",
+        group: "block",
+        draggable: true,
+        parseDOM: [{tag: "iframe[src]", getAttrs(dom: HTMLElement) {
+            return {
+                src: dom.getAttribute("src"),
+                title: dom.getAttribute("title"),
+            }
+        }}],
+        toDOM(node) {
+            const { src, title } = node.attrs;
+            const allow = 'fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            return ["div", { title, class: "video" }, [ "iframe", { src, title, allow }]];
+        }
+    } as NodeSpec,
+
     /// A hard line break, represented in the DOM as `<br>`.
     hard_break: {
         inline: true,

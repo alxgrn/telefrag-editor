@@ -34,7 +34,7 @@ const ProseEditor: FC<Props> = ({ content }) => {
         const state = EditorState.create({
             doc,
             schema: schema,
-            plugins: setup({ schema, floatingMenu: true }),
+            plugins: setup({ schema, floatingMenu: true, menuBar: false }),
         });
 
         setEditorState(state);

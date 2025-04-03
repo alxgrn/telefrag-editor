@@ -9,7 +9,7 @@ import './App.css'
 const App = () => {
     const [ article, setArticle ] = useState<TArticle>(initialProse);
     const [ isChanged, setIsChanged ] = useState(false);
-    const [ mode, setMode ] = useState<string>('viewer');
+    const [ mode, setMode ] = useState<string>('editor');
     const [ format, setFormat ] = useState<string>('prose');
 
     const onChange = (newMode: string, newFormat: string) => {

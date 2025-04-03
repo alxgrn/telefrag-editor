@@ -1,5 +1,5 @@
 /**
- * Вставка картинки
+ * Модальное окно вставки картинки
  */
 import { FC, useEffect, useState } from 'react';
 import { Form, Icons, Image, Input, Modal } from '@alxgrn/telefrag-ui';
