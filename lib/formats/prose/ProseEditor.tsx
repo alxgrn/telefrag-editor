@@ -7,8 +7,10 @@ import { TEditorSaver } from "../../types";
 import { Node } from "prosemirror-model";
 import { undoDepth } from 'prosemirror-history';
 import MenuBar from "./menubar/MenuBar";
+import { fixTables } from "prosemirror-tables";
 import './ProseViewer.css';
 import './ImageUpload.css';
+import './ProseTable.css';
 
 type Props = {
     content: string | null; // Содержимое статьи
@@ -32,11 +34,16 @@ const ProseEditor: FC<Props> = ({ content, onSave, onChange }) => {
             }
         }
 
-        const state = EditorState.create({
+        let state = EditorState.create({
             doc,
             schema: schema,
             plugins: setup({ schema, floatingMenu: true, menuBar: false }),
         });
+
+        // Зачем фиксить таблицы пока не очень понятно, но в демке так сделано
+        // https://github.com/ProseMirror/prosemirror-tables/blob/master/demo/demo.ts
+        const fix = fixTables(state);
+        if (fix) state = state.apply(fix.setMeta('addToHistory', false));
 
         setEditorState(state);
     }, [ content ]);

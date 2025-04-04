@@ -1,17 +1,19 @@
 .ProseViewer {
     display: block;
 }
-/*
-.ProseNotes li p:first-child,
-.ProseViewer li p:first-child {
+
+.ProseNotes p:first-child,
+.ProseEditor p:first-child,
+.ProseViewer p:first-child {
     margin-top: 0;
 }
 
-.ProseNotes li p:last-child,
-.ProseViewer li p:last-child {
+.ProseNotes p:last-child,
+.ProseEditor p:last-child,
+.ProseViewer p:last-child {
     margin-bottom: 0;
 }
-*/
+
 .ProseNotes blockquote,
 .ProseEditor blockquote,
 .ProseViewer blockquote {
@@ -79,4 +81,22 @@
     background-color: var(--alxgrn-bg-light);
     border-radius: var(--alxgrn-unit-small);
     padding: var(--alxgrn-unit-small) var(--alxgrn-unit-half);
+}
+
+.ProseViewer table {
+    width: 100%;
+    margin: var(--alxgrn-unit) 0;
+    border-collapse: collapse;
+}
+
+.ProseViewer th,
+.ProseViewer td {
+    min-width: var(--alxgrn-unit);
+    border: 1px solid var(--alxgrn-border);
+    padding: var(--alxgrn-unit-small) var(--alxgrn-unit-half);
+}
+
+.ProseViewer th {
+    font-weight: bold;
+    text-align: left;
 }

@@ -13,40 +13,7 @@ import { Schema } from "prosemirror-model";
 import { buildKeymap, buildInputRules } from "prosemirror-example-setup";
 import { buildMenuItems } from './menu';
 import { placeholderPlugin } from "./ImageUpload";
-// import {buildMenuItems} from "./menu"
-// import {buildKeymap} from "./keymap"
-// import {buildInputRules} from "./inputrules"
-// export {buildMenuItems, buildKeymap, buildInputRules}
-
-/// Create an array of plugins pre-configured for the given schema.
-/// The resulting array will include the following plugins:
-///
-///  * Input rules for smart quotes and creating the block types in the
-///    schema using markdown conventions (say `"> "` to create a
-///    blockquote)
-///
-///  * A keymap that defines keys to create and manipulate the nodes in the
-///    schema
-///
-///  * A keymap binding the default keys provided by the
-///    prosemirror-commands module
-///
-///  * The undo history plugin
-///
-///  * The drop cursor plugin
-///
-///  * The gap cursor plugin
-///
-///  * placeholderPlugin - кастомный плагин для отображения
-// /   плашек на месте загружаемых картинок
-///
-///  * A custom plugin that adds a `menuContent` prop for the
-///    prosemirror-menu wrapper, and a CSS class that enables the
-///    additional styling defined in `style/style.css` in this package
-///
-/// Probably only useful for quickly setting up a passable
-/// editor—you'll need more control over your settings in most
-/// real-world situations.
+import { columnResizing, goToNextCell, tableEditing } from "prosemirror-tables";
 
 type SetupOptions = {
     /// The schema to generate key bindings and menu items for.
@@ -65,6 +32,12 @@ type SetupOptions = {
 
 export const setup = (options: SetupOptions) => {
     let plugins = [
+        columnResizing({ lastColumnResizable: false }),
+        tableEditing(),
+        keymap({
+            Tab: goToNextCell(1),
+            'Shift-Tab': goToNextCell(-1),
+        }),
         buildInputRules(options.schema),
         keymap(buildKeymap(options.schema, options.mapKeys)),
         keymap(baseKeymap),
@@ -83,6 +56,8 @@ export const setup = (options: SetupOptions) => {
     if (options.history !== false) {
         plugins.push(history());
     }
+
+    return plugins;
 
     return plugins.concat(new Plugin({
         props: {
