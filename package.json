@@ -64,6 +64,7 @@
     "prosemirror-schema-basic": "^1.2.4",
     "prosemirror-schema-list": "^1.5.1",
     "prosemirror-state": "^1.4.3",
+    "prosemirror-tables": "^1.6.4",
     "prosemirror-view": "^1.37.1",
     "quill": "^2.0.3"
   }

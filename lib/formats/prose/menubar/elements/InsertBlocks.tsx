@@ -9,6 +9,7 @@ import { EditorState } from 'prosemirror-state';
 import InsertImage from './InsertImage';
 import InsertVideo from './InsertVideo';
 import { TMenuItem } from '../MenuItem';
+import insertTable from './InsertTable';
 
 type Props = {
     schema: Schema;
@@ -53,6 +54,15 @@ export const InsertBlocks: FC<Props> = ({ schema }) => {
                     }
                     return false;
                 },
+            });
+        }
+
+        if (schema.nodes.table) {
+            const node = schema.nodes.table;
+            insert.push({
+                icon: <Icons.Table/>,
+                isDisabled: (state) => { return !canInsert(state, node) },
+                command: insertTable(),
             });
         }
 
