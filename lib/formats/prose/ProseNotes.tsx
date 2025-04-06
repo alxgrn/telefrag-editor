@@ -9,7 +9,7 @@ import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
 import { startImageUpload } from './ImageUpload';
 import { schema } from './schema';
-import { setup } from './setup';
+import { plugins } from './plugins';
 import './ProseMirror.css';
 import './ProseNotes.css';
 import './ProseViewer.css';
@@ -49,7 +49,7 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
         const state = EditorState.create({
             doc,
             schema: schema,
-            plugins: setup({ schema, floatingMenu: true }),
+            plugins: plugins({ schema, floatingMenu: true }),
         });
 
         const view = new EditorView(ref.current, { state })

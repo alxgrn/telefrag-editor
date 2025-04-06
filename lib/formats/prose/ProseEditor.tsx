@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { EditorState } from "prosemirror-state";
 import { schema } from './schema';
-import { setup } from './setup';
+import { plugins } from './plugins';
 import { ProseMirror, ProseMirrorDoc } from "@handlewithcare/react-prosemirror";
 import { TEditorSaver } from "../../types";
 import { Node } from "prosemirror-model";
@@ -37,7 +37,7 @@ const ProseEditor: FC<Props> = ({ content, onSave, onChange }) => {
         let state = EditorState.create({
             doc,
             schema: schema,
-            plugins: setup({ schema, floatingMenu: true, menuBar: false }),
+            plugins: plugins({ schema, floatingMenu: true, menuBar: false }),
         });
 
         // Зачем фиксить таблицы пока не очень понятно, но в демке так сделано

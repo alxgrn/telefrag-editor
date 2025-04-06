@@ -30,7 +30,7 @@ type SetupOptions = {
     menuContent?: MenuElement[][];
 };
 
-export const setup = (options: SetupOptions) => {
+export const plugins = (options: SetupOptions) => {
     let plugins = [
         columnResizing({ lastColumnResizable: false }),
         tableEditing(),
