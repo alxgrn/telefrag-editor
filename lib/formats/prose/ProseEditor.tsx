@@ -7,10 +7,12 @@ import { TEditorSaver } from "../../types";
 import { Node } from "prosemirror-model";
 import { undoDepth } from 'prosemirror-history';
 import MenuBar from "./menubar/MenuBar";
+import TableCellView from "./views/TableCellView";
 import { fixTables } from "prosemirror-tables";
 import './ProseViewer.css';
 import './ImageUpload.css';
 import './ProseTable.css';
+import TableRowView from "./views/TableRowView";
 
 type Props = {
     content: string | null; // Содержимое статьи
@@ -59,6 +61,10 @@ const ProseEditor: FC<Props> = ({ content, onSave, onChange }) => {
                     if (state) onChange(undoDepth(state) > 0);
                     return state;
                 })}
+                nodeViews={{
+                    table_row: TableRowView,
+                    table_cell: TableCellView,
+                }}
             >
                 <MenuBar schema={schema} onSave={onSave}/>
                 <ProseMirrorDoc />

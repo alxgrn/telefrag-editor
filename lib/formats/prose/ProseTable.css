@@ -13,7 +13,7 @@
     width: 100%;
     overflow: hidden;
     /* visual */
-    margin: 0;
+    margin: var(--alxgrn-unit) 0;
 }
 
 .ProseMirror td,
@@ -67,3 +67,4 @@
     background: rgba(200, 200, 255, 0.4);
     pointer-events: none;
 }
+

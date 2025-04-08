@@ -9,7 +9,7 @@ import { EditorState } from 'prosemirror-state';
 import InsertImage from './InsertImage';
 import InsertVideo from './InsertVideo';
 import { TMenuItem } from '../MenuItem';
-import insertTable from './InsertTable';
+//import insertTable from './InsertTable';
 
 type Props = {
     schema: Schema;
@@ -56,7 +56,7 @@ export const InsertBlocks: FC<Props> = ({ schema }) => {
                 },
             });
         }
-
+/*
         if (schema.nodes.table) {
             const node = schema.nodes.table;
             insert.push({
@@ -65,7 +65,7 @@ export const InsertBlocks: FC<Props> = ({ schema }) => {
                 command: insertTable(),
             });
         }
-
+*/
         setItems(insert);
     }, [ schema ]);
 
@@ -81,7 +81,7 @@ export const InsertBlocks: FC<Props> = ({ schema }) => {
 /**
  * Ниже функции основаны на prosemirror-example-setup/src/menu.ts
  */
-function canInsert(state: EditorState, nodeType: NodeType) {
+export const canInsert = (state: EditorState, nodeType: NodeType) => {
     let $from = state.selection.$from;
     for (let d = $from.depth; d >= 0; d--) {
         let index = $from.index(d);

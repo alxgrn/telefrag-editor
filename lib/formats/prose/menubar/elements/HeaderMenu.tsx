@@ -57,6 +57,7 @@ const HeaderMenu: FC<Props> = ({ schema }) => {
             if (!view || !item.id) return;
             commands[item.id as number](view.state, view.dispatch, view);
             setIsOpen(false);
+            view.focus();
     });
 
     if (!schema.nodes.heading) return null;

@@ -5,7 +5,6 @@
 import { keymap } from "prosemirror-keymap";
 import { history } from "prosemirror-history";
 import { baseKeymap } from "prosemirror-commands";
-import { Plugin } from "prosemirror-state";
 import { dropCursor } from "prosemirror-dropcursor";
 import { gapCursor } from "prosemirror-gapcursor";
 import { menuBar, MenuElement } from "prosemirror-menu";
@@ -13,7 +12,7 @@ import { Schema } from "prosemirror-model";
 import { buildKeymap, buildInputRules } from "prosemirror-example-setup";
 import { buildMenuItems } from './menu';
 import { placeholderPlugin } from "./ImageUpload";
-import { columnResizing, goToNextCell, tableEditing } from "prosemirror-tables";
+import { goToNextCell, tableEditing } from "prosemirror-tables";
 
 type SetupOptions = {
     /// The schema to generate key bindings and menu items for.
@@ -32,7 +31,7 @@ type SetupOptions = {
 
 export const plugins = (options: SetupOptions) => {
     let plugins = [
-        columnResizing({ lastColumnResizable: false }),
+        //columnResizing({ lastColumnResizable: false }),
         tableEditing(),
         keymap({
             Tab: goToNextCell(1),
@@ -59,9 +58,9 @@ export const plugins = (options: SetupOptions) => {
 
     return plugins;
 
-    return plugins.concat(new Plugin({
-        props: {
-            attributes: {class: "ProseMirror-example-setup-style"},
-        }
-    }));
+    //return plugins.concat(new Plugin({
+    //    props: {
+    //        attributes: {class: "ProseMirror-example-setup-style"},
+    //    }
+    //}));
 };
