@@ -1,0 +1,28 @@
+import { Icons } from "@alxgrn/telefrag-ui";
+import { NodeViewComponentProps, useEditorEventCallback } from "@handlewithcare/react-prosemirror";
+import { deleteTable } from "prosemirror-tables";
+import { forwardRef } from "react";
+
+const TableView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
+    function Table({ children, nodeProps, ...props }, outerRef) {
+
+        const onClick = useEditorEventCallback((view) => {
+            deleteTable(view.state, view.dispatch);
+        });
+
+        return (
+            <table {...props}
+                ref={outerRef}
+            >
+                <thead onClick={onClick}>
+                    <tr><th><Icons.Trash/></th></tr>
+                </thead>
+                <tbody>
+                    {children}
+                </tbody>
+            </table>
+        );
+    }
+);
+
+export default TableView;

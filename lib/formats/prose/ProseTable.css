@@ -11,9 +11,9 @@
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* visual */
-    margin: var(--alxgrn-unit) 0;
+    margin: var(--alxgrn-unit-double) 0 var(--alxgrn-unit) 0;
 }
 
 .ProseMirror td,
@@ -56,6 +56,7 @@
 }
 
 /* Give selected cells a blue overlay */
+/*
 .ProseMirror .selectedCell:after {
     z-index: 2;
     position: absolute;
@@ -67,4 +68,73 @@
     background: rgba(200, 200, 255, 0.4);
     pointer-events: none;
 }
+*/
+.ProseMirror .selectedCell {
+    background: rgba(200, 200, 255, 0.4);
+    pointer-events: none;
+}
 
+/* Заголовок таблицы используем для иконки удаления */
+.ProseMirror table {
+    position: relative;
+    width: calc(100% - var(--alxgrn-unit));
+    margin-left: var(--alxgrn-unit);
+}
+
+.ProseMirror table thead tr th {
+    display: block;
+    position: absolute;
+    top: calc(-1 * var(--alxgrn-unit));
+    left: calc(-1 * var(--alxgrn-unit));
+}
+
+.ProseMirror table thead tr th {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    width: var(--alxgrn-unit);
+    height: var(--alxgrn-unit);
+    font-size: var(--alxgrn-font-size-small);
+    cursor: pointer;
+}
+
+/* Первая ячейка каждого ряда */
+.ProseMirror table tbody tr th:first-child::after,
+.ProseMirror table tbody tr td:first-child::after {
+    content: ' ';
+    display: block;
+    background-color: var(--alxgrn-border);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    width: var(--alxgrn-unit);
+}
+
+/* У первой ячейки последнего ряда уберем белый бордер снизу */
+.ProseMirror table tbody tr:last-child th:first-child::after,
+.ProseMirror table tbody tr:last-child td:first-child::after {
+    bottom: -1px;
+}
+
+
+/* Ячейки первого ряда */
+.ProseMirror table tbody tr:first-child th::before,
+.ProseMirror table tbody tr:first-child td::before {
+    content: ' ';
+    display: block;
+    background-color: var(--alxgrn-border);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: var(--alxgrn-unit);
+}
+
+/* У последней ячейки первого ряда уберем белый бордер справа */
+.ProseMirror table tbody tr:first-child th:last-child::before,
+.ProseMirror table tbody tr:first-child td:last-child::before {
+    right: -1px;
+}

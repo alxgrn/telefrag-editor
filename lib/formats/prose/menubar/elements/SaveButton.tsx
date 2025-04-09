@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import { undoDepth } from 'prosemirror-history';
 import { Button } from "@alxgrn/telefrag-ui";
 import { TEditorSaver } from "../../../../types";
+import { fixTables } from "prosemirror-tables";
 
 type Props = {
     onSave: TEditorSaver;
@@ -17,7 +18,14 @@ const SaveButton: FC<Props> = ({ onSave }) => {
 
     const onClick = useEditorEventCallback((view) => {
         try {
-            const content = JSON.stringify(view.state.doc.toJSON());
+            let content: string;
+            const fix = fixTables(view.state);
+            if (fix) {
+                const state = view.state.apply(fix.setMeta('addToHistory', false));
+                content = JSON.stringify(state.doc.toJSON());
+            } else {
+                content = JSON.stringify(view.state.doc.toJSON());
+            }
             onSave({ content, format: 'prose' });
         } catch (error) {
             console.error(`Can not save doc: ${error}`);
