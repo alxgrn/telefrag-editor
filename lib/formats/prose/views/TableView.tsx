@@ -1,3 +1,7 @@
+/**
+ * Кастомное отображение таблицы для реактора.
+ * Необходимо для размещения кнопки удаления таблицы в блоке thead.
+ */
 import { Icons } from "@alxgrn/telefrag-ui";
 import { NodeViewComponentProps, useEditorEventCallback } from "@handlewithcare/react-prosemirror";
 import { deleteTable } from "prosemirror-tables";

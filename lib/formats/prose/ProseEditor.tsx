@@ -12,7 +12,7 @@ import TableCellView from "./views/TableCellView";
 import { fixTables } from "prosemirror-tables";
 import './ProseViewer.css';
 import './ImageUpload.css';
-import './ProseTable.css';
+import './views/ProseTable.css';
 
 type Props = {
     content: string | null; // Содержимое статьи
@@ -63,6 +63,7 @@ const ProseEditor: FC<Props> = ({ content, onSave, onChange }) => {
                 })}
                 nodeViews={{
                     table: TableView,
+                    table_header: TableCellView,
                     table_cell: TableCellView,
                 }}
             >

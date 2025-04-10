@@ -3,13 +3,13 @@
  */
 import { FC, useEffect, useState } from 'react';
 import MenuBlock from '../MenuBlock';
-import { NodeType, Schema } from "prosemirror-model";
+import { Fragment, Node, NodeType, Schema } from "prosemirror-model";
 import { Icons } from '@alxgrn/telefrag-ui';
-import { EditorState } from 'prosemirror-state';
+import { Command, EditorState, TextSelection, Transaction } from 'prosemirror-state';
 import InsertImage from './InsertImage';
 import InsertVideo from './InsertVideo';
 import { TMenuItem } from '../MenuItem';
-//import insertTable from './InsertTable';
+import { isInTable } from 'prosemirror-tables';
 
 type Props = {
     schema: Schema;
@@ -56,16 +56,15 @@ export const InsertBlocks: FC<Props> = ({ schema }) => {
                 },
             });
         }
-/*
+
         if (schema.nodes.table) {
-            const node = schema.nodes.table;
             insert.push({
                 icon: <Icons.Table/>,
-                isDisabled: (state) => { return !canInsert(state, node) },
+                isDisabled: isInTable,
                 command: insertTable(),
             });
         }
-*/
+
         setItems(insert);
     }, [ schema ]);
 
@@ -79,7 +78,7 @@ export const InsertBlocks: FC<Props> = ({ schema }) => {
 };
 
 /**
- * Ниже функции основаны на prosemirror-example-setup/src/menu.ts
+ * Функция основана на prosemirror-example-setup/src/menu.ts
  */
 export const canInsert = (state: EditorState, nodeType: NodeType) => {
     let $from = state.selection.$from;
@@ -88,6 +87,50 @@ export const canInsert = (state: EditorState, nodeType: NodeType) => {
         if ($from.node(d).canReplaceWith(index, index, nodeType)) return true;
     }
     return false;
+};
+
+/**
+ * Вставка таблицы.
+ * Оригинал функции вставки таблицы тут:
+ * https://discuss.prosemirror.net/t/how-co-create-table/3510/3
+ */
+function insertTable(): Command {
+    return (
+        state: EditorState,
+        dispatch?: (tr: Transaction) => void
+    ): boolean => {
+        const offset: number = state.tr.selection.anchor + 1;
+        const transaction: Transaction = state.tr;
+        const cell: Node = state.schema.nodes.table_cell.createAndFill() as Node;
+        const node: Node = state.schema.nodes.table.create(
+            null,
+            Fragment.fromArray([
+                state.schema.nodes.table_row.create(
+                    null,
+                    Fragment.fromArray([cell, cell, cell])
+                ),
+                state.schema.nodes.table_row.create(
+                    null,
+                    Fragment.fromArray([cell, cell, cell])
+                )
+            ])
+        );
+
+        if (dispatch) {
+            dispatch(
+                transaction
+                    .replaceSelectionWith(node)
+                    .scrollIntoView()
+                    .setSelection(
+                        TextSelection.near(
+                            transaction.doc.resolve(offset)
+                        )
+                    )
+            );
+        }
+
+        return true;
+    };
 };
 
 export default InsertBlocks;

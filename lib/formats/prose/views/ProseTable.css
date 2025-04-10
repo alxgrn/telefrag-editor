@@ -1,5 +1,6 @@
 /**
- * https://github.com/ProseMirror/prosemirror-tables/blob/master/style/tables.css
+ * Оригинал из https://github.com/ProseMirror/prosemirror-tables/blob/master/style/tables.css
+ * но с нашими дополнениями
  */
 .ProseMirror .tableWrapper {
     overflow-x: auto;
@@ -18,6 +19,7 @@
 
 .ProseMirror td,
 .ProseMirror th {
+    text-align: left;
     vertical-align: top;
     box-sizing: border-box;
     position: relative;
@@ -30,7 +32,9 @@
 /* visual */
 .ProseMirror th {
     font-weight: bold;
-    text-align: left;
+    text-align: center;
+    vertical-align: middle;
+    background-color: darkseagreen;
 }
 
 .ProseMirror td:not([data-colwidth]):not(.column-resize-dragging),
@@ -70,8 +74,7 @@
 }
 */
 .ProseMirror .selectedCell {
-    background: rgba(200, 200, 255, 0.4);
-    pointer-events: none;
+    background-color: #adf;
 }
 
 /* Заголовок таблицы используем для иконки удаления */
@@ -81,14 +84,14 @@
     margin-left: var(--alxgrn-unit);
 }
 
-.ProseMirror table thead tr th {
+.ProseMirror table thead {
     display: block;
     position: absolute;
     top: calc(-1 * var(--alxgrn-unit));
     left: calc(-1 * var(--alxgrn-unit));
 }
 
-.ProseMirror table thead tr th {
+.ProseMirror table thead th {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,6 +101,12 @@
     height: var(--alxgrn-unit);
     font-size: var(--alxgrn-font-size-small);
     cursor: pointer;
+    color: var(--alxgrn-color-light);
+    background-color: transparent;
+}
+
+.ProseMirror table thead th:hover {
+    color: var(--alxgrn-color-accent);
 }
 
 /* Первая ячейка каждого ряда */
@@ -111,6 +120,8 @@
     bottom: 0;
     right: 100%;
     width: var(--alxgrn-unit);
+    border-top-left-radius: var(--alxgrn-unit-small);
+    border-bottom-left-radius: var(--alxgrn-unit-small);
 }
 
 /* У первой ячейки последнего ряда уберем белый бордер снизу */
@@ -131,6 +142,8 @@
     right: 0;
     bottom: 100%;
     height: var(--alxgrn-unit);
+    border-top-left-radius: var(--alxgrn-unit-small);
+    border-top-right-radius: var(--alxgrn-unit-small);
 }
 
 /* У последней ячейки первого ряда уберем белый бордер справа */

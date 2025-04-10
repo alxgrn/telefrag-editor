@@ -4,7 +4,7 @@
  * а также необходимо выводить контекстное меню ячейки.
  * Для плашек мы используем псеводоэлементы ::before и ::after у ячеек по краю таблицы.
  */
-import { NodeViewComponentProps, useEditorEventCallback } from "@handlewithcare/react-prosemirror";
+import { NodeViewComponentProps } from "@handlewithcare/react-prosemirror";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import TableCellMenu from "./TableCellMenu";
 
@@ -29,11 +29,6 @@ const TableCellView = forwardRef<HTMLTableCellElement, NodeViewComponentProps>(
             return () => document.removeEventListener('contextmenu', handler, true);
         }, []);
 
-        // При клике всегда снимаем выделение (?)
-        const onClick = useEditorEventCallback((view) => {
-            view.dispatch(view.state.tr.deleteSelection());
-        });
-
         // Показываем контекстное
         const onContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
             e.preventDefault();
@@ -51,9 +46,42 @@ const TableCellView = forwardRef<HTMLTableCellElement, NodeViewComponentProps>(
             }
         };
 
+        // Если надо отобразить загловок выводим тег TH...
+        if (nodeProps.node.type.spec.tableRole === 'header_cell') return (
+            <th {...props}
+                colSpan={nodeProps.node.attrs.colspan}
+                rowSpan={nodeProps.node.attrs.rowspan}
+                onContextMenu={onContextMenu}
+                ref={(el) => {
+                    innerRef.current = el;
+                    if (!outerRef) {
+                        return;
+                    }
+                    if (typeof outerRef === "function") {
+                        outerRef(el);
+                    } else {
+                        outerRef.current = el;
+                    }
+                }}
+            >
+                {children}
+                <TableCellMenu
+                    parent={innerRef.current}
+                    isRowMenuOpen={isRowMenuOpen}
+                    onRowMenuClose={() => setIsRowMenuOpen(false)}
+                    isCellMenuOpen={isCellMenuOpen}
+                    onCellMenuClose={() => setIsCellMenuOpen(false)}
+                    isColumnMenuOpen={isColumnMenuOpen}
+                    onColumnMenuClose={() => setIsColumnMenuOpen(false)}
+                />
+            </th>
+        );
+
+        // ...в противном случае выводим тег TD
         return (
             <td {...props}
-                onClick={onClick}
+                colSpan={nodeProps.node.attrs.colspan}
+                rowSpan={nodeProps.node.attrs.rowspan}
                 onContextMenu={onContextMenu}
                 ref={(el) => {
                     innerRef.current = el;

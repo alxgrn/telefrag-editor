@@ -55,6 +55,7 @@ const nodes = baseSchema.spec.nodes.remove('image').append({
         tableGroup: 'block',
         cellContent: 'block+',
         cellAttributes: {
+            /*
             background: {
                 default: null,
                 getFromDOM(dom) {
@@ -65,6 +66,7 @@ const nodes = baseSchema.spec.nodes.remove('image').append({
                     attrs.style = (attrs.style || '') + `background-color: ${value};`;
                 },
             },
+            */
         },
     }),
 );
