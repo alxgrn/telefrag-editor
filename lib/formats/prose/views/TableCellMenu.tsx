@@ -1,7 +1,7 @@
 /**
  * Контекстные меню ячейки таблицы
  */
-import { Menu, MenuItem } from "@alxgrn/telefrag-ui";
+import { Icons, Menu, MenuItem } from "@alxgrn/telefrag-ui";
 import { useEditorEventCallback } from "@handlewithcare/react-prosemirror";
 import { addColumnAfter, addColumnBefore, addRowAfter, addRowBefore, deleteColumn, deleteRow, mergeCells, splitCell, toggleHeaderCell, toggleHeaderColumn, toggleHeaderRow } from "prosemirror-tables";
 import { FC } from "react";
@@ -10,29 +10,37 @@ import { FC } from "react";
 const rowMenuItems: MenuItem[] = [{
     id: 'toggleHeaderRow',
     text: 'Toggle header row',
+    icon: <Icons.Heading/>,
 },{
     id: 'addRowBefore',
     text: 'Insert row before',
+    icon: <Icons.RowInsertBefore/>,
 },{
     id: 'addRowAfter',
     text: 'Insert row after',
+    icon: <Icons.RowInsertAfter/>,
 },{
     id: 'deleteRow',
     text: 'Delete row',
+    icon: <Icons.Trash/>,
 }];
 // Контекстное меню столбца
 const columnMenuItems: MenuItem[] = [{
     id: 'toggleHeaderColumn',
     text: 'Toggle header column',
+    icon: <Icons.Heading/>,
 },{
     id: 'addColumnBefore',
     text: 'Insert column before',
+    icon: <Icons.ColumnInsertBefore/>,
 },{
     id: 'addColumnAfter',
     text: 'Insert column after',
+    icon: <Icons.ColumnInsertAfter/>,
 },{
     id: 'deleteColumn',
     text: 'Delete column',
+    icon: <Icons.Trash/>,
 }];
 // Контекстное меню ячейки
 const cellMenuItems: MenuItem[] = [{
