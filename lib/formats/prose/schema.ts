@@ -55,18 +55,30 @@ const nodes = baseSchema.spec.nodes.remove('image').append({
         tableGroup: 'block',
         cellContent: 'block+',
         cellAttributes: {
-            /*
-            background: {
+            halign: {
                 default: null,
                 getFromDOM(dom) {
-                    return dom.style.backgroundColor || null;
+                    const halign = dom.getAttribute('align') || null;
+                    if (halign === 'left' || halign === 'right' || halign === 'center') return halign;
+                    return null;
                 },
                 setDOMAttr(value, attrs) {
                     if (value)
-                    attrs.style = (attrs.style || '') + `background-color: ${value};`;
+                    attrs.style = (attrs.style || '') + `text-align: ${value};`;
                 },
             },
-            */
+            valign: {
+                default: null,
+                getFromDOM(dom) {
+                    const valign = dom.style.verticalAlign || null;
+                    if (valign === 'top' || valign === 'bottom' || valign === 'middle') return valign;
+                    return null;
+                },
+                setDOMAttr(value, attrs) {
+                    if (value)
+                    attrs.style = (attrs.style || '') + `vertical-align: ${value};`;
+                },
+            },
         },
     }),
 );

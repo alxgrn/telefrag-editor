@@ -3,7 +3,7 @@
  */
 import { Icons, Menu, MenuItem } from "@alxgrn/telefrag-ui";
 import { useEditorEventCallback } from "@handlewithcare/react-prosemirror";
-import { addColumnAfter, addColumnBefore, addRowAfter, addRowBefore, deleteColumn, deleteRow, mergeCells, splitCell, toggleHeaderCell, toggleHeaderColumn, toggleHeaderRow } from "prosemirror-tables";
+import { addColumnAfter, addColumnBefore, addRowAfter, addRowBefore, deleteColumn, deleteRow, mergeCells, setCellAttr, splitCell, toggleHeaderCell, toggleHeaderColumn, toggleHeaderRow } from "prosemirror-tables";
 import { FC } from "react";
 
 // Контекстное меню ряда
@@ -44,14 +44,41 @@ const columnMenuItems: MenuItem[] = [{
 }];
 // Контекстное меню ячейки
 const cellMenuItems: MenuItem[] = [{
+    id: 'toggleHeaderCell',
+    text: 'Toggle header',
+    icon: <Icons.Heading/>,
+},{
+    id: 'alignLeft',
+    text: 'Horizontal align left',
+    icon: <Icons.AlignLeft/>
+},{
+    id: 'alignCenter',
+    text: 'Horizontal align center',
+    icon: <Icons.AlignCenter/>,
+},{
+    id: 'alignRight',
+    text: 'Horizontal align Right',
+    icon: <Icons.AlignRight/>,
+},{
+    id: 'alignTop',
+    text: 'Vertical align top',
+    icon: <Icons.AlignTop/>,
+},{
+    id: 'alignMiddle',
+    text: 'Vertical align middle',
+    icon: <Icons.AlignMiddle/>,
+},{
+    id: 'alignBottom',
+    text: 'Vertical align bottom',
+    icon: <Icons.AlignBottom/>,
+},{
     id: 'mergeCells',
     text: 'Merge cells',
+    icon: <Icons.CellsMerge/>,
 },{
     id: 'splitCell',
     text: 'Split cell',
-},{
-    id: 'toggleHeaderCell',
-    text: 'Toggle header',
+    icon: <Icons.CellsSplit/>,
 }];
 
 type Props = {
@@ -104,6 +131,24 @@ const TableCellMenu: FC<Props> = ({ parent,
                 break;
             case 'toggleHeaderCell':
                 toggleHeaderCell(view.state, view.dispatch);
+                break;
+            case 'alignLeft':
+                setCellAttr('halign', 'left')(view.state, view.dispatch);
+                break;
+            case 'alignCenter':
+                setCellAttr('halign', 'center')(view.state, view.dispatch);
+                break;
+            case 'alignRight':
+                setCellAttr('halign', 'right')(view.state, view.dispatch);
+                break;
+            case 'alignTop':
+                setCellAttr('valign', 'top')(view.state, view.dispatch);
+                break;
+            case 'alignMiddle':
+                setCellAttr('valign', 'middle')(view.state, view.dispatch);
+                break;
+            case 'alignBottom':
+                setCellAttr('valign', 'bottom')(view.state, view.dispatch);
                 break;
             default:
                 break;

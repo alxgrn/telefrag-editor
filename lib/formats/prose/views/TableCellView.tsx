@@ -51,6 +51,10 @@ const TableCellView = forwardRef<HTMLTableCellElement, NodeViewComponentProps>(
             <th {...props}
                 colSpan={nodeProps.node.attrs.colspan}
                 rowSpan={nodeProps.node.attrs.rowspan}
+                style={{
+                    textAlign: nodeProps.node.attrs.halign,
+                    verticalAlign: nodeProps.node.attrs.valign,
+                }}
                 onContextMenu={onContextMenu}
                 ref={(el) => {
                     innerRef.current = el;
@@ -82,6 +86,10 @@ const TableCellView = forwardRef<HTMLTableCellElement, NodeViewComponentProps>(
             <td {...props}
                 colSpan={nodeProps.node.attrs.colspan}
                 rowSpan={nodeProps.node.attrs.rowspan}
+                style={{
+                    textAlign: nodeProps.node.attrs.halign,
+                    verticalAlign: nodeProps.node.attrs.valign,
+                }}
                 onContextMenu={onContextMenu}
                 ref={(el) => {
                     innerRef.current = el;
