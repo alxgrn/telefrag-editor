@@ -44,7 +44,7 @@ const App = () => {
             article={article}
             onCancel={() => setMode('viewer')}
             onUpload={() => new Promise(function(resolve) {
-                setTimeout(() => resolve("Не могу загрузить картинку"), 1000);
+                setTimeout(() => resolve(1410), 1000);
             })}
             onSave={(data) => {
                 setArticle({ ...article, content: data.content, format: data.format });

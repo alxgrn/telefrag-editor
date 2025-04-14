@@ -14,7 +14,7 @@ import { TImageUploader } from '../../../../types';
 
 type Props = {
     schema: Schema;
-    onUpload: TImageUploader;
+    onUpload?: TImageUploader;
 };
 
 export const InsertBlocks: FC<Props> = ({ schema, onUpload }) => {

@@ -2,18 +2,19 @@ import { useEditorEffect, useEditorEventCallback } from "@handlewithcare/react-p
 import { FC, useState } from "react";
 import { undoDepth } from 'prosemirror-history';
 import { Button } from "@alxgrn/telefrag-ui";
-import { TEditorSaver } from "../../../../types";
+import { TEditorSaver, TNotesSaver } from "../../../../types";
 import { fixTables } from "prosemirror-tables";
 
 type Props = {
-    onSave: TEditorSaver;
+    onSave: TEditorSaver|TNotesSaver;
+    disabled?: boolean;
 };
 
-const SaveButton: FC<Props> = ({ onSave }) => {
-    const [ disabled, setDisabled ] = useState(true);
+const SaveButton: FC<Props> = ({ onSave, disabled = false }) => {
+    const [ enabled, setEnabled ] = useState(true);
 
     useEditorEffect((view) => {
-        setDisabled(!undoDepth(view.state));
+        setEnabled(undoDepth(view.state));
     });
 
     const onClick = useEditorEventCallback((view) => {
@@ -32,7 +33,13 @@ const SaveButton: FC<Props> = ({ onSave }) => {
         }
     });
 
-    return (<Button type='Accent' disabled={disabled} label='Сохранить' size='Small' onClick={onClick}/>);
+    return (<Button
+        type='Accent'
+        disabled={disabled || !enabled}
+        label='Сохранить'
+        size='Small'
+        onClick={onClick}
+    />);
 };
 
 export default SaveButton;

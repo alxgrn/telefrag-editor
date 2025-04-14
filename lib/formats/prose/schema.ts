@@ -74,7 +74,11 @@ const marks = baseSchema.spec.marks.append({
 });
 
 // Соорудили свою простую схему
-export const simpleSchema = new Schema({ nodes, marks });
+// TODO: Убрать заголовки!
+export const simpleSchema = new Schema({
+    nodes: nodes.remove('horizontal_rule').remove('heading'),
+    marks,
+});
 
 // Добавим в базовые узлы таблицы
 const nodesWithTables = nodes.append(tableNodes({
