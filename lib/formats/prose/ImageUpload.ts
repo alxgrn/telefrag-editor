@@ -5,6 +5,8 @@
 import { Schema } from "prosemirror-model";
 import { EditorState, Plugin } from "prosemirror-state"
 import { Decoration, DecorationSet, EditorView } from "prosemirror-view"
+import { TImageUploader } from "../../types";
+import './ImageUpload.css';
 
 export const placeholderPlugin = new Plugin({
     state: {
@@ -40,6 +42,7 @@ const findPlaceholder = (state: EditorState, id: number) => {
 // This is just a dummy that loads the file and creates a data URL.
 // You could swap it out with a function that does an actual upload
 // and returns a regular URL for the uploaded file.
+/*
 function uploadFile(file: File) {
     let reader = new FileReader;
     return new Promise((accept, fail) => {
@@ -49,27 +52,32 @@ function uploadFile(file: File) {
         setTimeout(() => reader.readAsDataURL(file), 1000 * 3);
     });
 };
+*/
 
-export const startImageUpload = (view: EditorView, file: File|null, schema: Schema|null, title?: string) => {
+export const startImageUpload = async (view: EditorView, file: File|null, schema: Schema|null, upload: TImageUploader, title?: string) => {
     if (!file || !schema) return;
     // A fresh object to act as the ID for this upload
-    let id = Date.now();
+    const id = Date.now();
     // Replace the selection with a placeholder
-    let tr = view.state.tr;
+    const tr = view.state.tr;
     if (!tr.selection.empty) tr.deleteSelection();
     tr.setMeta(placeholderPlugin, { add: { id, pos: tr.selection.from }});
     view.dispatch(tr);
     // Вызываем функцию загрузки
-    uploadFile(file).then(url => {
-        let pos = findPlaceholder(view.state, id);
+    try {
+        //const url = await uploadFile(file);
+        const res = await upload(file);
+        if (typeof res === 'string') throw new Error(res);
+        const url = `https://dailytelefrag.ru/api/files/${res}`;
+        const pos = findPlaceholder(view.state, id);
         // If the content around the placeholder has been deleted, drop the image
         if (pos == null) return;
         // Otherwise, insert it at the placeholder's position, and remove the placeholder
         view.dispatch(view.state.tr
             .replaceWith(pos, pos, schema.nodes.image.create({ src: url, title }))
             .setMeta(placeholderPlugin, { remove: { id }}));
-    }, () => {
+    } catch {
         // On failure, just clean up the placeholder
-        view.dispatch(tr.setMeta(placeholderPlugin, { remove: { id }}));
-    });
+        view.dispatch(view.state.tr.setMeta(placeholderPlugin, { remove: { id }}));
+    }
 };

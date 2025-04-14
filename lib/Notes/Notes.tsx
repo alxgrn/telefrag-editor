@@ -51,6 +51,7 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
                     content={article.content}
                     onSave={onSave}
                     onCancel={onCancel}
+                    onUpload={onUpload}
                 />);
             case 'video':
                 return (<VideoNotes

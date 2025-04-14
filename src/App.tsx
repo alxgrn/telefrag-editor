@@ -82,6 +82,7 @@ const App = () => {
             onUpload={() => new Promise(function(resolve) {
                 // Имитируем загрузку картинки на сервер и возврат ее идентификатора
                 setTimeout(() => resolve(413), 1000);
+                // setTimeout(() => resolve('Error'), 1000);
             })}
         />
     </>);

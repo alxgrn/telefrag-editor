@@ -51,7 +51,7 @@ const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, o
                     content={article.content}
                     onSave={onSave}
                     onChange={onChange}
-                    //onUpload={onUpload}
+                    onUpload={onUpload}
                 />);
             default:
                 return <div className='p error'>Неизвестный формат статьи</div>;

@@ -1,28 +1,26 @@
 import { FC, useEffect, useState } from "react";
 import { EditorState } from "prosemirror-state";
-import { schema } from './schema';
 import { plugins } from './plugins';
 import { ProseMirror, ProseMirrorDoc } from "@handlewithcare/react-prosemirror";
-import { TEditorSaver } from "../../types";
+import { TEditorSaver, TImageUploader } from "../../types";
 import { Node } from "prosemirror-model";
 import { undoDepth } from 'prosemirror-history';
 import MenuBar from "./menubar/MenuBar";
 import TableView from "./views/TableView";
 import TableCellView from "./views/TableCellView";
 import { fixTables } from "prosemirror-tables";
+import { schema } from "./schema";
 import './ProseViewer.css';
-import './ImageUpload.css';
-import './views/ProseTable.css';
 
 type Props = {
     content: string | null; // Содержимое статьи
     //onView: () => void; // Вызывается при клике на кнопку просмотра статьи
     onSave: TEditorSaver; // Вызывается при нажатии на кнопку сохранения статьи
     onChange: (changed: boolean) => void; // Вызывается при изменении текста статьи
-    //onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
+    onUpload: TImageUploader; // Вызывается после выбора картинки для загрузки на сервер
 };
 
-const ProseEditor: FC<Props> = ({ content, onSave, onChange }) => {
+const ProseEditor: FC<Props> = ({ content, onSave, onChange, onUpload }) => {
     const [editorState, setEditorState] = useState<EditorState>();
 
     // Инициализация
@@ -67,7 +65,7 @@ const ProseEditor: FC<Props> = ({ content, onSave, onChange }) => {
                     table_cell: TableCellView,
                 }}
             >
-                <MenuBar schema={schema} onSave={onSave}/>
+                <MenuBar schema={schema} onSave={onSave} onUpload={onUpload}/>
                 <ProseMirrorDoc />
             </ProseMirror>
         </div>

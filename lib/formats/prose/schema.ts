@@ -6,7 +6,7 @@ import { addListNodes } from 'prosemirror-schema-list';
 import { schema as baseSchema } from 'prosemirror-schema-basic';
 import { tableNodes } from "prosemirror-tables";
 
-// Добавим в базовую схему свой узел картинок, видео и таблицы
+// Добавим в базовую схему свой узел картинок и видео
 const nodes = baseSchema.spec.nodes.remove('image').append({
     /// Переделали инлайн в блок т.к. нам не нужны инлайн картинки.
     image: {
@@ -49,39 +49,7 @@ const nodes = baseSchema.spec.nodes.remove('image').append({
             return ["div", { title, class: "video" }, [ "iframe", { src, title, allow }]];
         }
     } as NodeSpec,
-// Добавляем таблицы
-}).append(
-    tableNodes({
-        tableGroup: 'block',
-        cellContent: 'block+',
-        cellAttributes: {
-            halign: {
-                default: null,
-                getFromDOM(dom) {
-                    const halign = dom.getAttribute('align') || null;
-                    if (halign === 'left' || halign === 'right' || halign === 'center') return halign;
-                    return null;
-                },
-                setDOMAttr(value, attrs) {
-                    if (value)
-                    attrs.style = (attrs.style || '') + `text-align: ${value};`;
-                },
-            },
-            valign: {
-                default: null,
-                getFromDOM(dom) {
-                    const valign = dom.style.verticalAlign || null;
-                    if (valign === 'top' || valign === 'bottom' || valign === 'middle') return valign;
-                    return null;
-                },
-                setDOMAttr(value, attrs) {
-                    if (value)
-                    attrs.style = (attrs.style || '') + `vertical-align: ${value};`;
-                },
-            },
-        },
-    }),
-);
+});
 
 // Добавим подчеркивание и зачеркивание
 const marks = baseSchema.spec.marks.append({
@@ -106,10 +74,42 @@ const marks = baseSchema.spec.marks.append({
 });
 
 // Соорудили свою простую схему
-const simpleSchema = new Schema({ nodes, marks });
+export const simpleSchema = new Schema({ nodes, marks });
 
-// Добавим в неё списки
+// Добавим в базовые узлы таблицы
+const nodesWithTables = nodes.append(tableNodes({
+    tableGroup: 'block',
+    cellContent: 'block+',
+    cellAttributes: {
+        halign: {
+            default: null,
+            getFromDOM(dom) {
+                const halign = dom.getAttribute('align') || null;
+                if (halign === 'left' || halign === 'right' || halign === 'center') return halign;
+                return null;
+            },
+            setDOMAttr(value, attrs) {
+                if (value)
+                attrs.style = (attrs.style || '') + `text-align: ${value};`;
+            },
+        },
+        valign: {
+            default: null,
+            getFromDOM(dom) {
+                const valign = dom.style.verticalAlign || null;
+                if (valign === 'top' || valign === 'bottom' || valign === 'middle') return valign;
+                return null;
+            },
+            setDOMAttr(value, attrs) {
+                if (value)
+                attrs.style = (attrs.style || '') + `vertical-align: ${value};`;
+            },
+        },
+    },
+}));
+
+// Сделаем схему с таблицами и списками
 export const schema = new Schema({
-    nodes: addListNodes(simpleSchema.spec.nodes, "paragraph block*", "block"),
-    marks: simpleSchema.spec.marks,
+    nodes: addListNodes(nodesWithTables, "paragraph block*", "block"),
+    marks,
 });

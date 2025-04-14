@@ -8,8 +8,8 @@ import { Node } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import { EditorState } from 'prosemirror-state';
 import { startImageUpload } from './ImageUpload';
-import { schema } from './schema';
 import { plugins } from './plugins';
+import { schema } from './schema';
 import './ProseMirror.css';
 import './ProseNotes.css';
 import './ProseViewer.css';
@@ -24,7 +24,7 @@ type ProseNotesProps = {
     onUpload?: TImageUploader; // вызывается после выбора картинки для загрузки на сервер
 };
 
-const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCancel }) => {
+const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCancel, onUpload }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [ view, setView ] = useState<EditorView|null>(null);
     const [ name, setName ] = useState('');
@@ -99,8 +99,8 @@ const ProseNotes: FC<ProseNotesProps> = ({ title = false, content, onSave, onCan
                 type='file'
                 accept='image/*'
                 onChange={e => {
-                    if (e.target.files?.length) {
-                        startImageUpload(view, e.target.files[0], schema);
+                    if (e.target.files?.length && onUpload) {
+                        startImageUpload(view, e.target.files[0], schema, onUpload);
                     }
                 }}
             />
