@@ -3,8 +3,7 @@ import { EditorState } from "prosemirror-state";
 import { plugins } from './plugins';
 import { ProseMirror, ProseMirrorDoc } from "@handlewithcare/react-prosemirror";
 import { TImageUploader, TNotesSaver, TPublication } from "../../types";
-import { Node } from "prosemirror-model";
-import { simpleSchema as schema } from "./schema";
+import { simpleSchema, toSimpleSchema } from "./schema";
 import SimpleMenuBar from "./menubar/SimpleMenuBar";
 import './ProseMirror.css';
 import './ProseViewer.css';
@@ -26,19 +25,10 @@ const ProseNotes: FC<Props> = ({ title = false, content, onSave, onCancel, onUpl
 
     // Инициализация
     useEffect(() => {
-        let doc: Node|undefined;
-        if (content) {
-            try {
-                doc = Node.fromJSON(schema, JSON.parse(content));
-            } catch (error) {
-                console.error(`Can not parse Prose format: ${error}`);
-            }
-        }
-
-        let state = EditorState.create({
-            doc,
-            schema: schema,
-            plugins: plugins({ schema, floatingMenu: true, menuBar: false }),
+        const state = EditorState.create({
+            doc: toSimpleSchema(content),
+            schema: simpleSchema,
+            plugins: plugins(simpleSchema),
         });
 
         setEditorState(state);
@@ -78,7 +68,7 @@ const ProseNotes: FC<Props> = ({ title = false, content, onSave, onCancel, onUpl
                     setEditorState((s) => s?.apply(tr));
                 }}
             >
-                <SimpleMenuBar schema={schema} onUpload={onUpload}/>
+                <SimpleMenuBar schema={simpleSchema} onUpload={onUpload}/>
                 <ProseMirrorDoc />
 
                 {(onSave || onCancel) &&

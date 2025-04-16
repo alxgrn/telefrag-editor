@@ -37,7 +37,7 @@ const ProseEditor: FC<Props> = ({ content, onSave, onChange, onUpload }) => {
         let state = EditorState.create({
             doc,
             schema: schema,
-            plugins: plugins({ schema, floatingMenu: true, menuBar: false }),
+            plugins: plugins(schema),
         });
 
         // Зачем фиксить таблицы пока не очень понятно, но в демке так сделано
