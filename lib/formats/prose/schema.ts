@@ -5,7 +5,8 @@ import { Schema, NodeSpec, MarkSpec, Node, DOMSerializer, DOMParser } from "pros
 import { addListNodes } from 'prosemirror-schema-list';
 import { schema as baseSchema } from 'prosemirror-schema-basic';
 import { tableNodes } from "prosemirror-tables";
-import { API_URL, ERROR_IMAGE_DATA } from "../../config";
+import { API_URL, ERROR_EMBED_DATA, ERROR_IMAGE_DATA } from "../../config";
+import { sanitizeVideoURL } from "../../utils/link";
 
 // Добавим в базовую схему свой узел картинок и видео
 const nodes = baseSchema.spec.nodes.remove('image').append({
@@ -50,6 +51,9 @@ const nodes = baseSchema.spec.nodes.remove('image').append({
         toDOM(node) {
             const { src, title } = node.attrs;
             const allow = 'fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            if (!sanitizeVideoURL(src)) {
+                return ["div", { title, class: "image" }, [ "img", { src: ERROR_EMBED_DATA }]];
+            } 
             return ["div", { title, class: "video" }, [ "iframe", { src, title, allow }]];
         }
     } as NodeSpec,

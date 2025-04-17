@@ -3,7 +3,7 @@
     gap: var(--alxgrn-unit-small);
     flex-direction: column;
     border: 1px solid var(--alxgrn-border);
-    padding: var(--alxgrn-unit-half);
+    padding: var(--alxgrn-unit-small);
     border-radius: var(--alxgrn-unit-small);
 }
 
@@ -29,6 +29,7 @@
     overflow: auto;
     min-height: 20vh;
     max-height: 45vh;
+    padding: var(--alxgrn-unit-small);
     padding-right: var(--alxgrn-unit-half);
 }
 
@@ -38,6 +39,7 @@
     align-items: center;
     justify-content: flex-end;
     border-top: 1px solid var(--alxgrn-border);
+    padding: var(--alxgrn-unit-small);
     padding-top: var(--alxgrn-unit-half);
 }
 

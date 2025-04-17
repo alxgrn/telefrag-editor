@@ -25,7 +25,8 @@ const InsertVideo: FC<Props> = ({ schema, isOpen, onClose }) => {
     const onSubmit = useEditorEventCallback((view) => {
         const node = schema.nodes.video;
         if (!view || !src || !node) return;
-        view.dispatch(view.state.tr.replaceSelectionWith(node.create({ src, title })));
+        const url = sanitizeVideoURL(src);
+        view.dispatch(view.state.tr.replaceSelectionWith(node.create({ src: url, title })));
         view.focus();
         onClose();
     });
@@ -45,9 +46,9 @@ const InsertVideo: FC<Props> = ({ schema, isOpen, onClose }) => {
                     id='src'
                     value={src}
                     onChange={setSrc}
-                    required={sanitizeVideoURL(src) !== ''}
                     label='Ссылка на видео'
                     bottom='Поддерживаются VK Video, RuTube и YouTube'
+                    required
                 />
 				<Input
 					id='value'
