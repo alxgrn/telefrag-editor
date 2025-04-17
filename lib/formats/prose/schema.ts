@@ -5,13 +5,15 @@ import { Schema, NodeSpec, MarkSpec, Node, DOMSerializer, DOMParser } from "pros
 import { addListNodes } from 'prosemirror-schema-list';
 import { schema as baseSchema } from 'prosemirror-schema-basic';
 import { tableNodes } from "prosemirror-tables";
+import { API_URL, ERROR_IMAGE_DATA } from "../../config";
 
 // Добавим в базовую схему свой узел картинок и видео
 const nodes = baseSchema.spec.nodes.remove('image').append({
     /// Переделали инлайн в блок т.к. нам не нужны инлайн картинки.
     image: {
         attrs: {
-            src: { validate: "string" },
+            fid: { default: null, validate: "string|null|number" },
+            src: { default: null, validate: "string|null" },
             alt: { default: null, validate: "string|null" },
             title: { default: null, validate: "string|null" },
         },
@@ -25,8 +27,10 @@ const nodes = baseSchema.spec.nodes.remove('image').append({
             }
         }}],
         toDOM(node) {
-            const { src, alt, title } = node.attrs;
-            return ["div", { title, class: "image" }, [ "img", { src, alt, title }]];
+            let { fid, src, alt, title } = node.attrs;
+            if (fid) src = `${API_URL}/files/${fid}`;
+            if (!src) src = ERROR_IMAGE_DATA;
+            return ["div", { title, class: "image" }, [ "img", { fid, src, alt, title }]];
         }
     } as NodeSpec,
     /// Блок видео полность наш, сделан на основе image

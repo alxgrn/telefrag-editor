@@ -66,15 +66,14 @@ export const startImageUpload = async (view: EditorView, file: File|null, schema
     // Вызываем функцию загрузки
     try {
         //const url = await uploadFile(file);
-        const res = await upload(file);
-        if (typeof res === 'string') throw new Error(res);
-        const url = `https://dailytelefrag.ru/api/files/${res}`;
+        const fid = await upload(file);
+        if (typeof fid === 'string') throw new Error(fid);
         const pos = findPlaceholder(view.state, id);
         // If the content around the placeholder has been deleted, drop the image
         if (pos == null) return;
         // Otherwise, insert it at the placeholder's position, and remove the placeholder
         view.dispatch(view.state.tr
-            .replaceWith(pos, pos, schema.nodes.image.create({ src: url, title }))
+            .replaceWith(pos, pos, schema.nodes.image.create({ fid, title }))
             .setMeta(placeholderPlugin, { remove: { id }}));
     } catch {
         // On failure, just clean up the placeholder
