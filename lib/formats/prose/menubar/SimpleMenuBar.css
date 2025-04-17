@@ -3,10 +3,6 @@
     align-items: center;
     gap: var(--alxgrn-unit-small);
     flex-wrap: wrap;
-    border: none;
-    border-bottom: 2px solid var(--alxgrn-color-text)!important;
-    background-color: var(--alxgrn-bg-panel);
-    z-index: 100;
-    padding-top: var(--alxgrn-unit-double);
+    border-bottom: 1px solid var(--alxgrn-border);
     padding-bottom: var(--alxgrn-unit-half);
 }

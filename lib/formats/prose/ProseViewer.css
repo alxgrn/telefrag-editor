@@ -14,13 +14,31 @@
     margin-bottom: 0;
 }
 
+.ProseNotes ul,
+.ProseEditor ul,
+.ProseViewer ul,
+.ProseNotes ol,
+.ProseEditor ol,
+.ProseViewer ol,
+.ProseNotes ul p,
+.ProseEditor ul p,
+.ProseViewer ul p,
+.ProseNotes ol p,
+.ProseEditor ol p,
+.ProseViewer ol p {
+    margin: 0;
+}
+
 .ProseNotes blockquote,
 .ProseEditor blockquote,
 .ProseViewer blockquote {
     display: block;
-    border-left: 2px solid var(--alxgrn-border-accent);
-    padding-left: var(--alxgrn-unit-half);
     margin: 0;
+    border-left: var(--alxgrn-unit-small) solid var(--alxgrn-color-accent);
+    margin: var(--alxgrn-unit) 0;
+    padding: var(--alxgrn-unit-half);
+    border-radius: var(--alxgrn-unit-small);
+    background-color: var(--alxgrn-bg-accent);
 }
 
 .ProseNotes div.image,

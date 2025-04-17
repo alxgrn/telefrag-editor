@@ -31,3 +31,7 @@ a, a:link, a:visited, a:active, .a {
 a:hover, .a:hover {
     border-bottom: 1px solid var(--alxgrn-color-accent);
 }
+
+small, .small {
+    font-size: var(--alxgrn-font-size-small);
+}
