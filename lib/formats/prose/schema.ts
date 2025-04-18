@@ -22,6 +22,7 @@ const nodes = baseSchema.spec.nodes.remove('image').append({
         draggable: true,
         parseDOM: [{tag: "img[src]", getAttrs(dom: HTMLElement) {
             return {
+                fid: dom.getAttribute("fid"),
                 src: dom.getAttribute("src"),
                 alt: dom.getAttribute("alt"),
                 title: dom.getAttribute("title"),
