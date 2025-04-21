@@ -10,8 +10,10 @@ import { sanitizeVideoURL } from "../../utils/link";
 
 // Добавим в базовую схему свой узел картинок и видео
 const nodes = baseSchema.spec.nodes.remove('image').append({
+    
     /// Переделали инлайн в блок т.к. нам не нужны инлайн картинки.
     image: {
+        atom: true,
         attrs: {
             fid: { default: null, validate: "string|null|number" },
             src: { default: null, validate: "string|null" },
@@ -37,6 +39,7 @@ const nodes = baseSchema.spec.nodes.remove('image').append({
     } as NodeSpec,
     /// Блок видео полность наш, сделан на основе image
     video: {
+        atom: true,
         attrs: {
             src: { validate: "string" },
             title: { default: null, validate: "string|null" },
@@ -88,8 +91,29 @@ export const simpleSchema = new Schema({
     marks,
 });
 
+// Для большой схемы добавим в дефолтный параграф выравнивание.
+// ВАЖНО: Параграф надо добавлять в начало списка, а не в конец.
+// В противном случае будет переполнение стека при парсинге документа.
+const paragraph: NodeSpec = {
+    content: 'inline*',
+    group: 'block',
+    attrs: {
+        align: { default: 'left', validate: 'string|null' },
+    },
+    parseDOM: [{tag: 'p', getAttrs(dom: HTMLElement) {
+        let align = dom.getAttribute('align');
+        if (align !== 'left' && align !== 'right' && align !== 'center' && align !== 'justify') align = null;
+        if (!align) align = 'left';
+        return { align };
+    }}],
+    toDOM(node) {
+        const { align } = node.attrs;
+        return ['p', { align }, 0];
+    }
+};
+
 // Добавим в базовые узлы таблицы
-const nodesWithTables = nodes.append(tableNodes({
+const nodesWithTables = nodes.remove('paragraph').prepend({ paragraph }).append(tableNodes({
     tableGroup: 'block',
     cellContent: 'block+',
     cellAttributes: {
