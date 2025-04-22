@@ -60,7 +60,7 @@
     "highlight.js": "^11.11.1",
     "load-script": "^2.0.0",
     "prosemirror-example-setup": "^1.2.3",
-    "prosemirror-model": "^1.25.0",
+    "prosemirror-model": "^1.25.1",
     "prosemirror-schema-basic": "^1.2.4",
     "prosemirror-schema-list": "^1.5.1",
     "prosemirror-state": "^1.4.3",

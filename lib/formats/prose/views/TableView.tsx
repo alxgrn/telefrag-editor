@@ -16,9 +16,7 @@ const TableView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
         });
 
         return (
-            <table {...props}
-                ref={outerRef}
-            >
+            <table ref={outerRef} {...props}>
                 <thead onClick={onClick}>
                     <tr><th><Icons.Trash/></th></tr>
                 </thead>

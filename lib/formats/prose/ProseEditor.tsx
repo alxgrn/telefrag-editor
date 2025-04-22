@@ -6,6 +6,7 @@ import { TEditorSaver, TImageUploader } from "../../types";
 import { Node } from "prosemirror-model";
 import { undoDepth } from 'prosemirror-history';
 import MenuBar from "./menubar/MenuBar";
+import ImageView from "./views/ImageView";
 import TableView from "./views/TableView";
 import TableCellView from "./views/TableCellView";
 import { fixTables } from "prosemirror-tables";
@@ -60,6 +61,7 @@ const ProseEditor: FC<Props> = ({ content, onSave, onChange, onUpload }) => {
                     return state;
                 })}
                 nodeViews={{
+                    image: ImageView,
                     table: TableView,
                     table_header: TableCellView,
                     table_cell: TableCellView,

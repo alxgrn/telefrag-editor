@@ -1,5 +1,6 @@
 /**
  * Просмотровщик публикации в формате prose
+ * в котором документ выводится в виде статического HTML
  */
 import { FC, useEffect, useRef, useState } from 'react';
 import { DOMSerializer, Node } from 'prosemirror-model';
