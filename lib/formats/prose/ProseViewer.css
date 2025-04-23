@@ -27,6 +27,15 @@
 .ProseEditor ol p,
 .ProseViewer ol p {
     margin: 0;
+    padding: 0;
+}
+
+.ProseNotes li,
+.ProseEditor li,
+.ProseViewer li {
+    padding: 0;
+    margin: 0;
+    margin-left: var(--alxgrn-unit-double);
 }
 
 .ProseNotes blockquote,
@@ -59,6 +68,7 @@
     border-radius: var(--alxgrn-unit-small);
     max-width: 100%;
     margin: 0 auto;
+    background-color: var(--alxgrn-border);
 }
 
 .ProseNotes div.image::after,
@@ -71,6 +81,26 @@
     margin: 0 auto;
 }
 
+.ProseViewer div.image img {
+    cursor: pointer;
+}
+
+.ProseViewer div.image:fullscreen {
+    background-color: black;
+    border-radius: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ProseViewer div.image:fullscreen::after {
+    display: none;
+}
+
+.ProseViewer div.image:fullscreen img {
+    border-radius: 0;
+}
+
 .ProseNotes div.video iframe,
 .ProseEditor div.video iframe,
 .ProseViewer div.video iframe {
@@ -80,11 +110,12 @@
     aspect-ratio: 16 / 9;
     border: none;
     margin: 0 auto;
+    background-color: var(--alxgrn-border);
 }
 
 .ProseNotes div.video::after,
 .ProseEditor div.video::after,
-.ProseViewer div.imavideoge::after {
+.ProseViewer div.video::after {
     content: attr(title);
     font-style: italic;
     display: block;
@@ -100,6 +131,14 @@
     border-radius: var(--alxgrn-unit-small);
     padding: var(--alxgrn-unit-small) var(--alxgrn-unit-half);
 }
+
+.ProseViewer hr {
+    display: block;
+    border: none;
+    border-top: 1px solid var(--alxgrn-border);
+    margin: var(--alxgrn-unit) 0;
+}
+
 /**
  * Ниже весь огород с ячейками для закругленных уголков у таблицы
  */

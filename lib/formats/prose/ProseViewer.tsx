@@ -1,10 +1,8 @@
 /**
  * Просмотровщик публикации в формате prose
- * в котором документ выводится в виде статического HTML
  */
-import { FC, useEffect, useRef, useState } from 'react';
-import { DOMSerializer, Node } from 'prosemirror-model';
-import { schema } from './schema';
+import { FC, useEffect, useState } from 'react';
+import ProseRender, { Node } from './render/ProseRender';
 import './ProseViewer.css';
 
 type ProseViewerProps = {
@@ -12,24 +10,23 @@ type ProseViewerProps = {
 };
 
 const ProseViewer: FC<ProseViewerProps> = ({ content }) => {
-    const ref = useRef<HTMLDivElement>(null);
+    const [ doc, setDoc ] = useState<Node>();
     const [ error, setError ] = useState(false);
 
     useEffect(() => {
         try {
             setError(false);
-            const doc = Node.fromJSON(schema, JSON.parse(content));
-            const dom = DOMSerializer.fromSchema(schema).serializeFragment(doc.content);
-            ref.current?.appendChild(dom);
+            const doc = JSON.parse(content);
+            setDoc(doc);
         } catch (error) {
             setError(true);
             console.error(`Can not parse Prose format: ${error}`);
         }
-    }, [ ref, content ]);
+    }, [ content ]);
 
-    return (<div ref={ref} className='ProseViewer'>
-        {error && <div className='error'>ОШИБКА</div>}
-    </div>);
+    if (error) return <div className='error'>ОШИБКА</div>;
+
+    return <ProseRender node={doc} className='ProseViewer'/>;
 };
 
 export default ProseViewer;

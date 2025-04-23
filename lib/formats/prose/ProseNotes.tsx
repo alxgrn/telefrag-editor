@@ -9,6 +9,8 @@ import './ProseMirror.css';
 import './ProseViewer.css';
 import './ProseNotes.css';
 import SaveButton from "./menubar/elements/SaveButton";
+import ImageView from "./views/ImageView";
+import VideoView from "./views/VideoView";
 
 type Props = {
     title?: boolean | string | null; // нужно ли выводить поле ввода для заголовка публикации и его начальное содержимое
@@ -66,6 +68,10 @@ const ProseNotes: FC<Props> = ({ title = false, content, onSave, onCancel, onUpl
                 state={editorState}
                 dispatchTransaction={(tr) => {
                     setEditorState((s) => s?.apply(tr));
+                }}
+                nodeViews={{
+                    image: ImageView,
+                    video: VideoView,
                 }}
             >
                 <SimpleMenuBar schema={simpleSchema} onUpload={onUpload}/>

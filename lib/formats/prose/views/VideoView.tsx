@@ -1,17 +1,24 @@
 /**
- * Кастомное отображение картинки для реактора.
- * Необходимо для возможности изменения подписи.
+ * Кастомное отображение видео для реактора.
+ * Необходимо для возможности изменения подписи и URL.
  */
 import { Prompt } from "@alxgrn/telefrag-ui";
 import { NodeViewComponentProps, useEditorEventCallback } from "@handlewithcare/react-prosemirror";
-import { forwardRef, useState } from "react";
-import { API_URL } from "../../../config";
+import { forwardRef, useEffect, useState } from "react";
+import { sanitizeVideoURL } from "../../../utils/link";
+import { ERROR_EMBED_DATA } from "../../../config";
 
 
-const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
-    function Image({ children, nodeProps, ...props }, outerRef) {
+const VideoView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
+    function Video({ children, nodeProps, ...props }, outerRef) {
+        const [ src, setSrc ] = useState('');
         const [ title, setTitle ] = useState(nodeProps.node.attrs.title + '');
         const [ isOpen, setIsOpen ] = useState(false);
+        const allow = 'fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+
+        useEffect(() => {
+            setSrc(sanitizeVideoURL(nodeProps.node.attrs.src));
+        }, [ nodeProps ]);
 
         const onClick = useEditorEventCallback((view, title: string) => {
             if (!view) return;
@@ -27,7 +34,7 @@ const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
                 //console.log(`start=${nodeRange.start}, end=${nodeRange.end}`)
                 let tr = view.state.tr;
                 parent.nodesBetween(nodeRange.start, nodeRange.end, (node, pos) => {
-                    if (node.type.name === 'image') {
+                    if (node.type.name === 'video') {
                         tr = tr.setNodeMarkup(pos, null, { ...nodeProps.node.attrs, title });
                     }
                 });
@@ -41,16 +48,11 @@ const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
             <div
                 {...props}
                 ref={outerRef}
-                className='image'
+                className={src ? 'video' : 'image'}
                 onClick={() => setIsOpen(true)}
                 title={nodeProps.node.attrs.title}
             >
-                <img
-                    title={nodeProps.node.attrs.title}
-                    //fid={nodeProps.node.attrs.fid}
-                    alt={nodeProps.node.attrs.alt}
-                    src={nodeProps.node.attrs.fid ? `${API_URL}/files/${nodeProps.node.attrs.fid}` : nodeProps.node.attrs.src}
-                />
+                {src ? <iframe src={src} allow={allow} /> : <img src={ERROR_EMBED_DATA} />}
                 <Prompt
                     isOpen={isOpen}
                     onCancel={() => setIsOpen(false)}
@@ -63,4 +65,4 @@ const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
     }
 );
 
-export default ImageView;
+export default VideoView;

@@ -12,6 +12,7 @@ import TableCellView from "./views/TableCellView";
 import { fixTables } from "prosemirror-tables";
 import { schema } from "./schema";
 import './ProseViewer.css';
+import VideoView from "./views/VideoView";
 
 type Props = {
     content: string | null; // Содержимое статьи
@@ -62,6 +63,7 @@ const ProseEditor: FC<Props> = ({ content, onSave, onChange, onUpload }) => {
                 })}
                 nodeViews={{
                     image: ImageView,
+                    video: VideoView,
                     table: TableView,
                     table_header: TableCellView,
                     table_cell: TableCellView,
