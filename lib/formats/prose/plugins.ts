@@ -23,7 +23,7 @@ export const plugins = (schema: Schema) => {
         buildInputRules(schema),
         keymap(buildKeymap(schema)),
         keymap(baseKeymap),
-        dropCursor(),
+        dropCursor({ color: '#F00', width: 2 }),
         gapCursor(),
         history(),
         placeholderPlugin,
