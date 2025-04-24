@@ -98,12 +98,11 @@ const paragraph: NodeSpec = {
     content: 'inline*',
     group: 'block',
     attrs: {
-        align: { default: 'left', validate: 'string|null' },
+        align: { default: null, validate: 'string|null' },
     },
     parseDOM: [{tag: 'p', getAttrs(dom: HTMLElement) {
         let align = dom.getAttribute('align');
-        if (align !== 'left' && align !== 'right' && align !== 'center' && align !== 'justify') align = null;
-        if (!align) align = 'left';
+        if (align !== 'right' && align !== 'center' && align !== 'justify') align = null;
         return { align };
     }}],
     toDOM(node) {

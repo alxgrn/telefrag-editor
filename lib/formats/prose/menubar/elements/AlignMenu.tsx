@@ -35,7 +35,7 @@ const AlignMenu: FC<Props> = ({ schema }) => {
 
     const onClick = useEditorEventCallback((view, item: UIMenuItem) => {
         if (!view || !item.id) return;
-        const align = item.id;
+        const align = item.id === 'left' ? null : item.id;
         const { $from, $to } = view.state.selection;
         const nodeRange = $from.blockRange($to);
         if (nodeRange) {
