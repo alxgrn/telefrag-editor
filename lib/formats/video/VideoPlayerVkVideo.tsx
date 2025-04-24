@@ -70,6 +70,8 @@ const VideoPlayerVkVideo: FC<Props> = ({ src, seek, refresh, play, onTime, onPau
         player?.on('paused', () => onPause(true));
     }, [ player ]);
 
+    if (!src) return null;
+    
     return (<iframe
         className='VideoPlayer'
         ref={ref}

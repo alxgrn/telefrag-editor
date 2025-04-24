@@ -64,6 +64,8 @@ const VideoPlayerRuTube: FC<Props> = ({ src, seek, refresh, play, onTime, onPaus
         }), '*');
     }, [ play, ready ]);
 
+    if (!src) return null;
+
     return (<iframe
         className='VideoPlayer'
         ref={player}

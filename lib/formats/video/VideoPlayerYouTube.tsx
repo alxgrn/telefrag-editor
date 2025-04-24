@@ -97,6 +97,7 @@ const VideoPlayerYouTube: FC<Props> = ({ src, seek, refresh, play, onTime, onPau
         if (!play) player.pauseVideo();
     }, [ player, play ]);
 
+    if (!src) return null;
     // Важно! Надо вложить DIV плеера в еще один DIV т.к. API заменяет DIV плеера на IFRAME
     // что ведет к ошибке при размонтировании компонента, если DIV плеера на верхнем уровне
     return (<div className='VideoPlayer'><div ref={ref}/></div>);
