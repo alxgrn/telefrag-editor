@@ -2,6 +2,11 @@
     display: block;
 }
 
+.ProseViewer .unknown_node_type {
+    display: block;
+    color: red;
+}
+
 .ProseNotes p:first-child,
 .ProseEditor p:first-child,
 .ProseViewer p:first-child {

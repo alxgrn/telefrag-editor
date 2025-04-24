@@ -16,6 +16,7 @@ import ListItem from './ListItem';
 import CodeBlock from './CodeBlock';
 import HorizontalRule from './HorizontalRule';
 import Video from './Video';
+import HardBreak from './HardBreak';
 
 export type Node = {
     type: string;
@@ -69,8 +70,10 @@ const ProseRender: FC<Props> = ({ node, className }) => {
                 return <Blockquote node={node} />;
             case 'horizontal_rule':
                 return <HorizontalRule />;
+            case 'hard_break':
+                return <HardBreak />;
             default:
-                return <p>{node.type}</p>;
+                return <span className='unknown_node_type'>{node.type}</span>;
         }
     };
 
