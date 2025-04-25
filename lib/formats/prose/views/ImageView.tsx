@@ -10,7 +10,7 @@ import { API_URL } from "../../../config";
 
 const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
     function Image({ children, nodeProps, ...props }, outerRef) {
-        const [ title, setTitle ] = useState(nodeProps.node.attrs.title + '');
+        const [ title, setTitle ] = useState(nodeProps.node.attrs.title ?? '');
 
         useStopEvent(() => {
             return true;

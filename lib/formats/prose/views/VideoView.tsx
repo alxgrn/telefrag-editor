@@ -12,7 +12,7 @@ import { ERROR_EMBED_DATA } from "../../../config";
 const VideoView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
     function Video({ children, nodeProps, ...props }, outerRef) {
         const [ src, setSrc ] = useState('');
-        const [ title, setTitle ] = useState(nodeProps.node.attrs.title + '');
+        const [ title, setTitle ] = useState(nodeProps.node.attrs.title ?? '');
         const allow = 'fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
 
         useStopEvent(() => {
