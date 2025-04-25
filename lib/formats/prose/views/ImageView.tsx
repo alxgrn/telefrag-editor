@@ -2,8 +2,8 @@
  * Кастомное отображение картинки для реактора.
  * Необходимо для возможности изменения подписи.
  */
-import { Prompt } from "@alxgrn/telefrag-ui";
-import { NodeViewComponentProps, useEditorEventCallback } from "@handlewithcare/react-prosemirror";
+import { Editable } from "@alxgrn/telefrag-ui";
+import { NodeViewComponentProps, useEditorEventCallback, useStopEvent } from "@handlewithcare/react-prosemirror";
 import { forwardRef, useState } from "react";
 import { API_URL } from "../../../config";
 
@@ -11,7 +11,10 @@ import { API_URL } from "../../../config";
 const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
     function Image({ children, nodeProps, ...props }, outerRef) {
         const [ title, setTitle ] = useState(nodeProps.node.attrs.title + '');
-        const [ isOpen, setIsOpen ] = useState(false);
+
+        useStopEvent(() => {
+            return true;
+        });
 
         const onClick = useEditorEventCallback((view, title: string) => {
             if (!view) return;
@@ -34,7 +37,6 @@ const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
                 view.dispatch(tr);
             }
             view.focus();
-            setIsOpen(false);
         });
 
         return (
@@ -42,7 +44,6 @@ const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
                 {...props}
                 ref={outerRef}
                 className='image'
-                onClick={() => setIsOpen(true)}
                 title={nodeProps.node.attrs.title}
             >
                 <img
@@ -51,13 +52,18 @@ const ImageView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
                     alt={nodeProps.node.attrs.alt}
                     src={nodeProps.node.attrs.fid ? `${API_URL}/files/${nodeProps.node.attrs.fid}` : nodeProps.node.attrs.src}
                 />
-                <Prompt
-                    isOpen={isOpen}
-                    onCancel={() => setIsOpen(false)}
-                    onSubmit={onClick}
-                    title='Подпись'
-                    value={title}
-                />
+                <div>
+                    <Editable
+                        value={title}
+                        placeholder='Подпись под изображением (не обязательно)'
+                        onChange={onClick}
+                        empty
+                        style={{
+                            textAlign: 'center',
+                            cursor: 'text',
+                        }}
+                    />
+                </div>
             </div>
         );
     }

@@ -2,8 +2,8 @@
  * Кастомное отображение видео для реактора.
  * Необходимо для возможности изменения подписи и URL.
  */
-import { Prompt } from "@alxgrn/telefrag-ui";
-import { NodeViewComponentProps, useEditorEventCallback } from "@handlewithcare/react-prosemirror";
+import { Editable } from "@alxgrn/telefrag-ui";
+import { NodeViewComponentProps, useEditorEventCallback, useStopEvent } from "@handlewithcare/react-prosemirror";
 import { forwardRef, useEffect, useState } from "react";
 import { sanitizeVideoURL } from "../../../utils/link";
 import { ERROR_EMBED_DATA } from "../../../config";
@@ -13,8 +13,11 @@ const VideoView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
     function Video({ children, nodeProps, ...props }, outerRef) {
         const [ src, setSrc ] = useState('');
         const [ title, setTitle ] = useState(nodeProps.node.attrs.title + '');
-        const [ isOpen, setIsOpen ] = useState(false);
         const allow = 'fullscreen; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+
+        useStopEvent(() => {
+            return true;
+        });
 
         useEffect(() => {
             setSrc(sanitizeVideoURL(nodeProps.node.attrs.src));
@@ -41,7 +44,6 @@ const VideoView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
                 view.dispatch(tr);
             }
             view.focus();
-            setIsOpen(false);
         });
 
         return (
@@ -49,17 +51,21 @@ const VideoView = forwardRef<HTMLTableElement, NodeViewComponentProps>(
                 {...props}
                 ref={outerRef}
                 className={src ? 'video' : 'image'}
-                onClick={() => setIsOpen(true)}
                 title={nodeProps.node.attrs.title}
             >
                 {src ? <iframe src={src} allow={allow} /> : <img src={ERROR_EMBED_DATA} />}
-                <Prompt
-                    isOpen={isOpen}
-                    onCancel={() => setIsOpen(false)}
-                    onSubmit={onClick}
-                    title='Подпись'
-                    value={title}
-                />
+                <div>
+                    <Editable
+                        value={title}
+                        placeholder='Подпись под видео (не обязательно)'
+                        onChange={onClick}
+                        empty
+                        style={{
+                            textAlign: 'center',
+                            cursor: 'text',
+                        }}
+                    />
+                </div>
             </div>
         );
     }

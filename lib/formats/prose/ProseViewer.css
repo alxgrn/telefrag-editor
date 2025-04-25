@@ -76,8 +76,6 @@
     background-color: var(--alxgrn-border);
 }
 
-.ProseNotes div.image::after,
-.ProseEditor div.image::after,
 .ProseViewer div.image::after {
     content: attr(title);
     font-style: italic;
@@ -118,12 +116,19 @@
     background-color: var(--alxgrn-border);
 }
 
-.ProseNotes div.video::after,
-.ProseEditor div.video::after,
 .ProseViewer div.video::after {
     content: attr(title);
     font-style: italic;
     display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.ProseNotes div.image > div,
+.ProseEditor div.image > div,
+.ProseNotes div.video > div,
+.ProseEditor div.video > div {
+    font-style: italic;
     width: 80%;
     margin: 0 auto;
 }
