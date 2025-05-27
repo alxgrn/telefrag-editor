@@ -6,7 +6,7 @@ import { FC } from 'react';
 import { TArticle, TComment, TImageUploader, TNotesSaver } from '../types';
 import QuillNotes from '../formats/delta/QuillNotes';
 import VideoNotes from '../formats/video/VideoNotes';
-import ProseNotes from '../formats/prose/ProseNotes';
+import { ProseNotes } from '../formats/prose';
 
 type PublicationProps = { // Редактирование статьи
     article?: TArticle;

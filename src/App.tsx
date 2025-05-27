@@ -5,7 +5,7 @@ import { TArticle } from '../lib/types';
 import EditorHeader from '../lib/components/EditorHeader';
 import ModeSelector from './ModeSelector';
 import './App.css'
-import { getImageIdsFromProse } from '../lib/formats/prose/utils';
+//import { getImageIdsFromProse } from '../lib/formats/prose/utils';
 
 const App = () => {
     const [ article, setArticle ] = useState<TArticle>(initialProse);
@@ -51,7 +51,7 @@ const App = () => {
                 setArticle({ ...article, content: data.content, format: data.format });
                 setMode('viewer')
                 console.dir(data.content);
-                getImageIdsFromProse(data.content);
+                // getImageIdsFromProse(data.content);
             }}
         />
     </>);
@@ -78,7 +78,7 @@ const App = () => {
                     setMode('viewer');
                     setIsChanged(false);
                     console.dir(data.content);
-                    getImageIdsFromProse(data.content);
+                    // getImageIdsFromProse(data.content);
                     // Имитируем успешное завершение сохранения на сервер
                     setTimeout(() => resolve(undefined), 1000);
             })}

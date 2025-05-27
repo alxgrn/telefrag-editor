@@ -2,7 +2,7 @@ import { FC } from "react";
 import { TArticle, TComment } from "../types";
 import QuillViewer from "../formats/delta/QuillViewer";
 import VideoViewer from "../formats/video/VideoViewer";
-import ProseViewer from "../formats/prose/ProseViewer";
+import { ProseViewer } from "../formats/prose";
 
 type Props = {
     short?: boolean; // флаг варианта набора тегов у контента - полный или компактный
