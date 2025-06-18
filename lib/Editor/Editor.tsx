@@ -49,13 +49,18 @@ const Editor: FC<EditorProps> = ({ article, comment, onView, onSave, onChange, o
             case 'prose':
                 return (<ProseEditor
                     content={article.content}
-                    onSave={onSave}
                     onView={onView}
+                    onSave={onSave}
                     onChange={onChange}
                     onUpload={onUpload}
                 />);
             default:
-                return <div className='p error'>Неизвестный формат статьи</div>;
+                return (<ProseEditor
+                    onView={onView}
+                    onSave={onSave}
+                    onChange={onChange}
+                    onUpload={onUpload}
+                />);
         }
     }
 
