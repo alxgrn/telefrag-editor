@@ -4,7 +4,7 @@
  */
 import { FC, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
-import hljs from 'highlight.js';
+//import hljs from 'highlight.js';
 import { formatsShort, toolbarShort } from './QuillCore';
 import { TImageUploader, TNotesSaver } from '../../types';
 import imageHandler from './ImageHandler';
@@ -39,10 +39,10 @@ const QuillNotes: FC<QuillNotesProps> = ({ content, title = false, placeholder, 
             //scrollingContainer: 'html', // иначе при вставке текста окно редактора прыгает наверх - убрали в Quill2
             formats: formatsShort,
             modules: {
-                syntax: {
+                /*syntax: {
                     hljs,
                     //highlight: (text: string) => hljs.highlightAuto(text).value,
-                },
+                },*/
                 toolbar: {
                     container: toolbarShort,
                     handlers: {

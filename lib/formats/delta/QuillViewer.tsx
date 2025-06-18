@@ -3,7 +3,7 @@
  */
 import { FC, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
-import hljs from 'highlight.js';
+//import hljs from 'highlight.js';
 import { formatsFull, formatsShort, toolbarFull, toolbarShort } from './QuillCore';
 import './QuillViewer.css';
 
@@ -27,10 +27,10 @@ const QuillViewer: FC<QuillViewerProps> = ({ short = false, content, expandable 
             theme: 'bubble',
             formats: short ? formatsShort : formatsFull,
             modules: {
-                syntax: {
+                /*syntax: {
                     hljs,
                     //highlight: (text: string) => hljs.highlightAuto(text).value,
-                },
+                },*/
                 toolbar: {
                     // В принципе это не нужно, но Quill пишет предупреждение о том,
                     // что удаляет кнопку тулбара для запрещенных видов формата

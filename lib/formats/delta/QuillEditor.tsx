@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
-import hljs from 'highlight.js';
+//import hljs from 'highlight.js';
 import imageHandler from './ImageHandler';
 import SaveButton  from './SaveButton';
 import { TEditorSaver, TImageUploader } from '../../types';
@@ -44,10 +44,10 @@ const QuillEditor: FC<QuillEditorProps> = ({ content, onView, onSave, onChange, 
             placeholder: 'Начните писать текст здесь',
             formats: formatsFull,
             modules: {
-                syntax: {
+                /*syntax: {
                     hljs,
                     //highlight: (text: string) => hljs.highlightAuto(text).value,
-                },
+                },*/
                 toolbar: {
                     // Для добавления кнопки сохранения в тулбар, пришлось городить свой HTML-код
                     // container: toolbarFull,

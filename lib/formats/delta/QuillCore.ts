@@ -4,7 +4,7 @@
 import Quill from 'quill';
 import CustomImage from './CustomImage';
 import CustomVideo from './CustomVideo';
-import 'highlight.js/styles/atom-one-dark.css';
+//import 'highlight.js/styles/atom-one-dark.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import './QuillCore.css';
