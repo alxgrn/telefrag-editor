@@ -56,7 +56,7 @@
     "vite-plugin-lib-inject-css": "^2.1.1"
   },
   "dependencies": {
-    "@alxgrn/prose-editor": "^0.0.40",
+    "@alxgrn/prose-editor": "^0.0.41",
     "load-script": "^2.0.0",
     "quill": "^2.0.3",
     "quill-delta-to-html": "^0.12.1"
