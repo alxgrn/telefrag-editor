@@ -5,19 +5,15 @@ import { FC, useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 //import hljs from 'highlight.js';
 import { formatsFull, formatsShort, toolbarFull, toolbarShort } from './QuillCore';
-import './QuillViewer.css';
 
 type QuillViewerProps = {
     short?: boolean; // флаг варианта набора тегов у контента - полный или компактный
     content: string | null;
-    expandable?: boolean; // флаг того надо ли выводить контент свернутым если он слишком длинный
 };
 
-const QuillViewer: FC<QuillViewerProps> = ({ short = false, content, expandable = false }) => {
+const QuillViewer: FC<QuillViewerProps> = ({ short = false, content }) => {
     const refViewer = useRef<HTMLDivElement>(null);
-    const refWrapper = useRef<HTMLDivElement>(null);
     const [ error, setError ] = useState('');
-    const [ collapsed, setСollapsed ] = useState(expandable);
 
     useEffect(() => {
         setError('');
@@ -47,28 +43,10 @@ const QuillViewer: FC<QuillViewerProps> = ({ short = false, content, expandable 
         } catch {
             setError('Ошибка парсинга');
         }
-    }, [ refViewer, content, short, collapsed ]);
-
-    // Проверяем надо ли выводить свернутый вариант
-    useEffect(() => {
-        if (!refViewer.current || !refWrapper.current) return;
-        const viewer = refViewer.current;
-        const wrapper = refWrapper.current;
-        setСollapsed(viewer.clientHeight > wrapper.clientHeight);
-    }, [ refViewer, refWrapper ]);
+    }, [ refViewer, content, short ]);
 
     if (error) return <div className='error'>{error}</div>;
-    if (!expandable) return <div ref={refViewer}/>;
-    if (!collapsed) return <div ref={refViewer}/>;
-
-    return (<>
-        <div ref={refWrapper} className='QuillViewerWrapper'>
-            <div ref={refViewer}/>
-        </div>
-        <div className='QuillViewerExpand'>
-            <span className='a' onClick={() => setСollapsed(false)}>Показать целиком...</span>
-        </div>
-    </>);
+    return <div ref={refViewer}/>;
 };
 
 export default QuillViewer;

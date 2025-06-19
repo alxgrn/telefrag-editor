@@ -1,10 +1,10 @@
-.QuillViewerWrapper {
+.ViewerWrapper {
     position: relative;
     overflow: hidden;
     max-height: calc(10 * var(--alxgrn-font-size) * var(--alxgrn-line-height));
 }
 
-.QuillViewerWrapper::after {
+.ViewerWrapper::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -13,6 +13,6 @@
     background: linear-gradient(rgba(255, 255, 255, 0.001), var(--alxgrn-bg-panel));
 }
 
-.QuillViewerExpand {
+.ViewerExpand {
     margin-top: var(--alxgrn-unit);
 }

@@ -2,7 +2,9 @@
     display: flex;
     gap: var(--alxgrn-unit-small);
     width: fit-content;
-    margin: var(--alxgrn-unit-small) 0;
+    margin: var(--alxgrn-unit-small);
+    position: absolute;
+    z-index: 10;
 }
 
 .VideoViewer .VideoPlayer {

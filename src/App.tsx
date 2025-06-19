@@ -36,7 +36,7 @@ const App = () => {
         <ModeSelector mode={mode} format={format} onChange={onChange}/>
         <h1 style={{margin: '0'}}>{article.name}</h1>
         <div style={{marginBottom: '1rem'}}><i>{article.info}</i></div>
-        <Viewer article={article}/>
+        <Viewer article={article} expandable={true}/>
     </>);
 
     if (mode === 'notes') return (<>
