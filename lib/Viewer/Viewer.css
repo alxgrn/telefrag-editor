@@ -1,7 +1,7 @@
 .ViewerWrapper {
     position: relative;
     overflow: hidden;
-    max-height: calc(10 * var(--alxgrn-font-size) * var(--alxgrn-line-height));
+    max-height: 300px;
 }
 
 .ViewerWrapper::after {
