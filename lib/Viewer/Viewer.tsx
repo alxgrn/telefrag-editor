@@ -4,9 +4,6 @@ import QuillViewer from "../formats/delta/QuillViewer";
 import VideoViewer from "../formats/video/VideoViewer";
 import { ProseViewer } from "../formats/prose";
 import './Viewer.css';
-// Максимальная высота свернутого компонента
-// Должна совпадать с уазанным в CSS
-const MAX_HEIGHT = 300;
 
 type Props = {
     short?: boolean; // флаг варианта набора тегов у контента - полный или компактный
@@ -22,12 +19,19 @@ const Viewer: FC<Props> = ({ short, article, expandable = false }) => {
         setСollapsed(true);
     }, [ short, article, expandable ]);
 
+    // Так до конца и не понятно насколько это хороший механизм проверки
+    // того что содержимое статьи превышает максимальную высоту в ленте.
+    // Проблема в том, что в начальный момент, когда враппер уже есть,
+    // сам вьер еще может быть не отрисован или не имеет действительную
+    // высоту.
     useEffect(() => {
-        if (!refWrapper.current) return;
+        if (!expandable || !collapsed) return;
         const wrapper = refWrapper.current;
-        //console.log(`${wrapper.clientHeight} < ${wrapper.scrollHeight} ${collapsed}`);
-        setСollapsed(wrapper.scrollHeight > MAX_HEIGHT);
-    }, [ refWrapper.current ]);
+        if (!wrapper) return;
+        const viewer = wrapper.firstElementChild;
+        if (!viewer) return;
+        if (wrapper.clientHeight >= viewer.clientHeight) setСollapsed(false);
+    }, [ refWrapper, expandable, collapsed ]);
 
     const viewer = useMemo(() => {
         switch (article.format) {
