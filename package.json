@@ -35,15 +35,15 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@alxgrn/telefrag-types": "^0.1.0",
-    "@alxgrn/telefrag-ui": "^0.0.50",
+    "@alxgrn/telefrag-ui": "^0.0.55",
     "@types/node": "^22.1.0",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-react": "^4.2.0",
@@ -56,7 +56,7 @@
     "vite-plugin-lib-inject-css": "^2.1.1"
   },
   "dependencies": {
-    "@alxgrn/prose-editor": "^0.0.42",
+    "@alxgrn/prose-editor": "^0.0.50",
     "load-script": "^2.0.0",
     "quill": "^2.0.3",
     "quill-delta-to-html": "^0.12.1"
