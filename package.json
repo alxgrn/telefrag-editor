@@ -35,7 +35,7 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "@alxgrn/telefrag-ui": "^0.0.60",
+    "@alxgrn/telefrag-ui": "^0.0.61",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
@@ -56,7 +56,7 @@
     "vite-plugin-lib-inject-css": "^2.1.1"
   },
   "dependencies": {
-    "@alxgrn/prose-editor": "^0.0.55",
+    "@alxgrn/prose-editor": "^0.0.56",
     "load-script": "^2.0.0",
     "quill": "^2.0.3",
     "quill-delta-to-html": "^0.12.1"
