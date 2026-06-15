@@ -1,3 +1,22 @@
+.VideoViewerError {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--alxgrn-unit);
+    color: tomato;
+    background-color: black;
+    border-radius: var(--alxgrn-unit-half);
+    aspect-ratio: 16 / 9;
+}
+
+.VideoViewerError.Short {
+    border-radius: 0;
+}
+
+.VideoViewer {
+    position: relative;
+}
+
 .VideoViewer .VideoToolbar {
     display: flex;
     gap: var(--alxgrn-unit-small);
@@ -11,10 +30,38 @@
     aspect-ratio: 16 / 9;
     width: 100%;
     border: none;
-    border-radius: var(--alxgrn-unit-small);
+    border-radius: var(--alxgrn-unit-half);
     position: relative;
     overflow: hidden;
     background-color: var(--alxgrn-logo-color-beige);
     margin: 0;
     display: block;
+}
+
+.VideoViewer .VideoPlayer iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.VideoViewer .VideoCover {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    border: none;
+    border-radius: var(--alxgrn-unit-half);
+    position: relative;
+    overflow: hidden;
+    background-color: var(--alxgrn-logo-color-beige);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.VideoViewer.Short .VideoPlayer,
+.VideoViewer.Short .VideoCover {
+    border-radius: 0;
 }

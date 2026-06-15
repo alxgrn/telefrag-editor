@@ -9,10 +9,10 @@ type Props = {
     rutube?: string;
     vkvideo?: string;
     active?: string;
-    onActive: (src: string) => void;
+    onChange: (src: string) => void;
 };
 
-const VideoToolbar: FC<Props> = ({ rutube, youtube, vkvideo, active, onActive }) => {
+const VideoToolbar: FC<Props> = ({ rutube, youtube, vkvideo, active, onChange }) => {
     const [ count, setCount ] = useState(0);
 
     useEffect(() => {
@@ -23,27 +23,31 @@ const VideoToolbar: FC<Props> = ({ rutube, youtube, vkvideo, active, onActive })
         setCount(count);
     }, [ rutube, youtube, vkvideo ]);
 
+    const onClick = (player: string) => {
+        if (player !== active) onChange(player);
+    };
+
     if (count < 2) return null;
 
     return (
         <div className='VideoToolbar'>
+            {vkvideo && <Button
+                    label='VK Video'
+                    size='Small'
+                    type={active === vkvideo ? 'Accent' : undefined}
+                    onClick={() => onClick(vkvideo)}
+            />}
             {rutube && <Button
                 label='RuTube'
                 size='Small'
                 type={active === rutube ? 'Accent' : undefined}
-                onClick={() => onActive(rutube)}
+                onClick={() => onClick(rutube)}
             />}
             {youtube && <Button
                 label='YouTube'
                 size='Small'
                 type={active === youtube ? 'Accent' : undefined}
-                onClick={() => onActive(youtube)}
-            />}
-            {vkvideo && <Button
-                    label='VK Video'
-                    size='Small'
-                    type={active === vkvideo ? 'Accent' : undefined}
-                    onClick={() => onActive(vkvideo)}
+                onClick={() => onClick(youtube)}
             />}
         </div>
     );

@@ -5,7 +5,7 @@
 import { FC } from 'react';
 import { TArticle, TComment, TImageUploader, TNotesSaver } from '../types';
 import QuillNotes from '../formats/delta/QuillNotes';
-import VideoNotes from '../formats/video/VideoNotes';
+import VideoNotes from '../formats/video/editor/VideoNotes';
 import { ProseNotes } from '../formats/prose';
 
 type PublicationProps = { // Редактирование статьи
@@ -58,7 +58,7 @@ const Notes: FC<NotesProps> = ({ article, comment, title, onSave, onCancel, onUp
                     article={article}
                     onSave={onSave}
                     onCancel={onCancel}
-                    onUpload={onUpload}
+                    //onUpload={onUpload}
                 />);
             default:
                 return (<div className='p error'>Неизвестный формат статьи</div>);

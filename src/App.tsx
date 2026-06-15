@@ -5,6 +5,7 @@ import { TArticle } from '../lib/types';
 import EditorHeader from '../lib/components/EditorHeader';
 import ModeSelector from './ModeSelector';
 import './App.css'
+import { Expandable } from '@alxgrn/telefrag-ui';
 //import { getImageIdsFromProse } from '../lib/formats/prose/utils';
 
 const App = () => {
@@ -36,7 +37,9 @@ const App = () => {
         <ModeSelector mode={mode} format={format} onChange={onChange}/>
         <h1 style={{margin: '0'}}>{article.name}</h1>
         <div style={{marginBottom: '1rem'}}><i>{article.info}</i></div>
-        <Viewer article={article} expandable={true}/>
+        <Expandable aspectRatio='16x9'>
+            <Viewer article={article} cover={'https://dailytelefrag.ru/api/files/413'}/>
+        </Expandable>
     </>);
 
     if (mode === 'notes') return (<>
@@ -77,7 +80,7 @@ const App = () => {
                     setArticle({ ...article, content: data.content, format: data.format });
                     setMode('viewer');
                     setIsChanged(false);
-                    console.dir(data.content);
+                    console.log(JSON.stringify(data.content));
                     // getImageIdsFromProse(data.content);
                     // Имитируем успешное завершение сохранения на сервер
                     setTimeout(() => resolve(undefined), 1000);

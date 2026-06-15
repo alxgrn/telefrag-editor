@@ -37,7 +37,10 @@ export type TUpdatePublication = (data: TPublication, publication_id: number) =>
 /**
  * Формат video
  */
+export type TVideoFormatItem = {
+    link: string; // ссылка на видеозапись
+    text?: string | null; // описание с таймкодами
+};
 export type TVideoFormat = {
-    src?: string[]; // список URL источников видео
-    txt?: string; // описание
+    video: TVideoFormatItem[];
 };

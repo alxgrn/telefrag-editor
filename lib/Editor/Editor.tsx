@@ -5,7 +5,7 @@
 import { FC } from "react";
 import { TArticle, TComment, TEditorSaver, TImageUploader } from "../types";
 import QuillEditor from "../formats/delta/QuillEditor";
-import VideoNotes from "../formats/video/VideoNotes";
+import VideoNotes from "../formats/video/editor/VideoNotes";
 import { ProseEditor } from "../formats/prose";
 
 type PublicationProps = {
