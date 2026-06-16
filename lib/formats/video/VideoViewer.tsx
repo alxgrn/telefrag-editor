@@ -9,6 +9,7 @@ import VideoPlayerRuTube from './players/VideoPlayerRuTube';
 import VideoPlayerYouTube from './players/VideoPlayerYouTube';
 import VideoPlayerVkVideo from './players/VideoPlayerVkVideo';
 import { TVideoFormat } from '../../types';
+import Play from './icons/Play';
 import './VideoViewer.css';
 
 export type PlayerProps = {
@@ -187,7 +188,7 @@ const VideoViewer: FC<VideoViewerProps> = ({ content, short = false, cover = '' 
                 setPlay(true);
             }}
         >
-            <span>PLAY</span>
+            <Play/>
         </div>}
     </div>);
 };

@@ -65,3 +65,14 @@
 .VideoViewer.Short .VideoCover {
     border-radius: 0;
 }
+
+.VideoViewer .VideoCover svg {
+    color: white;
+    font-size: 100px;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, .3));
+    opacity: .9;
+}
+
+.VideoViewer .VideoCover:hover svg {
+    opacity: 1;
+}
