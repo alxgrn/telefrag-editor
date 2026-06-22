@@ -23,6 +23,8 @@ import {
     TPublication,
     TPublicationFormat,
     TUpdatePublication,
+    TVideoFormat,
+    TVideoFormatItem,
 } from "./types";
 
 export type {
@@ -36,4 +38,6 @@ export type {
     TPublication,
     TPublicationFormat,
     TUpdatePublication,
+    TVideoFormat,
+    TVideoFormatItem,
 };
