@@ -1,0 +1,44 @@
+.VideoViewer .VideoToolbar {
+    display: flex;
+    top: calc(-1 * var(--alxgrn-unit-double));
+    gap: var(--alxgrn-unit-small);
+    width: fit-content;
+    margin: var(--alxgrn-unit-small);
+    position: absolute;
+    z-index: 10;
+    transition: top 0.3s ease;
+}
+
+/**
+ * Тулбар появляется когда показывается обложка или когда курсор над плеером.
+ * Последний селектор нужен чтобы избежать дрожания когда курсор надвигается
+ * на сам тулбар т.к. в этом случае плеер уже не под hover.
+ */
+.VideoViewer:has(.VideoCover) .VideoToolbar,
+.VideoViewer:has(.VideoPlayer:hover) .VideoToolbar,
+.VideoViewer .VideoToolbar:hover {
+    top: 0;
+}
+
+.VideoViewer .VideoToolbar .VideoToolbarButton {
+    border-radius: var(--alxgrn-unit-small);
+    padding: var(--alxgrn-unit-small) var(--alxgrn-unit-half);
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    font-size: var(--alxgrn-font-size-small);
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, .3));
+    opacity: .9;
+}
+
+.VideoViewer .VideoToolbar .VideoToolbarButton.Active {
+    color: white;
+    background-color: var(--alxgrn-color-accent);
+}
+
+/* Кнопки непрозрачны если навели на них курсор или навели курсор на обложку */
+.VideoViewer .VideoToolbar .VideoToolbarButton:hover,
+.VideoViewer:has(.VideoCover):hover .VideoToolbar .VideoToolbarButton {
+    opacity: 1;
+}
+

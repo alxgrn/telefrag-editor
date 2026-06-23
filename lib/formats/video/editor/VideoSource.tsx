@@ -56,7 +56,7 @@ const VideoSource: FC<VideoNotesProps> = ({ link, text, type, required, disabled
                 id={`${type}-text`}
                 type='textarea'
                 value={text}
-                placeholder='Описание'
+                placeholder='Описание с таймкодами'
                 onChange={text => onChange(link, text, error)}
                 disabled={disabled}
             />

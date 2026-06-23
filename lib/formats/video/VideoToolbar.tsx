@@ -2,7 +2,7 @@
  * Переключатель плеера
  */
 import { FC, useEffect, useState } from 'react';
-import { Button } from '@alxgrn/telefrag-ui';
+import './VideoToolbar.css';
 
 type Props = {
     youtube?: string;
@@ -31,24 +31,27 @@ const VideoToolbar: FC<Props> = ({ rutube, youtube, vkvideo, active, onChange })
 
     return (
         <div className='VideoToolbar'>
-            {vkvideo && <Button
-                    label='VK Video'
-                    size='Small'
-                    type={active === vkvideo ? 'Accent' : undefined}
-                    onClick={() => onClick(vkvideo)}
-            />}
-            {rutube && <Button
-                label='RuTube'
-                size='Small'
-                type={active === rutube ? 'Accent' : undefined}
+            {vkvideo &&
+            <div
+                className={`VideoToolbarButton ${active === vkvideo ? 'Active' : ''}`}
+                onClick={() => onClick(vkvideo)}
+            >
+                VK Video
+            </div>}
+            {rutube && 
+            <div
+                className={`VideoToolbarButton ${active === rutube ? 'Active' : ''}`}
                 onClick={() => onClick(rutube)}
-            />}
-            {youtube && <Button
-                label='YouTube'
-                size='Small'
-                type={active === youtube ? 'Accent' : undefined}
+            >
+                RuTube
+            </div>}
+            {youtube && 
+            <div
+                className={`VideoToolbarButton ${active === youtube ? 'Active' : ''}`}
                 onClick={() => onClick(youtube)}
-            />}
+            >
+                YouTube
+            </div>}
         </div>
     );
 };

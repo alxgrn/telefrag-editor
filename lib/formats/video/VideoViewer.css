@@ -17,15 +17,6 @@
     position: relative;
 }
 
-.VideoViewer .VideoToolbar {
-    display: flex;
-    gap: var(--alxgrn-unit-small);
-    width: fit-content;
-    margin: var(--alxgrn-unit-small);
-    position: absolute;
-    z-index: 10;
-}
-
 .VideoViewer .VideoPlayer {
     aspect-ratio: 16 / 9;
     width: 100%;
