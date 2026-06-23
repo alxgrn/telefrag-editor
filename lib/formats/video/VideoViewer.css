@@ -15,6 +15,7 @@
 
 .VideoViewer {
     position: relative;
+    overflow: hidden; /* Чтобы не было видно тулбар, когда он спрятан */
 }
 
 .VideoViewer .VideoPlayer {
