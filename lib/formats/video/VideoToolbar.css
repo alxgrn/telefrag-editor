@@ -1,9 +1,9 @@
 .VideoViewer .VideoToolbar {
     display: flex;
-    top: calc(-1 * var(--alxgrn-unit-double));
+    top: calc(-3 * var(--alxgrn-unit));
     gap: var(--alxgrn-unit-small);
     width: fit-content;
-    margin: var(--alxgrn-unit-small);
+    margin: var(--alxgrn-unit-half);
     position: absolute;
     z-index: 10;
     transition: top 0.3s ease;
@@ -28,7 +28,6 @@
     cursor: pointer;
     font-size: var(--alxgrn-font-size-small);
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, .3));
-    opacity: .9;
 }
 
 .VideoViewer .VideoToolbar .VideoToolbarButton.Active {
@@ -36,9 +35,18 @@
     background-color: var(--alxgrn-color-accent);
 }
 
-/* Кнопки непрозрачны если навели на них курсор или навели курсор на обложку */
-.VideoViewer .VideoToolbar .VideoToolbarButton:hover,
+/* Кнопки серые при наведении */
+.VideoViewer .VideoToolbar .VideoToolbarButton:hover {
+    background-color: #eee;
+}
+.VideoViewer .VideoToolbar .VideoToolbarButton.Active:hover {
+    background-color: slategray;
+}
+
+/* Над обложкой кнопки меняют прозрачность как кнопка воспроизведения  */
+.VideoViewer:has(.VideoCover) .VideoToolbar .VideoToolbarButton {
+    opacity: .9;
+}
 .VideoViewer:has(.VideoCover):hover .VideoToolbar .VideoToolbarButton {
     opacity: 1;
 }
-
