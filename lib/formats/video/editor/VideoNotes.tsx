@@ -26,6 +26,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
     const [ ytText, setYtText ] = useState('');
     const [ vkText, setVkText ] = useState('');
     const [ canSave, setCanSave ] = useState(false);
+    const [ isSaving, setIsSaving ] = useState(false);
 
     useEffect(() => {
         setName(article ? article.name : '');
@@ -70,7 +71,8 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
 
     // Сохранение
     const onBeforeSave = () => {
-        if(!onSave || !canSave) return;
+        if(!onSave || !canSave || isSaving) return;
+        setIsSaving(true);
         const video: TVideoFormatItem[] = [];
         const rt = validateRutubeURL(rtLink, true)  + '';
         const yt = validateYoutubeURL(ytLink, true) + '';
@@ -80,13 +82,14 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
         if (vk) video.push({ link: vk, text: vkText.trim() });
         const content = JSON.stringify({ video });
         onSave({ content, name, info, cover, format: 'video' });
+        setIsSaving(false);
     };
 
     return (
         <Form
-            submit={onSave ? 'Опубликовать' : undefined}
+            submit={onSave ? (isSaving ? 'Публикую...' : 'Опубликовать') : undefined}
             onSubmit={onSave ? onBeforeSave : undefined}
-            cancel={onCancel ? 'Отменить' : undefined}
+            cancel={(onCancel && !isSaving) ? 'Отменить' : undefined}
             onCancel={onCancel ? onCancel : undefined}
             submitType='Accent'
             cancelType='Default'
@@ -102,6 +105,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
                 text={<div><big><Icons.Image/></big><br/><small>Выберите файл</small></div>}
                 placeholder={article?.cover_id ? sanitizeImageURL(article.cover_id) : undefined}
                 required={!article?.cover_id}
+                disabled={isSaving}
             />
             <Input
                 id='name'
@@ -109,6 +113,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
                 value={name}
                 onChange={setName}
                 placeholder='Укажите заголовок'
+                disabled={isSaving}
                 required
             />
             <Input
@@ -118,12 +123,14 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
                 value={info}
                 onChange={setInfo}
                 placeholder='Укажите аннотацию'
+                disabled={isSaving}
                 required
             />
             <VideoSource
                 link={ytLink}
                 text={ytText}
                 type='YouTube'
+                disabled={isSaving}
                 required={!rtLink.trim() && !vkLink.trim()}
                 onChange={(l, t) => {
                     setYtLink(l.trim());
@@ -134,6 +141,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
                 link={rtLink}
                 text={rtText}
                 type='RuTube'
+                disabled={isSaving}
                 required={!ytLink.trim() && !vkLink.trim()}
                 onChange={(l, t) => {
                     setRtLink(l.trim());
@@ -144,6 +152,7 @@ const VideoNotes: FC<VideoNotesProps> = ({ article, onSave, onCancel }) => {
                 link={vkLink}
                 text={vkText}
                 type='VK'
+                disabled={isSaving}
                 required={!rtLink.trim() && !ytLink.trim()}
                 onChange={(l, t) => {
                     setVkLink(l.trim());

@@ -9,11 +9,12 @@ type VideoNotesProps = {
     link: string; // ссылка на видео
     text: string; // описание видео
     type: 'RuTube'|'YouTube'|'VK'; // тип ссылки
-    required?: boolean; 
+    required?: boolean;
+    disabled?: boolean;
     onChange: (link: string, text: string, error: boolean) => void; // каллбэк изменения
 };
 
-const VideoSource: FC<VideoNotesProps> = ({ link, text, type, required, onChange }) => {
+const VideoSource: FC<VideoNotesProps> = ({ link, text, type, required, disabled, onChange }) => {
     const [ error, setError ] = useState(false);
 
     useEffect(() => {
@@ -49,6 +50,7 @@ const VideoSource: FC<VideoNotesProps> = ({ link, text, type, required, onChange
                 onChange={link => onChange(link, text, error)}
                 bottom={error ? 'Неверный формат URL' : undefined}
                 required={required}
+                disabled={disabled}
             />
             <Input
                 id={`${type}-text`}
@@ -56,6 +58,7 @@ const VideoSource: FC<VideoNotesProps> = ({ link, text, type, required, onChange
                 value={text}
                 placeholder='Описание'
                 onChange={text => onChange(link, text, error)}
+                disabled={disabled}
             />
         </Fieldset>
     );
