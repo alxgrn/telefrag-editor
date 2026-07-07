@@ -177,19 +177,25 @@ const VideoViewer: FC<VideoViewerProps> = ({ content, short = false, cover = '' 
             }}
         />
 
-        {showPlayer ? getVideoPlayer() :
-        <div
-            className={`VideoCover ${short ? 'Short' : ''}`}
-            style={{ backgroundImage: `url(${cover})`}}
-            onClick={e => {
-                e.stopPropagation();
-                setActive(preset);
-                setShowPlayer(true);
-                setPlay(true);
-            }}
-        >
-            <Play/>
-        </div>}
+        {showPlayer ? getVideoPlayer() : <>
+            <div
+                className={`VideoCover ${short ? 'Short' : ''}`}
+                style={{ backgroundImage: `url(${cover})`}}
+                onClick={e => {
+                    e.stopPropagation();
+                    setActive(preset);
+                    setShowPlayer(true);
+                    setPlay(true);
+                }}
+            >
+                <Play/>
+            </div>
+            {!short && <>
+                {preset === rtLink && printText(rtText)}
+                {preset === ytLink && printText(ytText)}
+                {preset === vkLink && printText(vkText)}
+            </>}
+        </>}
     </div>);
 };
 

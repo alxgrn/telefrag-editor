@@ -22,12 +22,22 @@
 
 .VideoViewer .VideoToolbar .VideoToolbarButton {
     border-radius: var(--alxgrn-unit-small);
-    padding: var(--alxgrn-unit-small) var(--alxgrn-unit-half);
+    padding: var(--alxgrn-unit-small);
+    padding-right: var(--alxgrn-unit-half);
     color: black;
     background-color: white;
     cursor: pointer;
-    font-size: var(--alxgrn-font-size-small);
+    font-size: var(--alxgrn-font-size-smallest);
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, .3));
+    display: flex;
+    align-items: center;
+    gap: var(--alxgrn-unit-small);
+}
+
+.VideoViewer .VideoToolbar .VideoToolbarButton svg {
+    width: var(--alxgrn-unit);
+    height: var(--alxgrn-unit);
+    border-radius: var(--alxgrn-unit-smallest);
 }
 
 .VideoViewer .VideoToolbar .VideoToolbarButton.Active {

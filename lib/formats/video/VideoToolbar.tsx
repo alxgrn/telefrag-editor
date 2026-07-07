@@ -3,6 +3,9 @@
  */
 import { FC, useEffect, useState } from 'react';
 import './VideoToolbar.css';
+import VkVideo from './icons/VkVideo';
+import RuTube from './icons/RuTube';
+import YouTube from './icons/YouTube';
 
 type Props = {
     youtube?: string;
@@ -36,21 +39,24 @@ const VideoToolbar: FC<Props> = ({ rutube, youtube, vkvideo, active, onChange })
                 className={`VideoToolbarButton ${active === vkvideo ? 'Active' : ''}`}
                 onClick={() => onClick(vkvideo)}
             >
-                VK Video
+                <VkVideo/>
+                <span>VK Video</span>
             </div>}
             {rutube && 
             <div
                 className={`VideoToolbarButton ${active === rutube ? 'Active' : ''}`}
                 onClick={() => onClick(rutube)}
             >
-                RuTube
+                <RuTube/>
+                <span>RuTube</span>
             </div>}
             {youtube && 
             <div
                 className={`VideoToolbarButton ${active === youtube ? 'Active' : ''}`}
                 onClick={() => onClick(youtube)}
             >
-                YouTube
+                <YouTube/>
+                <span>YouTube</span>
             </div>}
         </div>
     );
